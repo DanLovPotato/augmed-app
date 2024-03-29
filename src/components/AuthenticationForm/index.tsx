@@ -91,7 +91,7 @@ const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onCha
           autoComplete="email"
         />
         {!isEmailValid && (
-          <span className={styles.invalidEmailText}>Invalid email address. Please correct and try again.</span>
+          <span className={styles.invalidEmailText}>Invalid email address. Please correct it and try again.</span>
         )}
       </FormControl>
       <FormControl className={styles.formController} sx={{ marginBottom: "30px" }}>

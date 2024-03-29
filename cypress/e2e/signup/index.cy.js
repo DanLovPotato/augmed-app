@@ -25,7 +25,7 @@ describe("Physicians can sign up and go to login screen.", () => {
 
 
     it("Physicians could input the eamil address and email show have valid check", () => {
-        const expectedMessage = "Invalid email address. Please correct and try again."
+        const expectedMessage = "Invalid email address. Please correct it and try again."
         
 
         cy.getByTestId("email-input").type(test.email.invalid)

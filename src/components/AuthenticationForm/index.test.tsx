@@ -102,7 +102,7 @@ describe("AuthenticationForm", () => {
       fireEvent.click(button);
     });
 
-    expect(screen.getByText("Invalid email address. Please correct and try again.")).toBeInTheDocument();
+    expect(screen.getByText("Invalid email address. Please correct it and try again.")).toBeInTheDocument();
   });
 
   test("displays error for invalid password", () => {

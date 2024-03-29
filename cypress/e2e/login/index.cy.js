@@ -24,7 +24,7 @@ describe("Physicians can go to login screen and login.", () => {
   });
 
   it("Physicians could input the email address and email show have valid check", () => {
-    const expectedMessage = "Invalid email address. Please correct and try again.";
+    const expectedMessage = "Invalid email address. Please correct it and try again.";
 
     cy.getByTestId("email-input").type(test.email.invalid);
     cy.contains(expectedMessage).should("not.exist");
