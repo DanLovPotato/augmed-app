@@ -38,7 +38,7 @@ describe("Physicians can sign up and go to login screen.", () => {
 
 
     it("Physicians could input the password and password should have an strength check", () => {
-        const expectedMessage = "Passwords must have at least 8 characters and contain at least a letter, a number and a symbol"
+        const expectedMessage = "Password must have at least 8 characters and contain at least a letter, a number and a symbol"
         
         cy.auth(test.email.valid, test.password.invalid)
         cy.getByTestId("auth-submit-button").click()

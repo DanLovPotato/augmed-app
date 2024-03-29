@@ -125,7 +125,7 @@ const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onCha
         />
         {isSignUpPage && (
           <span className={isPasswordValid ? styles.passwordRuleText : styles.invalidPasswordText}>
-            Passwords must have at least 8 characters and contain at least a letter, a number and a symbol.
+            Password must have at least 8 characters and contain at least a letter, a number and a symbol.
           </span>
         )}
       </FormControl>

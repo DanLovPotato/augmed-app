@@ -65,19 +65,16 @@ describe("AuthenticationForm", () => {
     const passwordInput = screen.getByTestId("password-input") as HTMLInputElement;
     const button = screen.getByTestId("auth-submit-button");
 
-    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       fireEvent.change(emailInput, { target: { value: "test@example.com" } });
     });
     expect(button).toBeDisabled();
 
-    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       fireEvent.change(passwordInput, { target: { value: "password123" } });
     });
     expect(button).not.toBeDisabled();
 
-    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       fireEvent.click(button);
     });
@@ -95,7 +92,6 @@ describe("AuthenticationForm", () => {
     const emailInput = screen.getByLabelText("Email");
     const passwordInput = screen.getByTestId("password-input") as HTMLInputElement;
 
-    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       fireEvent.change(emailInput, { target: { value: "invalidemail" } });
       fireEvent.change(passwordInput, { target: { value: "invalidpassword" } });
@@ -118,7 +114,6 @@ describe("AuthenticationForm", () => {
     const emailInput = screen.getByLabelText("Email");
     const passwordInput = screen.getByTestId("password-input") as HTMLInputElement;
 
-    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       fireEvent.change(emailInput, { target: { value: "test@example.com" } });
       fireEvent.change(passwordInput, { target: { value: "invalidpassword" } });
@@ -127,7 +122,7 @@ describe("AuthenticationForm", () => {
 
     expect(
       screen.getByText(
-        "Passwords must have at least 8 characters and contain at least a letter, a number and a symbol.",
+        "Password must have at least 8 characters and contain at least a letter, a number and a symbol.",
       ),
     ).toBeInTheDocument();
   });
