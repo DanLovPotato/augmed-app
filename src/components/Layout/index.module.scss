@@ -3,7 +3,7 @@ $mobile-point: 576px;
 .mainLayout {
   height: 100%;
   background-color: #fff;
-  overflow: auto;
+  overflow: hidden auto;
   min-width: 320px;
   @media screen and (min-width: $mobile-point) {
     max-width: $mobile-point;
