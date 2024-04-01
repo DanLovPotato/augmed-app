@@ -8,6 +8,8 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:cypress/recommended",
+    "react-app",
+    "react-app/jest",
   ],
   overrides: [
     {
@@ -26,5 +28,7 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["@typescript-eslint", "react", "cypress"],
-  rules: {},
+  rules: {
+    "testing-library/prefer-screen-queries": "off",
+  },
 };
