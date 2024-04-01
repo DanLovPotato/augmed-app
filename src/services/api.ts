@@ -31,7 +31,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    const newToken = response.headers["authorization"];
+    const newToken = response.headers["authorization"] ?? response.headers["Authorization"];
     if (newToken) {
       storeToken(newToken.split(" ")[1]);
     }
