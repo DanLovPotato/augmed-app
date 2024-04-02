@@ -6,7 +6,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint-staged": "lint-staged",
-    "mock-server": "json-server --watch mockUser.json --port 4000",
+    "mock-server": "json-server --watch mockUser.json --port 4000 --routes mockRoutes.json",
     "pre-push": "npm test -- --watchAll=false && npx cypress run",
     "prepare": "husky || true",
     "prettier": "prettier src --write",

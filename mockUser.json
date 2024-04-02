@@ -7,5 +7,37 @@
     "admin_flag": "user.admin_flag",
     "created_timestamp": "user.created_timestamp",
     "modified_timestamp": "user.modified_timestamp"
-  }
+  },
+  "case": [
+      {
+        "id": "003-v112022",
+        "patient_chief_complaint": "Chest Pain",
+        "age": 52,
+        "sex": "Male"
+      },
+      {
+        "id": "001-v103979",
+        "patient_chief_complaint": "Polyuria",
+        "age": 63,
+        "sex": "Female"
+      },
+      {
+        "id": "003-v112052",
+        "patient_chief_complaint": "Chest Pain",
+        "age": 44,
+        "sex": "Male"
+      },
+      {
+        "id": "003-v112082",
+        "patient_chief_complaint": "Chest Pain",
+        "age": 33,
+        "sex": "Female"
+      },
+      {
+        "id": "003-v112092",
+        "patient_chief_complaint": "Chest Pain",
+        "age": 22,
+        "sex": "Male"
+      }
+    ]
 }
