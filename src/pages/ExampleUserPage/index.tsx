@@ -4,7 +4,7 @@ import logo from "../../assets/images/logo.svg";
 import ExampleComponent from "../../components/ExampleComponent";
 import { useNavigate } from "react-router-dom";
 import { useMount, useRequest } from "ahooks";
-import { getUserDetail } from "../../services/useUserService";
+import { getUserDetail } from "../../services/userService";
 
 const useGetUserDetail = () => {
   const { loading, runAsync, data } = useRequest(getUserDetail, {

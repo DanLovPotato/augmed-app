@@ -54,18 +54,14 @@ instance.interceptors.response.use(
   },
 );
 
-export async function requestWithPrefix<T>(
-  url: string,
-  prefix: string,
-  config?: AxiosRequestConfig,
-): Promise<AxiosPromise<T>> {
+export async function requestWithPrefix<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosPromise<T>> {
   return await instance({
-    url: `${prefix}${url}`,
+    url: `${url}`,
     ...config,
   });
 }
 
 export async function request<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosPromise<T>> {
-  const response: Promise<AxiosPromise<T>> = requestWithPrefix(url, baseUrl, config);
+  const response: Promise<AxiosPromise<T>> = requestWithPrefix(url, config);
   return await response;
 }

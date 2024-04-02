@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import AuthenticationForm, { FormType } from "../../components/AuthenticationForm";
 import Layout from "../../components/Layout";
-import { signup } from "../../services/useUserService";
 import { passwordPattern } from "../../utils/regexp";
 import path from "../../routes/path";
 import logo from "../../assets/images/aim_ahead_logo.jpg";
@@ -11,6 +10,7 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import styles from "./index.module.scss";
 import Snackbar from "@mui/material/Snackbar";
+import { signup } from "../../services/userService";
 
 const SignUpPage = () => {
   const nav = useNavigate();
