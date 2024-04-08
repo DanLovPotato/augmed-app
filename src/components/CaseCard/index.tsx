@@ -11,7 +11,7 @@ const CaseCard = ({ patientCase, onClick }: CaseCardProps) => {
   return (
     <div className={styles.caseCardContainer} onClick={onClick}>
       <div className={styles.caseIdContainer}>
-        <span>{patientCase.id}</span>
+        <span>Case: {patientCase.id}</span>
       </div>
       <div className={styles.chiefComplaintContainer}>
         <span>{patientCase.patient_chief_complaint}</span>

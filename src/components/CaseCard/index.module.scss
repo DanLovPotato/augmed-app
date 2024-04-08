@@ -7,12 +7,17 @@
 
   .caseIdContainer {
     color: #303230;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     margin-bottom: 4px;
   }
 
   .chiefComplaintContainer {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: #7097A8;
     font-size: 16px;
     font-weight: 500;

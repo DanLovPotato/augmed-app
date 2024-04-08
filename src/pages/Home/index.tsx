@@ -1,59 +1,49 @@
 import React from "react";
 import styles from "./index.module.scss";
-import { useMount, useRequest } from "ahooks";
+import { useRequest } from "ahooks";
 import CaseCard from "../../components/CaseCard";
 import { getCaseList } from "../../services/caseService";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
-import { ICase } from "../../types/case";
-import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
+import { ErrorTwoTone, UpcomingTwoTone } from "@mui/icons-material";
 
 const useGetCaseList = () => {
   const { loading, runAsync, data } = useRequest(getCaseList, {
-    manual: true,
+    manual: false,
   });
   return { loading, getCaseList: runAsync, cases: data?.data };
 };
 
 const ExampleHomePage = () => {
-  const { getCaseList, loading } = useGetCaseList();
-  const [dataSource, setDataSource] = React.useState<ICase[] | null>(null);
-
-  useMount(() => {
-    getList();
-  });
-
-  const getList = () => {
-    getCaseList()
-      .then((response) => {
-        const newData = response?.data || [];
-        setDataSource(newData);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  const { loading, cases } = useGetCaseList();
 
   return (
     <div className={styles.app}>
       <div className={styles.titleContainer}>
         <span className={styles.title}>Pending Cases</span>
       </div>
-      {loading && dataSource === null ? (
+      {loading ? (
         <Box className={`${styles.loading} ${styles.centered}`}>
           <CircularProgress />
         </Box>
-      ) : !loading && dataSource?.length === 0 ? (
+      ) : cases?.length === 0 ? (
         <div className={styles.empty}>
-          <AssignmentLateIcon className={styles.icon} />
-          <span>
-            There is no available tasks for you now. <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to get
-            new tasks. Or try to refresh the page.
+          <UpcomingTwoTone className={styles.icon} />
+          <span className={styles.emptyText}>
+            There is no available task for you now. Please contact{" "}
+            <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to get new tasks. Or try to refresh the page.
+          </span>
+        </div>
+      ) : cases === undefined ? (
+        <div className={styles.empty}>
+          <ErrorTwoTone className={styles.icon} />
+          <span className={styles.emptyText}>
+            There is an unexpected error. Please check your internet and try again.
           </span>
         </div>
       ) : (
         <div className={styles.pendingCasesContainer}>
-          {dataSource?.map((item) => <CaseCard key={item.id} patientCase={item} />)}
+          {cases?.map((item) => <CaseCard key={item.id} patientCase={item} />)}
         </div>
       )}
     </div>

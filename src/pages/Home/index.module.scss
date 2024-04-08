@@ -44,9 +44,15 @@
     width: 80%;
     margin-top: 20vh;
 
+    .emptyText {
+      color: #3f403f;
+    }
+
     .icon {
       font-size: 70px;
       align-self: center;
+      color: #a5a8a5;
+      margin-bottom: 10px;
     }
   }
 }
