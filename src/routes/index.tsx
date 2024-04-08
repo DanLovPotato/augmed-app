@@ -6,10 +6,10 @@ import Home from "../pages/Home";
 import ExampleUserPage from "../pages/ExampleUserPage";
 import LoginPage from "../pages/Login";
 import SignUpPage from "../pages/SignUp";
-import AppLayout from "../components/AppLayout";
 import withCredencial from "../components/withCredencial";
+import Layout from "../components/Layout";
 
-const AuthedAppLayout = withCredencial(AppLayout);
+const AuthedAppLayout = withCredencial(Layout);
 
 const routes: RouteObject[] = [
   {
