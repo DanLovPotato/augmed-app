@@ -9,7 +9,7 @@ interface CaseCardProps {
 
 const CaseCard = ({ patientCase, onClick }: CaseCardProps) => {
   return (
-    <div className={styles.caseCardContainer} onClick={onClick}>
+    <div className={styles.caseCardContainer} data-testid="case-card" onClick={onClick}>
       <div className={styles.caseIdContainer}>
         <span>Case: {patientCase.id}</span>
       </div>
