@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteObject, Outlet, Navigate } from "react-router-dom";
+import { RouteObject, Outlet } from "react-router-dom";
 
 import path from "./path";
 import Home from "../pages/Home";
@@ -22,10 +22,6 @@ const routes: RouteObject[] = [
     children: [
       {
         path: path.root,
-        element: <Navigate to={path.home} />,
-      },
-      {
-        path: path.home,
         element: <Home />,
       },
       {
