@@ -14,7 +14,7 @@ const useGetCaseList = () => {
   return { loading, getCaseList: runAsync, cases: data?.data };
 };
 
-const ExampleHomePage = () => {
+const HomePage = () => {
   const { loading, cases } = useGetCaseList();
 
   return (
@@ -50,4 +50,4 @@ const ExampleHomePage = () => {
   );
 };
 
-export default ExampleHomePage;
+export default HomePage;
