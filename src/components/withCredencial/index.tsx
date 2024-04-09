@@ -11,7 +11,7 @@ const withCredencial = <P extends object>(WrappedComponent: React.ComponentType<
       if (!getToken()) {
         nav(path.login);
       }
-    }, []);
+    }, [nav]);
 
     return <WrappedComponent {...props} />;
   };

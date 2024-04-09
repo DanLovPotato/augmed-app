@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteObject, Outlet } from "react-router-dom";
+import { RouteObject, Outlet, Navigate } from "react-router-dom";
 
 import path from "./path";
 import Home from "../pages/Home";
@@ -37,6 +37,10 @@ const routes: RouteObject[] = [
   {
     path: path.signup,
     element: <SignUpPage />,
+  },
+  {
+    path: "*",
+    element: <Navigate to={path.root} />,
   },
 ];
 
