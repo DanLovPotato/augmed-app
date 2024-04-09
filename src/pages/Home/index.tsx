@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./index.module.scss";
 import { useRequest } from "ahooks";
 import CaseCard from "../../components/CaseCard";
@@ -15,10 +15,6 @@ const useGetCaseList = () => {
 
 const HomePage = () => {
   const { loading, cases } = useGetCaseList();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <Loading loading={loading}>
