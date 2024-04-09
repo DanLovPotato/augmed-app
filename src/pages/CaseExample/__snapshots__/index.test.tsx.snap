@@ -8,18 +8,20 @@ Object {
       <div
         class="app"
       >
-        <div>
+        <div
+          style="--title-background: #B1C7D1; --sub-title-color: #B1C7D1; --card-background: #EFF6F6;"
+        >
           <div
-            class="title titleDefault"
+            class="title"
           >
             BACKGROUND
           </div>
           <div
-            class="card cardDefault  "
+            class="card"
             style="top: -1rem; margin-bottom: 0px;"
           >
             <div
-              class="subTitle subTitleDefault"
+              class="subTitle"
             >
               Patient Demographics
               <button
@@ -49,10 +51,10 @@ Object {
             />
           </div>
           <div
-            class="card cardDefault  "
+            class="card"
           >
             <div
-              class="subTitle subTitleDefault"
+              class="subTitle"
             >
               Medical History
               <button
@@ -114,10 +116,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardDefault  highlight"
+            class="card highlight"
           >
             <div
-              class="subTitle subTitleDefault"
+              class="subTitle"
             >
               Family History
               <button
@@ -164,10 +166,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardDefault  "
+            class="card"
           >
             <div
-              class="subTitle subTitleDefault"
+              class="subTitle"
             >
               Social History
               <button
@@ -229,18 +231,20 @@ Object {
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style="--title-background: #91C4A3; --sub-title-color: #91C4A3; --card-background: #EDF8F1;"
+        >
           <div
-            class="title titleGreen"
+            class="title"
           >
             PATIENT COMPLAINT
           </div>
           <div
-            class="card cardGreen  "
+            class="card"
             style="top: -1rem; margin-bottom: 0px;"
           >
             <div
-              class="subTitle subTitleGreen"
+              class="subTitle"
             >
               Chief Complaint
               <button
@@ -297,10 +301,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardGreen  "
+            class="card"
           >
             <div
-              class="subTitle subTitleGreen"
+              class="subTitle"
             >
               Current Symptoms
               <button
@@ -390,10 +394,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardGreen  "
+            class="card"
           >
             <div
-              class="subTitle subTitleGreen"
+              class="subTitle"
             >
               HPI
               <button
@@ -440,18 +444,20 @@ Object {
             </div>
           </div>
         </div>
-        <div>
+        <div
+          style="--title-background: #98D3CF; --sub-title-color: #98D3CF; --card-background: #E6F6F6;"
+        >
           <div
-            class="title titleBlue"
+            class="title"
           >
             PHYSICAL EXAMINATION
           </div>
           <div
-            class="card cardBlue  "
+            class="card"
             style="top: -1rem; margin-bottom: 0px;"
           >
             <div
-              class="subTitle subTitleBlue"
+              class="subTitle"
             >
               Physical Characteristics
               <button
@@ -503,10 +509,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardBlue  "
+            class="card"
           >
             <div
-              class="subTitle subTitleBlue"
+              class="subTitle"
             >
               Vital Signs
               <button
@@ -568,10 +574,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardBlue  "
+            class="card"
           >
             <div
-              class="subTitle subTitleBlue"
+              class="subTitle"
             >
               Cardiovascular
               <button
@@ -626,10 +632,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardBlue  "
+            class="card"
           >
             <div
-              class="subTitle subTitleBlue"
+              class="subTitle"
             >
               Ophthalmology
               <button
@@ -683,10 +689,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardBlue  "
+            class="card"
           >
             <div
-              class="subTitle subTitleBlue"
+              class="subTitle"
             >
               Respiratory
               <button
@@ -733,10 +739,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardBlue  "
+            class="card"
           >
             <div
-              class="subTitle subTitleBlue"
+              class="subTitle"
             >
               Abdominal
               <button
@@ -783,10 +789,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardBlue  "
+            class="card"
           >
             <div
-              class="subTitle subTitleBlue"
+              class="subTitle"
             >
               Neurological
               <button
@@ -833,10 +839,10 @@ Object {
             </div>
           </div>
           <div
-            class="card cardBlue  "
+            class="card"
           >
             <div
-              class="subTitle subTitleBlue"
+              class="subTitle"
             >
               Labs & Diagnostics
               <button
@@ -890,18 +896,20 @@ Object {
     <div
       class="app"
     >
-      <div>
+      <div
+        style="--title-background: #B1C7D1; --sub-title-color: #B1C7D1; --card-background: #EFF6F6;"
+      >
         <div
-          class="title titleDefault"
+          class="title"
         >
           BACKGROUND
         </div>
         <div
-          class="card cardDefault  "
+          class="card"
           style="top: -1rem; margin-bottom: 0px;"
         >
           <div
-            class="subTitle subTitleDefault"
+            class="subTitle"
           >
             Patient Demographics
             <button
@@ -931,10 +939,10 @@ Object {
           />
         </div>
         <div
-          class="card cardDefault  "
+          class="card"
         >
           <div
-            class="subTitle subTitleDefault"
+            class="subTitle"
           >
             Medical History
             <button
@@ -996,10 +1004,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardDefault  highlight"
+          class="card highlight"
         >
           <div
-            class="subTitle subTitleDefault"
+            class="subTitle"
           >
             Family History
             <button
@@ -1046,10 +1054,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardDefault  "
+          class="card"
         >
           <div
-            class="subTitle subTitleDefault"
+            class="subTitle"
           >
             Social History
             <button
@@ -1111,18 +1119,20 @@ Object {
           </div>
         </div>
       </div>
-      <div>
+      <div
+        style="--title-background: #91C4A3; --sub-title-color: #91C4A3; --card-background: #EDF8F1;"
+      >
         <div
-          class="title titleGreen"
+          class="title"
         >
           PATIENT COMPLAINT
         </div>
         <div
-          class="card cardGreen  "
+          class="card"
           style="top: -1rem; margin-bottom: 0px;"
         >
           <div
-            class="subTitle subTitleGreen"
+            class="subTitle"
           >
             Chief Complaint
             <button
@@ -1179,10 +1189,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardGreen  "
+          class="card"
         >
           <div
-            class="subTitle subTitleGreen"
+            class="subTitle"
           >
             Current Symptoms
             <button
@@ -1272,10 +1282,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardGreen  "
+          class="card"
         >
           <div
-            class="subTitle subTitleGreen"
+            class="subTitle"
           >
             HPI
             <button
@@ -1322,18 +1332,20 @@ Object {
           </div>
         </div>
       </div>
-      <div>
+      <div
+        style="--title-background: #98D3CF; --sub-title-color: #98D3CF; --card-background: #E6F6F6;"
+      >
         <div
-          class="title titleBlue"
+          class="title"
         >
           PHYSICAL EXAMINATION
         </div>
         <div
-          class="card cardBlue  "
+          class="card"
           style="top: -1rem; margin-bottom: 0px;"
         >
           <div
-            class="subTitle subTitleBlue"
+            class="subTitle"
           >
             Physical Characteristics
             <button
@@ -1385,10 +1397,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardBlue  "
+          class="card"
         >
           <div
-            class="subTitle subTitleBlue"
+            class="subTitle"
           >
             Vital Signs
             <button
@@ -1450,10 +1462,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardBlue  "
+          class="card"
         >
           <div
-            class="subTitle subTitleBlue"
+            class="subTitle"
           >
             Cardiovascular
             <button
@@ -1508,10 +1520,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardBlue  "
+          class="card"
         >
           <div
-            class="subTitle subTitleBlue"
+            class="subTitle"
           >
             Ophthalmology
             <button
@@ -1565,10 +1577,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardBlue  "
+          class="card"
         >
           <div
-            class="subTitle subTitleBlue"
+            class="subTitle"
           >
             Respiratory
             <button
@@ -1615,10 +1627,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardBlue  "
+          class="card"
         >
           <div
-            class="subTitle subTitleBlue"
+            class="subTitle"
           >
             Abdominal
             <button
@@ -1665,10 +1677,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardBlue  "
+          class="card"
         >
           <div
-            class="subTitle subTitleBlue"
+            class="subTitle"
           >
             Neurological
             <button
@@ -1715,10 +1727,10 @@ Object {
           </div>
         </div>
         <div
-          class="card cardBlue  "
+          class="card"
         >
           <div
-            class="subTitle subTitleBlue"
+            class="subTitle"
           >
             Labs & Diagnostics
             <button

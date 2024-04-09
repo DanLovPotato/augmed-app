@@ -8,6 +8,7 @@ import SignUpPage from "../pages/SignUp";
 import withCredencial from "../components/withCredencial";
 import CasePage from "../pages/CaseExample";
 import Layout from "../components/Layout";
+import { caseExample } from "../pages/CaseExample/case-example";
 
 const AuthedAppLayout = withCredencial(Layout);
 
@@ -26,7 +27,7 @@ const routes: RouteObject[] = [
       },
       {
         path: "/case-example",
-        element: <CasePage />,
+        element: <CasePage list={caseExample} />,
       },
     ],
   },
