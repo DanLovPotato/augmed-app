@@ -3,13 +3,14 @@ import styles from "./index.module.scss";
 import { ICase } from "../../types/case";
 
 interface CaseCardProps {
+  className?: string;
   patientCase: ICase;
   onClick?: () => void;
 }
 
-const CaseCard = ({ patientCase, onClick }: CaseCardProps) => {
+const CaseCard = ({ className, patientCase, onClick }: CaseCardProps) => {
   return (
-    <div className={styles.caseCardContainer} data-testid="case-card" onClick={onClick}>
+    <div className={`${styles.caseCardContainer} ${className}`} onClick={onClick}>
       <div className={styles.caseIdContainer}>
         <span>Case: {patientCase.id}</span>
       </div>

@@ -16,14 +16,13 @@ const useGetCaseList = () => {
 
 const HomePage = () => {
   const { loading, cases } = useGetCaseList();
-
   return (
     <div className={styles.app}>
       <div className={styles.titleContainer}>
         <span className={styles.title}>Pending Cases</span>
       </div>
       {loading ? (
-        <Box className={`${styles.loading} ${styles.centered}`}>
+        <Box className={styles.centered}>
           <CircularProgress />
         </Box>
       ) : cases?.length === 0 ? (
@@ -43,7 +42,7 @@ const HomePage = () => {
         </div>
       ) : (
         <div className={styles.pendingCasesContainer}>
-          {cases?.map((item) => <CaseCard key={item.id} patientCase={item} />)}
+          {cases?.map((item) => <CaseCard className={"caseCard"} key={item.id} patientCase={item} />)}
         </div>
       )}
     </div>

@@ -34,6 +34,6 @@ describe("Physicians can go to home screen with token", () => {
       fixture: "home/ValidCaseList.json",
     });
     cy.contains("Case: 003-v112022").should("be.visible");
-    cy.getByTestId("case-card").should("have.length", 5);
+    cy.get(".caseCard").should("have.length", 5);
   });
 });

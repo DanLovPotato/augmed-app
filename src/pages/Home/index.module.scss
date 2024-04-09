@@ -23,10 +23,6 @@
     padding-top: 30px;
   }
 
-  .loading {
-    position: relative;
-  }
-
   .centered {
     position: absolute;
     left: 50%;
@@ -37,7 +33,7 @@
   .empty {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 在垂直方向上居中对齐 */
+    justify-content: center;
     align-self: center;
     width: 80%;
     margin-top: 20vh;
