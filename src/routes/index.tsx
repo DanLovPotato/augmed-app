@@ -3,10 +3,10 @@ import { RouteObject, Outlet, Navigate } from "react-router-dom";
 
 import path from "./path";
 import Home from "../pages/Home";
-import ExampleUserPage from "../pages/ExampleUserPage";
 import LoginPage from "../pages/Login";
 import SignUpPage from "../pages/SignUp";
 import withCredencial from "../components/withCredencial";
+import CasePage from "../pages/CaseExample";
 import Layout from "../components/Layout";
 
 const AuthedAppLayout = withCredencial(Layout);
@@ -25,8 +25,8 @@ const routes: RouteObject[] = [
         element: <Home />,
       },
       {
-        path: "/user",
-        element: <ExampleUserPage />,
+        path: "/case-example",
+        element: <CasePage />,
       },
     ],
   },

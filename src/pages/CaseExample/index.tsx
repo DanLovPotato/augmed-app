@@ -1,0 +1,283 @@
+import React, { useState } from "react";
+import styles from "./index.module.scss";
+import { Collapse, IconButton } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import classnames from "classnames";
+
+interface TreeNode {
+  key: string;
+  values?: string[] | TreeNode[] | string;
+  style?: {
+    collapse?: boolean;
+    highlight?: boolean;
+  };
+}
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+function isAllString(values: any[]) {
+  return values.every((item) => typeof item == "string");
+}
+
+const NestedContent = ({ data, level }: { data: TreeNode; level: number }) => {
+  if (!data.values) {
+    return <span>{level === 2 && "none"}</span>;
+  }
+  if (typeof data.values === "string") {
+    return <span>{level === 2 ? data.values : " : " + data.values}</span>;
+  }
+  if (isAllString(data.values)) {
+    return (
+      <ul>
+        {(data.values as string[]).map((value, index) => (
+          <li key={index}>{value}</li>
+        ))}
+      </ul>
+    );
+  }
+  return (
+    <>
+      {(data.values as TreeNode[]).map((item, index) => {
+        const highlight = item.style?.highlight || false;
+        return (
+          // <div key={index} className={highlight ? styles.highlight: ''}>
+          <div key={index} style={{ background: highlight ? "yellow" : "" }}>
+            <span>{item.key}</span>
+            <NestedContent data={item} level={level + 1} />
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+const theme = {
+  blue: {
+    "--title-background": "#91C4A3",
+    "--sub-title-color": "#91C4A3",
+    "--card-background": "#EDF8F1",
+  },
+  green: {
+    "--title-background": "#98D3CF",
+    "--sub-title-color": "#98D3CF",
+    "--card-background": "#E6F6F6",
+  },
+  default: {
+    "--title-background": "#B1C7D1",
+    "--sub-title-color": "#B1C7D1",
+    "--card-background": "#EFF6F6",
+  },
+};
+
+function getColorStyle(index: number) {
+  if (index % 3 === 1) {
+    return theme.blue;
+  }
+  if (index % 3 === 2) {
+    return theme.green;
+  }
+  return theme.default;
+}
+
+const list = [
+  {
+    key: "BACKGROUND",
+    values: [
+      {
+        key: "Patient Demographics",
+        values: [
+          {
+            key: "Age",
+            values: "63",
+          },
+          {
+            key: "Gender",
+            values: "Female",
+          },
+          {
+            key: "Occupation",
+            values: "Retired Civil Servant",
+          },
+        ],
+        style: {
+          collapse: true,
+        },
+      },
+      {
+        key: "Medical History",
+        values: [
+          {
+            key: "Carcinoma of the breast",
+            values: ["8 years prior", "left mastectomy", "radiotherapy"],
+            style: {
+              highlight: true,
+            },
+          },
+        ],
+      },
+      {
+        key: "Family History",
+        values: null,
+        style: {
+          highlight: true,
+        },
+      },
+      {
+        key: "Social History",
+        values: [
+          {
+            key: "Nonsmoker",
+            values: null,
+            style: {
+              highlight: true,
+            },
+          },
+          {
+            key: "Alcohol",
+            values: ["10 units per week"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "PATIENT COMPLAINT",
+    values: [
+      {
+        key: "Chief Complaint",
+        values: [
+          {
+            key: "Polyuria",
+            values: ["5x per night", "Accomp: Extreme thirst"],
+          },
+        ],
+      },
+      {
+        key: "Current Symptoms",
+        values: [
+          {
+            key: "Unwell feeling",
+            values: ["Duration: 3 month"],
+          },
+          {
+            key: "Frontal headache",
+            values: ["Assoc w/ early morning nausea", "Worsened by coughing or lying down"],
+          },
+          {
+            key: "Back pain",
+            values: ["Duration: 3 months"],
+          },
+          {
+            key: "Weight loss",
+            values: ["3kg", "Duration: 3 months"],
+          },
+        ],
+      },
+      {
+        key: "HPI",
+        values: null,
+      },
+    ],
+  },
+  {
+    key: "PHYSICAL EXAMINATION",
+    values: [
+      {
+        key: "Physical Characteristics",
+        values: ["thin", "wasted muscles"],
+      },
+      {
+        key: "Vital Signs",
+        values: [
+          {
+            key: "Pulse rate",
+            values: "72/min",
+            style: {
+              highlight: true,
+            },
+          },
+          {
+            key: "BP",
+            values: "120/84 mmHg",
+          },
+        ],
+      },
+      {
+        key: "Cardiovascular",
+        values: ["JVP: normal", "Heart auscultation: normal", "peripheral edema: no"],
+      },
+      {
+        key: "Ophthalmology",
+        values: [
+          {
+            key: "Ocular Fundus",
+            values: ["Papilloedema"],
+          },
+        ],
+      },
+      {
+        key: "Respiratory",
+        values: "Normal",
+      },
+      {
+        key: "Abdominal",
+        values: null,
+      },
+      {
+        key: "Neurological",
+        values: null,
+      },
+      {
+        key: "Labs & Diagnostics",
+        values: null,
+      },
+    ],
+  },
+] as TreeNode[];
+
+const Card = ({ data, index }: { data: TreeNode; index: number }) => {
+  const [open, setOpen] = useState(!data.style?.collapse);
+  const highlight = data.style?.highlight || false;
+  return (
+    <div
+      className={classnames(styles.card, { [styles.highlight]: highlight })}
+      style={{ top: index === 0 ? "-1rem" : "", marginBottom: index === 0 ? 0 : "" }}
+    >
+      <div className={`${styles.subTitle}`}>
+        {data.key}
+        <IconButton onClick={() => setOpen(!open)} aria-label="expand" size="small">
+          {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+        </IconButton>
+      </div>
+      <div className={styles.content}>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <NestedContent data={data} level={2} />
+        </Collapse>
+      </div>
+    </div>
+  );
+};
+
+const Section = ({ data, index }: { data: TreeNode; index: number }) => {
+  const style = getColorStyle(index) as React.CSSProperties;
+  return (
+    <div style={style}>
+      <div className={`${styles.title}`}>{data.key}</div>
+      {(data.values as TreeNode[]).map((item, index) => (
+        <Card data={item} key={index} index={index}></Card>
+      ))}
+    </div>
+  );
+};
+
+const CasePage = () => {
+  return (
+    <div className={styles.app}>
+      {list.map((item, index) => (
+        <Section data={item} key={index} index={index}></Section>
+      ))}
+    </div>
+  );
+};
+
+export default CasePage;
