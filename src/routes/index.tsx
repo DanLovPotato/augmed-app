@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteObject, Outlet, Navigate } from "react-router-dom";
+import { Navigate, Outlet, RouteObject } from "react-router-dom";
 
 import path from "./path";
 import Home from "../pages/Home";

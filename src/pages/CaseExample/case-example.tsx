@@ -1,3 +1,5 @@
+import { TreeNode } from "./index";
+
 export const caseExample = [
   {
     key: "BACKGROUND",
@@ -152,4 +154,4 @@ export const caseExample = [
       },
     ],
   },
-];
+] as TreeNode[];

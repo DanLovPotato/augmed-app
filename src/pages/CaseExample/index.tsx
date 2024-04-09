@@ -5,7 +5,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import classnames from "classnames";
 
-interface TreeNode {
+export interface TreeNode {
   key: string;
   values?: string[] | TreeNode[] | string;
   style?: {
@@ -14,8 +14,7 @@ interface TreeNode {
   };
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-function isAllString(values: any[]) {
+function isAllString(values: (string | TreeNode)[]) {
   return values.every((item) => typeof item == "string");
 }
 
@@ -114,7 +113,7 @@ const Section = ({ data, index }: { data: TreeNode; index: number }) => {
   );
 };
 
-const CasePage = ({ list }: { list: any[] }) => {
+const CasePage = ({ list }: { list: TreeNode[] }) => {
   return (
     <div className={styles.app}>
       {(list as TreeNode[]).map((item, index) => (
