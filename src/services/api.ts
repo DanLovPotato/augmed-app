@@ -1,5 +1,8 @@
 import type { AxiosPromise, AxiosRequestConfig } from "axios";
 import axios from "axios";
+import { redirect } from "react-router-dom";
+
+import path from "../routes/path";
 
 const baseUrl = "/api";
 const tokenKey = "token";
@@ -40,7 +43,7 @@ instance.interceptors.response.use(
   (error) => {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 403) {
-        console.log("Unauthorized or forbidden");
+        redirect(path.login);
       } else if (error.response.status === 404) {
         console.log("Not found");
       } else if (error.response.status >= 500) {
