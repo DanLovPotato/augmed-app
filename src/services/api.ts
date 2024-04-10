@@ -42,6 +42,7 @@ instance.interceptors.response.use(
   (error) => {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 403) {
+        storeToken("");
         return (window.location.href = path.login);
       } else if (error.response.status === 404) {
         console.log("Not found");
