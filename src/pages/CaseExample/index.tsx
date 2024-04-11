@@ -39,8 +39,7 @@ const NestedContent = ({ data, level }: { data: TreeNode; level: number }) => {
       {(data.values as TreeNode[]).map((item, index) => {
         const highlight = item.style?.highlight || false;
         return (
-          // <div key={index} className={highlight ? styles.highlight: ''}>
-          <div key={index} style={{ background: highlight ? "yellow" : "" }}>
+          <div key={index} className={classnames({ [styles.highlightContent]: highlight })} data-testid={item.key}>
             <span>{item.key}</span>
             <NestedContent data={item} level={level + 1} />
           </div>
@@ -51,12 +50,12 @@ const NestedContent = ({ data, level }: { data: TreeNode; level: number }) => {
 };
 
 const theme = {
-  blue: {
+  green: {
     "--title-background": "#91C4A3",
     "--sub-title-color": "#91C4A3",
     "--card-background": "#EDF8F1",
   },
-  green: {
+  blue: {
     "--title-background": "#98D3CF",
     "--sub-title-color": "#98D3CF",
     "--card-background": "#E6F6F6",
@@ -70,10 +69,10 @@ const theme = {
 
 function getColorStyle(index: number) {
   if (index % 3 === 1) {
-    return theme.blue;
+    return theme.green;
   }
   if (index % 3 === 2) {
-    return theme.green;
+    return theme.blue;
   }
   return theme.default;
 }
@@ -83,6 +82,7 @@ const Card = ({ data, index }: { data: TreeNode; index: number }) => {
   const highlight = data.style?.highlight || false;
   return (
     <div
+      data-testid={data.key}
       className={classnames(styles.card, { [styles.highlight]: highlight })}
       style={{ top: index === 0 ? "-1rem" : "", marginBottom: index === 0 ? 0 : "" }}
     >
@@ -104,7 +104,7 @@ const Card = ({ data, index }: { data: TreeNode; index: number }) => {
 const Section = ({ data, index }: { data: TreeNode; index: number }) => {
   const style = getColorStyle(index) as React.CSSProperties;
   return (
-    <div style={style}>
+    <div style={style} data-testid={data.key}>
       <div className={`${styles.title}`}>{data.key}</div>
       {(data.values as TreeNode[]).map((item, index) => (
         <Card data={item} key={index} index={index}></Card>
