@@ -1,0 +1,26 @@
+.diagnosis {
+    padding: 1rem;
+    border-radius: 14px;
+    background: #EDF6F3;
+
+    .confidence {
+        margin: 1rem 0;
+
+        .label {
+            color: #303230;
+            font-size: 0.8rem;
+            font-weight: 500;
+            line-height: 1.5rem;
+            letter-spacing: 0.55px;
+
+            .low {
+                text-align: left;
+            }   
+
+            .high {
+                float: right;
+            }
+        }
+    }
+}
+
