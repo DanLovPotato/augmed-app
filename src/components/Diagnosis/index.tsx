@@ -56,6 +56,7 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
       <TextField
         fullWidth
         name="diagnosis"
+        inputProps={{ maxLength: 256 }}
         value={value?.diagnosis}
         onChange={handleOnChange("diagnosis")}
         label="Probable Diagnosis"
@@ -69,6 +70,7 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
         multiline
         rows={4}
         name="rationale"
+        inputProps={{ maxLength: 1000 }}
         value={value?.rationale}
         onChange={handleOnChange("rationale")}
         error={require.rationale}
