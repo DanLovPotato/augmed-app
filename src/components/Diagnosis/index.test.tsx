@@ -46,3 +46,28 @@ describe("Diagnosis component", () => {
     });
   });
 });
+
+describe("Render Diagnosis component with required", () => {
+  const emptyText = "";
+  it("should not display required message at probable diagnosis feild", () => {
+    render(<Diagnosis {...testId("diagnosis-component")} />);
+
+    const diagnosisInput = screen.getByLabelText("Probable Diagnosis");
+    fireEvent.change(diagnosisInput, { target: { value: "Test Diagnosis" } });
+    fireEvent.change(diagnosisInput, { target: { value: emptyText } });
+
+    const helperText = screen.queryByText("Probable Diagnosis field is required.");
+    expect(helperText).not.toBeInTheDocument();
+  });
+
+  it("should display required message at probable diagnosis feild", () => {
+    render(<Diagnosis required {...testId("diagnosis-component")} />);
+
+    const diagnosisInput = screen.getByLabelText("Probable Diagnosis");
+    fireEvent.change(diagnosisInput, { target: { value: "Test Diagnosis" } });
+    fireEvent.change(diagnosisInput, { target: { value: emptyText } });
+
+    const helperText = screen.queryByText("Probable Diagnosis field is required.");
+    expect(helperText).toBeInTheDocument();
+  });
+});
