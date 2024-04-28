@@ -9,6 +9,7 @@ import withCredencial from "../components/withCredencial";
 import CasePage from "../pages/CaseExample";
 import Layout from "../components/Layout";
 import { caseExample } from "../pages/CaseExample/case-example";
+import Diagnose from "../pages/Diagnose";
 
 const AuthedAppLayout = withCredencial(Layout);
 
@@ -24,6 +25,10 @@ const routes: RouteObject[] = [
       {
         path: path.root,
         element: <Home />,
+      },
+      {
+        path: path.diagnose,
+        element: <Diagnose />,
       },
       {
         path: "/case-example",

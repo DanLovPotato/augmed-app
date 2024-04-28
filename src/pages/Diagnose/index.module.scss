@@ -1,0 +1,30 @@
+.container {
+    margin: 2rem 28px;
+
+    .index {
+        margin: 1rem;
+        margin-top: 2rem;
+
+        .circle {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            text-align: center;
+            border-radius: 50%;
+            border: 1px solid #303230;
+            margin-right: 4px;
+        }
+    }
+
+    .otherFiled {
+        margin: 2rem 0;
+    }
+
+    .submit {
+        width: 124px;
+        line-height: 40px;
+        letter-spacing: 0.55px;
+        font-weight: 500;
+    }
+}

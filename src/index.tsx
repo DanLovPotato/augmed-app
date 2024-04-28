@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, useLocation, useRoutes } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
 
 import reportWebVitals from "./reportWebVitals";
 import { routes } from "./routes";
+import theme from "./utils/theme/mui";
 
 import "./index.scss";
 
@@ -28,8 +30,10 @@ function ScrollToTop() {
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ScrollToTop />
-      <App />
+      <ThemeProvider theme={theme}>
+        <ScrollToTop />
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );
