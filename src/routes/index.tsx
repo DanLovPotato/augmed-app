@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Outlet, RouteObject } from "react-router-dom";
+import { Link, Navigate, Outlet, RouteObject } from "react-router-dom";
 
 import path from "./path";
 import Home from "../pages/Home";
@@ -25,27 +25,13 @@ const routes: RouteObject[] = [
         path: path.root,
         element: <Home />,
       },
-      // {
-      //   path: path.diagnose,
-      //   element: <Diagnose />
-      // },
-      {
-        path: "/case/:caseId",
-        element: <CasePage />,
-      },
-    ],
-  },
-  {
-    path: "/",
-    element: (
-      <Layout>
-        <Outlet />
-      </Layout>
-    ),
-    children: [
       {
         path: path.diagnose,
         element: <Diagnose />,
+      },
+      {
+        path: path.case,
+        element: <CasePage />,
       },
     ],
   },

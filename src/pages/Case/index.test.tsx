@@ -15,6 +15,7 @@ jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: jest.fn(),
   useLocation: jest.fn(),
+  useNavigate: jest.fn(),
 }));
 
 describe("Case review page elements test", () => {

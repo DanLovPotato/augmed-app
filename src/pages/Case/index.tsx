@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import styles from "./index.module.scss";
 import homeStyles from "../Home/index.module.scss";
-import { Collapse, IconButton } from "@mui/material";
+import { Button, Collapse, IconButton } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import classnames from "classnames";
 import qs from "qs";
 import { useRequest } from "ahooks";
 import { getCaseDetail } from "../../services/caseService";
-import { useLocation, useParams } from "react-router-dom";
+import { generatePath, useLocation, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { ErrorTwoTone } from "@mui/icons-material";
+import path from "../../routes/path";
 
 export interface TreeNode {
   key: string;
@@ -147,6 +148,8 @@ const useGetCaseDetail = () => {
 };
 
 const CasePage = () => {
+  const { caseId } = useParams<{ caseId: string }>();
+  const nav = useNavigate();
   const { loading, response } = useGetCaseDetail();
   return (
     <Loading loading={loading}>
@@ -165,6 +168,13 @@ const CasePage = () => {
           </div>
         )}
       </div>
+      <Button
+        className={styles.submit}
+        variant="contained"
+        onClick={() => nav(generatePath(path.diagnose, { caseId }))}
+      >
+        Go to Diagnose
+      </Button>
     </Loading>
   );
 };
