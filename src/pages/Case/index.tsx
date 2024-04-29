@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./index.module.scss";
+import homeStyles from "../Home/index.module.scss";
 import { Collapse, IconButton } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -9,6 +10,7 @@ import { useRequest } from "ahooks";
 import { getCaseDetail } from "../../services/caseService";
 import { useLocation, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
+import { ErrorTwoTone } from "@mui/icons-material";
 
 export interface TreeNode {
   key: string;
@@ -139,22 +141,29 @@ const useGetCaseDetail = () => {
   const { caseId } = useParams<{ caseId: string }>();
   const { search } = useLocation();
   const configId = qs.parse(search, { ignoreQueryPrefix: true }).config as string;
-  if (!caseId) {
-    throw new Error("caseId not in path");
-  }
-  const { loading, data } = useRequest(() => getCaseDetail(caseId, configId));
+  const caseIdAsInt = parseInt(caseId || "No number");
+  const { loading, data } = useRequest(() => getCaseDetail(caseIdAsInt, parseInt(configId)));
   return { loading, response: data?.data };
 };
 
 const CasePage = () => {
   const { loading, response } = useGetCaseDetail();
-  const data: TreeNode[] = response?.data || [];
   return (
     <Loading loading={loading}>
       <div className={styles.app}>
-        {data.map((item, index) => (
-          <Section data={item} key={index} index={index}></Section>
-        ))}
+        <div className={styles.headerContainer}>
+          <span className={styles.header}>Case Review</span>
+        </div>
+        {response?.data ? (
+          (response.data as TreeNode[]).map((item, index) => <Section data={item} key={index} index={index}></Section>)
+        ) : (
+          <div className={homeStyles.empty}>
+            <ErrorTwoTone className={homeStyles.icon} />
+            <span className={homeStyles.emptyText}>
+              There is an unexpected error. Please check your internet and try again.
+            </span>
+          </div>
+        )}
       </div>
     </Loading>
   );

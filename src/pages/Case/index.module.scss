@@ -1,11 +1,28 @@
 .app {
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 
   // height: 800px; 100%
-  margin: 0 1rem;
+  // margin: 0 1rem;
+
+  .headerContainer {
+    display: flex;
+    background: #DDF2E5;
+    height: 70px;
+    align-items: center;
+
+    .header{
+      margin-left: 5%;
+      color: #303230;
+      font-size: 28px;
+      font-weight: 400;
+    }
+  }
 
   .title {
-    margin: 0 2rem;
+    margin-left: 2rem;
+    margin-top: 1rem;
     border-radius: 6px;
     padding: 0 1rem;
     width: max-content;
@@ -23,6 +40,7 @@
   .card {
     padding: 1rem;
     margin-bottom: 1rem;
+    margin-left: 1rem;
     width: 82%;
     height: auto;
     flex-shrink: 0;

@@ -8,7 +8,7 @@ export const getCaseList = async () => {
   });
 };
 
-export const getCaseDetail = async (caseId: string, configId: string) => {
+export const getCaseDetail = async (caseId: number, configId: number) => {
   return await request<{ data: TreeNode[] }>(`/cases/${caseId}?config=${configId}`, {
     method: "GET",
   });
