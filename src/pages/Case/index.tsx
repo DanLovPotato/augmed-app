@@ -4,6 +4,11 @@ import { Collapse, IconButton } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import classnames from "classnames";
+import qs from "qs";
+import { useRequest } from "ahooks";
+import { getCaseDetail } from "../../services/caseService";
+import { useLocation, useParams } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 export interface TreeNode {
   key: string;
@@ -37,15 +42,30 @@ const NestedContent = ({ data, level }: { data: TreeNode; level: number }) => {
   return (
     <>
       {(data.values as TreeNode[]).map((item, index) => {
-        const highlight = item.style?.highlight || false;
-        return (
-          <div key={index} className={classnames({ [styles.highlightContent]: highlight })} data-testid={item.key}>
-            <span>{item.key}</span>
-            <NestedContent data={item} level={level + 1} />
-          </div>
-        );
+        return <NestedSection data={item} key={index} level={level + 1}></NestedSection>;
       })}
     </>
+  );
+};
+
+const NestedSection = ({ data, level }: { data: TreeNode; level: number }) => {
+  const [open, setOpen] = useState(!data.style?.collapse);
+  const highlight = data.style?.highlight || false;
+  const inlineStyle = (
+    typeof data.values === "string" ? { display: "inline-block" } : undefined
+  ) as React.CSSProperties;
+  return (
+    <div className={classnames({ [styles.highlightContent]: highlight })} data-testid={data.key}>
+      <span>{data.key}</span>
+      {data.style?.collapse && (
+        <IconButton onClick={() => setOpen(!open)} aria-label="expand" size="small">
+          {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+        </IconButton>
+      )}
+      <Collapse in={open} timeout="auto" unmountOnExit style={inlineStyle}>
+        <NestedContent data={data} level={level} />
+      </Collapse>
+    </div>
   );
 };
 
@@ -83,14 +103,16 @@ const Card = ({ data, index }: { data: TreeNode; index: number }) => {
   return (
     <div
       data-testid={data.key}
-      className={classnames(styles.card, { [styles.highlight]: highlight })}
+      className={classnames(styles.card, { [styles.highlightContent]: highlight })}
       style={{ top: index === 0 ? "-1rem" : "", marginBottom: index === 0 ? 0 : "" }}
     >
-      <div className={`${styles.subTitle}`}>
+      <div className={classnames(styles.subTitle, { [styles.subTitleHighlight]: highlight })}>
         {data.key}
-        <IconButton onClick={() => setOpen(!open)} aria-label="expand" size="small">
-          {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-        </IconButton>
+        {data.style?.collapse && (
+          <IconButton onClick={() => setOpen(!open)} aria-label="expand" size="small">
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        )}
       </div>
       <div className={styles.content}>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -113,13 +135,28 @@ const Section = ({ data, index }: { data: TreeNode; index: number }) => {
   );
 };
 
-const CasePage = ({ list }: { list: TreeNode[] }) => {
+const useGetCaseDetail = () => {
+  const { caseId } = useParams<{ caseId: string }>();
+  const { search } = useLocation();
+  const configId = qs.parse(search, { ignoreQueryPrefix: true }).config as string;
+  if (!caseId) {
+    throw new Error("caseId not in path");
+  }
+  const { loading, data } = useRequest(() => getCaseDetail(caseId, configId));
+  return { loading, response: data?.data };
+};
+
+const CasePage = () => {
+  const { loading, response } = useGetCaseDetail();
+  const data: TreeNode[] = response?.data || [];
   return (
-    <div className={styles.app}>
-      {(list as TreeNode[]).map((item, index) => (
-        <Section data={item} key={index} index={index}></Section>
-      ))}
-    </div>
+    <Loading loading={loading}>
+      <div className={styles.app}>
+        {data.map((item, index) => (
+          <Section data={item} key={index} index={index}></Section>
+        ))}
+      </div>
+    </Loading>
   );
 };
 

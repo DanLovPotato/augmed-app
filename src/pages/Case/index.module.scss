@@ -23,7 +23,7 @@
   .card {
     padding: 1rem;
     margin-bottom: 1rem;
-    width: 80%;
+    width: 82%;
     height: auto;
     flex-shrink: 0;
     border-radius: 15px;
@@ -38,6 +38,10 @@
       font-weight: 700;
       line-height: normal;
       color: var(--sub-title-color);
+    }
+
+    .subTitleHighlight {
+      color: #7DAAA4;
     }
 
     .content {
@@ -55,7 +59,7 @@
   }
 
   .highlightContent {
-    background: yellow;
+    background: #AFFFCC;
   }
 
 }
