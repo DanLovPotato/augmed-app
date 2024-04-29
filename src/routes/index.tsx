@@ -26,13 +26,27 @@ const routes: RouteObject[] = [
         path: path.root,
         element: <Home />,
       },
-      {
-        path: path.diagnose,
-        element: <Diagnose />,
-      },
+      // {
+      //   path: path.diagnose,
+      //   element: <Diagnose />
+      // },
       {
         path: "/case-example",
         element: <CasePage list={caseExample} />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: (
+      <Layout>
+        <Outlet />
+      </Layout>
+    ),
+    children: [
+      {
+        path: path.diagnose,
+        element: <Diagnose />,
       },
     ],
   },

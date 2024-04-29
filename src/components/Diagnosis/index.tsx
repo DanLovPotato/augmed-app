@@ -18,15 +18,8 @@ const ConfidenceSlider = styled(Slider)({
 });
 
 const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
-  const { required, value: v, onChange, ...rest } = props;
+  const { required, value, onChange, ...rest } = props;
 
-  const [value, setValue] = useState(
-    v ?? {
-      diagnosis: undefined,
-      rationale: undefined,
-      confidence: undefined,
-    },
-  );
   const [require, setRequire] = useState({
     diagnosis: false,
     rationale: false,
@@ -41,15 +34,12 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
       [name]: required && (v === null || v === undefined || v === ""),
     });
 
-    setValue({
+    const newValue = {
       ...value,
       [name]: v,
-    });
+    };
+    onChange?.(newValue);
   };
-
-  useLayoutEffect(() => {
-    onChange?.(value);
-  }, [value, onChange]);
 
   return (
     <div className={styles.diagnosis} {...rest}>
