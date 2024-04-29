@@ -2,7 +2,7 @@ export const path = {
   root: "/",
   signup: "/signup",
   login: "/login",
-  diagnose: "/diagnose/:id",
+  diagnose: "/diagnose/:caseId",
 };
 
 export default path;
