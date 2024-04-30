@@ -55,7 +55,7 @@ describe("Case review page elements test", () => {
     expect(header).toBeInTheDocument();
     expect(header).toHaveClass(styles.header);
 
-    const caseNumber = screen.getByText("caseNumber");
+    const caseNumber = screen.getByText("Case caseNumber");
     const personName = screen.getByText("personName");
     expect(caseNumber).toBeInTheDocument();
     expect(personName).toBeInTheDocument();

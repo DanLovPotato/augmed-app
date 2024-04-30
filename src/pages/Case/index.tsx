@@ -170,7 +170,7 @@ const CasePage = () => {
         </div>
         {response?.data ? (
           <>
-            <CaseTitle name={caseState.personName} case={caseState.caseNumber} />
+            <CaseTitle name={caseState.personName} case={"Case " + caseState.caseNumber} />
             {(response.data.details as TreeNode[]).map((item, index) => (
               <Section data={item} key={index} index={index}></Section>
             ))}
