@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 import { Divider } from "@mui/material";
 
 export type CaseTitleProps = {
-  name: string;
+  name?: string;
   case?: string;
   suffix?: React.ReactNode;
 };

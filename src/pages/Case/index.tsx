@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./index.module.scss";
 import homeStyles from "../Home/index.module.scss";
 import { Button, Collapse, IconButton } from "@mui/material";
@@ -12,6 +12,9 @@ import { generatePath, useLocation, useNavigate, useParams } from "react-router-
 import Loading from "../../components/Loading";
 import { ErrorTwoTone } from "@mui/icons-material";
 import path from "../../routes/path";
+import CaseTitle from "../../components/CaseTitle";
+import { useAtom } from "jotai/index";
+import { caseAtom } from "../../state";
 
 export interface TreeNode {
   key: string;
@@ -129,7 +132,7 @@ const Card = ({ data, index }: { data: TreeNode; index: number }) => {
 const Section = ({ data, index }: { data: TreeNode; index: number }) => {
   const style = getColorStyle(index) as React.CSSProperties;
   return (
-    <div style={style} data-testid={data.key}>
+    <div style={style} className={styles.container} data-testid={data.key}>
       <div className={`${styles.title}`}>{data.key}</div>
       {(data.values as TreeNode[]).map((item, index) => (
         <Card data={item} key={index} index={index}></Card>
@@ -144,13 +147,21 @@ const useGetCaseDetail = () => {
   const configId = qs.parse(search, { ignoreQueryPrefix: true }).config as string;
   const caseIdAsInt = parseInt(caseId || "No number");
   const { loading, data } = useRequest(() => getCaseDetail(caseIdAsInt, parseInt(configId)));
-  return { loading, response: data?.data };
+  // console.log(data)
+  return { loading, response: data?.data, caseId };
 };
 
 const CasePage = () => {
-  const { caseId } = useParams<{ caseId: string }>();
   const nav = useNavigate();
-  const { loading, response } = useGetCaseDetail();
+  const { loading, response, caseId } = useGetCaseDetail();
+  const [caseState, setCaseState] = useAtom(caseAtom);
+  useMemo(() => {
+    setCaseState({
+      caseNumber: response?.data.caseNumber,
+      personName: response?.data.personName,
+    });
+  }, [response, setCaseState]);
+
   return (
     <Loading loading={loading}>
       <div className={styles.app}>
@@ -158,7 +169,21 @@ const CasePage = () => {
           <span className={styles.header}>Case Review</span>
         </div>
         {response?.data ? (
-          (response.data as TreeNode[]).map((item, index) => <Section data={item} key={index} index={index}></Section>)
+          <>
+            <CaseTitle name={caseState.personName} case={caseState.caseNumber} />
+            {(response.data.details as TreeNode[]).map((item, index) => (
+              <Section data={item} key={index} index={index}></Section>
+            ))}
+            <div className={styles.submitDiv}>
+              <Button
+                className={styles.submit}
+                variant="contained"
+                onClick={() => nav(generatePath(path.diagnose, { caseId }))}
+              >
+                Go to Diagnose
+              </Button>
+            </div>
+          </>
         ) : (
           <div className={homeStyles.empty}>
             <ErrorTwoTone className={homeStyles.icon} />
@@ -168,13 +193,6 @@ const CasePage = () => {
           </div>
         )}
       </div>
-      <Button
-        className={styles.submit}
-        variant="contained"
-        onClick={() => nav(generatePath(path.diagnose, { caseId }))}
-      >
-        Go to Diagnose
-      </Button>
     </Loading>
   );
 };

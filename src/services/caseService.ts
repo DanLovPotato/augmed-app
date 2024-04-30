@@ -9,7 +9,10 @@ export const getCaseList = async () => {
 };
 
 export const getCaseDetail = async (caseId: number, configId: number) => {
-  return await request<{ data: TreeNode[] }>(`/cases/${caseId}?config=${configId}`, {
-    method: "GET",
-  });
+  return await request<{ data: { personName: string; caseNumber: string; details: TreeNode[] } }>(
+    `/cases/${caseId}?config=${configId}`,
+    {
+      method: "GET",
+    },
+  );
 };

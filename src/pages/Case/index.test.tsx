@@ -30,17 +30,21 @@ describe("Case review page elements test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: "text",
-                },
-              ],
-            },
-          ] as TreeNode[],
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: "text",
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -50,6 +54,11 @@ describe("Case review page elements test", () => {
     const header = screen.getByText("Case Review");
     expect(header).toBeInTheDocument();
     expect(header).toHaveClass(styles.header);
+
+    const caseNumber = screen.getByText("caseNumber");
+    const personName = screen.getByText("personName");
+    expect(caseNumber).toBeInTheDocument();
+    expect(personName).toBeInTheDocument();
 
     const section = screen.getByTestId("BACKGROUND");
     const title = screen.getByText("BACKGROUND");
@@ -66,6 +75,9 @@ describe("Case review page elements test", () => {
 
     const content = screen.getByText("text");
     expect(card).toContainElement(content);
+
+    const submit = screen.getByText("Go to Diagnose");
+    expect(submit).toBeInTheDocument();
   });
 
   test("show none when the value of card key is undefined", () => {
@@ -74,16 +86,20 @@ describe("Case review page elements test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                },
-              ],
-            },
-          ] as TreeNode[],
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -102,21 +118,25 @@ describe("Case review page elements test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: [
-                    {
-                      key: "nothing",
-                    },
-                  ],
-                },
-              ],
-            },
-          ] as TreeNode[],
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: [
+                      {
+                        key: "nothing",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -135,17 +155,21 @@ describe("Case review page elements test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: "text",
-                },
-              ],
-            },
-          ] as TreeNode[],
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: "text",
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -164,22 +188,26 @@ describe("Case review page elements test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: [
-                    {
-                      key: "key",
-                      values: "value",
-                    },
-                  ],
-                },
-              ],
-            },
-          ] as TreeNode[],
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: [
+                      {
+                        key: "key",
+                        values: "value",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -200,22 +228,26 @@ describe("Case review page elements test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: [
-                    {
-                      key: "key",
-                      values: ["value"],
-                    },
-                  ],
-                },
-              ],
-            },
-          ] as TreeNode[],
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: [
+                      {
+                        key: "key",
+                        values: ["value"],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -236,26 +268,30 @@ describe("Case review page elements test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: [
-                    {
-                      key: "key",
-                      values: [
-                        {
-                          key: "nestedKey",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ] as TreeNode[],
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: [
+                      {
+                        key: "key",
+                        values: [
+                          {
+                            key: "nestedKey",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -274,35 +310,39 @@ describe("Case review page elements test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "Section1",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: "Normal",
-                },
-              ],
-            },
-            {
-              key: "Section2",
-              values: [
-                {
-                  key: "Medical history",
-                  values: "Normal",
-                },
-              ],
-            },
-            {
-              key: "Section3",
-              values: [
-                {
-                  key: "Family history",
-                  values: "Normal",
-                },
-              ],
-            },
-          ] as TreeNode[],
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "Section1",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: "Normal",
+                  },
+                ],
+              },
+              {
+                key: "Section2",
+                values: [
+                  {
+                    key: "Medical history",
+                    values: "Normal",
+                  },
+                ],
+              },
+              {
+                key: "Section3",
+                values: [
+                  {
+                    key: "Family history",
+                    values: "Normal",
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -357,20 +397,24 @@ describe("Display configuration test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: "text",
-                  style: {
-                    collapse: true,
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: "text",
+                    style: {
+                      collapse: true,
+                    },
                   },
-                },
-              ],
-            },
-          ] as TreeNode[],
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -388,20 +432,24 @@ describe("Display configuration test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: "text",
-                  style: {
-                    collapse: true,
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: "text",
+                    style: {
+                      collapse: true,
+                    },
                   },
-                },
-              ],
-            },
-          ] as TreeNode[],
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -421,20 +469,24 @@ describe("Display configuration test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: "text",
-                  style: {
-                    highlight: true,
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: "text",
+                    style: {
+                      highlight: true,
+                    },
                   },
-                },
-              ],
-            },
-          ] as TreeNode[],
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -451,24 +503,28 @@ describe("Display configuration test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: [
-                    {
-                      key: "key",
-                      style: {
-                        highlight: true,
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: [
+                      {
+                        key: "key",
+                        style: {
+                          highlight: true,
+                        },
                       },
-                    },
-                  ],
-                },
-              ],
-            },
-          ] as TreeNode[],
+                    ],
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
@@ -485,25 +541,29 @@ describe("Display configuration test", () => {
       data: {
         data: {
           status: 200,
-          data: [
-            {
-              key: "BACKGROUND",
-              values: [
-                {
-                  key: "Patient Demographics",
-                  values: [
-                    {
-                      key: "Age",
-                      values: "32",
-                      style: {
-                        collapse: true,
+          data: {
+            caseNumber: "caseNumber",
+            personName: "personName",
+            details: [
+              {
+                key: "BACKGROUND",
+                values: [
+                  {
+                    key: "Patient Demographics",
+                    values: [
+                      {
+                        key: "Age",
+                        values: "32",
+                        style: {
+                          collapse: true,
+                        },
                       },
-                    },
-                  ],
-                },
-              ],
-            },
-          ] as TreeNode[],
+                    ],
+                  },
+                ],
+              },
+            ] as TreeNode[],
+          },
         },
       },
     });
