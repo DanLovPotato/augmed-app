@@ -1,37 +1,37 @@
 {
   "data": [
     {
-      "configId": 1,
-      "caseId": 112022,
-      "patientChiefComplaint": "Chest Pain",
+      "config_id": 1,
+      "case_id": 112022,
+      "patient_chief_complaint": "Chest Pain",
       "age": "52",
       "gender": "Male"
     },
     {
-      "configId": 2,
-      "caseId": 103979,
-      "patientChiefComplaint": "Polyuria",
+      "config_id": 2,
+      "case_id": 103979,
+      "patient_chief_complaint": "Polyuria",
       "age": "63",
       "gender": "Female"
     },
     {
-      "configId": 3,
-      "caseId": 112052,
-      "patientChiefComplaint": "Chest Pain",
+      "config_id": 3,
+      "case_id": 112052,
+      "patient_chief_complaint": "Chest Pain",
       "age": "44",
       "gender": "Male"
     },
     {
-      "configId": 4,
-      "caseId": 112082,
-      "patientChiefComplaint": "Chest Pain",
+      "config_id": 4,
+      "case_id": 112082,
+      "patient_chief_complaint": "Chest Pain",
       "age": "33",
       "gender": "Female"
     },
     {
-      "configId": 5,
-      "caseId": 112092,
-      "patientChiefComplaint": "Chest Pain",
+      "config_id": 5,
+      "case_id": 112092,
+      "patient_chief_complaint": "Chest Pain",
       "age": "22",
       "gender": "Male"
     }
