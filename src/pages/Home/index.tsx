@@ -10,11 +10,12 @@ const useGetCaseList = () => {
   const { loading, runAsync, data } = useRequest(getCaseList, {
     manual: false,
   });
-  return { loading, getCaseList: runAsync, cases: data?.data };
+  return { loading, getCaseList: runAsync, cases: data?.data.data };
 };
 
 const HomePage = () => {
   const { loading, cases } = useGetCaseList();
+  console.log(cases);
 
   return (
     <Loading loading={loading}>
