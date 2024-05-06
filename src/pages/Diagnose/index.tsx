@@ -4,7 +4,7 @@ import { Button, TextField } from "@mui/material";
 import { useAtom } from "jotai";
 import cls from "classnames";
 
-import { diagnoseAtom } from "../../state";
+import { caseAtom, diagnoseAtom } from "../../state";
 import Diagnosis, { DiagnosisProps } from "../../components/Diagnosis";
 import CaseTitle from "../../components/CaseTitle";
 
@@ -30,6 +30,7 @@ const Diagnose = () => {
   const nav = useNavigate();
 
   const [diagnoseState, setDiagnoseState] = useAtom(diagnoseAtom);
+  const [caseState] = useAtom(caseAtom);
   const defaultValue = diagnoseState[caseId];
 
   const [diagnose, setDiagnose] = useState<DiagnoseValue[]>(
@@ -98,8 +99,8 @@ const Diagnose = () => {
     <>
       <div className={styles.header}>Diagnose</div>
       <CaseTitle
-        name="Jane S."
-        case="Case 987-498274"
+        name={caseState.personName}
+        case={`Case ${caseState.caseNumber}`}
         suffix={
           <Button variant="contained" color="secondary" onClick={() => nav(-1)}>
             CASE REVIEW
