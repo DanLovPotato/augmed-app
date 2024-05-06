@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./index.module.scss";
 import { ICase } from "../../types/case";
 import path from "../../routes/path";
-import { useNavigate } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 
 interface CaseCardProps {
   className?: string;
@@ -14,7 +14,7 @@ const CaseCard = ({ className, patientCase, onClick }: CaseCardProps) => {
   const nav = useNavigate();
   const [, setSlot] = useState<React.ReactNode>(null);
 
-  const handleOnClick = () => nav(path.case);
+  const handleOnClick = () => nav(generatePath(path.case, { caseConfigId: patientCase.config_id }));
   return (
     <div className={`${styles.caseCardContainer} ${className} `} onClick={handleOnClick}>
       <div className={styles.caseIdContainer}>
@@ -29,5 +29,4 @@ const CaseCard = ({ className, patientCase, onClick }: CaseCardProps) => {
     </div>
   );
 };
-
 export default CaseCard;
