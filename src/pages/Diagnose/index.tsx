@@ -31,7 +31,6 @@ const Diagnose = () => {
 
   const [diagnoseState, setDiagnoseState] = useAtom(diagnoseAtom);
   const defaultValue = diagnoseState[caseId];
-  console.log("diagnoseState", diagnoseState);
 
   const [diagnose, setDiagnose] = useState<DiagnoseValue[]>(
     defaultValue?.diagnose ?? (Array.from({ length: DiagnosisCount }).fill(DEFAULT_DIAGNOSE_VALUE) as DiagnoseValue[]),
