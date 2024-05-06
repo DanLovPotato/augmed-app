@@ -15,7 +15,6 @@ const useGetCaseList = () => {
 
 const HomePage = () => {
   const { loading, cases } = useGetCaseList();
-  console.log(cases);
 
   return (
     <Loading loading={loading}>
@@ -31,7 +30,7 @@ const HomePage = () => {
               <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to get new tasks. Or try to refresh the page.
             </span>
           </div>
-        ) : cases === undefined ? (
+        ) : !cases ? (
           <div className={styles.empty}>
             <ErrorTwoTone className={styles.icon} />
             <span className={styles.emptyText}>
@@ -40,7 +39,19 @@ const HomePage = () => {
           </div>
         ) : (
           <div className={styles.pendingCasesContainer}>
-            {cases?.map((item) => <CaseCard className={"caseCard"} key={item.caseId} patientCase={item} />)}
+            {cases.map((item) => (
+              <CaseCard
+                className={"caseCard"}
+                key={item.caseId}
+                patientCase={{
+                  configId: item.configId,
+                  caseId: item.caseId,
+                  patientChiefComplaint: item.patientChiefComplaint,
+                  age: item.age,
+                  gender: item.gender,
+                }}
+              />
+            ))}
           </div>
         )}
       </div>
