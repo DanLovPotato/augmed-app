@@ -42,11 +42,11 @@ const HomePage = () => {
             {cases.map((item) => (
               <CaseCard
                 className={"caseCard"}
-                key={item.caseId}
+                key={item.case_id}
                 patientCase={{
-                  configId: item.configId,
-                  caseId: item.caseId,
-                  patientChiefComplaint: item.patientChiefComplaint,
+                  config_id: item.config_id,
+                  case_id: item.case_id,
+                  patient_chief_complaint: item.patient_chief_complaint,
                   age: item.age,
                   gender: item.gender,
                 }}
