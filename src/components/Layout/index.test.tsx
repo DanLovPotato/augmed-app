@@ -1,5 +1,18 @@
-import { render, screen } from "@testing-library/react";
+// eslint-disable-file testing-library/await-async-query
+import React, { ReactElement } from "react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { create } from "react-test-renderer";
+
 import Layout from ".";
+import path from "../../routes/path";
+
+const render = (element: ReactElement) => (
+  <MemoryRouter initialEntries={[path.root]}>
+    <Routes>
+      <Route path={path.root} element={element} />
+    </Routes>
+  </MemoryRouter>
+);
 
 describe("Test Layout on variable media point view port:", () => {
   const mockWindowInnerWidth = (width: number) => {
@@ -10,43 +23,37 @@ describe("Test Layout on variable media point view port:", () => {
     });
   };
 
-  it("should on mobile view port", () => {
+  it("should on mobile view port", async () => {
     mockWindowInnerWidth(420);
 
-    const { container } = render(<Layout />);
+    const renderer = create(render(<Layout />));
 
-    expect(container).toMatchSnapshot();
-
-    // const layoutStyles = window.getComputedStyle(screen.getByTestId("aim-ahead-layout"));
-    // expect(layoutStyles.margin).toBe("");
-    // expect(layoutStyles.maxWidth).toBe("");
+    await renderer.root.findByProps({ className: "layout" });
+    expect(renderer.toJSON()).toMatchSnapshot();
   });
 
-  it("should on PC view port", () => {
+  it("should on PC view port", async () => {
     mockWindowInnerWidth(1680);
 
-    const { container } = render(<Layout />);
+    const renderer = create(render(<Layout />));
 
-    expect(container).toMatchSnapshot();
-
-    // const layoutStyles = window.getComputedStyle(screen.getByTestId("aim-ahead-layout"));
-    // expect(layoutStyles.margin).toBe("0 auto");
-    // expect(layoutStyles.maxWidth).toBe("576px");
+    await renderer.root.findByProps({ className: "layout m" });
+    expect(renderer.toJSON()).toMatchSnapshot();
   });
 });
 
 describe("Test Layout pass in classname", () => {
-  it("Should have the default classname when no variables are passed in", () => {
-    render(<Layout />);
+  it("Should have the default classname when no variables are passed in", async () => {
+    const renderer = create(render(<Layout />));
 
-    expect(screen.getByTestId("aim-ahead-layout").className).toBe("mainLayout");
+    await renderer.root.findByProps({ className: "layout m" });
   });
 
-  it("Should receive classname when the variables are passed in", () => {
+  it("Should receive classname when the variables are passed in", async () => {
     const classes = "appLayout";
 
-    render(<Layout className={classes} />);
+    const renderer = create(render(<Layout className={classes} />));
 
-    expect(screen.getByTestId("aim-ahead-layout").className).toBe(`mainLayout ${classes}`);
+    await renderer.root.findByProps({ className: `layout m ${classes}` });
   });
 });
