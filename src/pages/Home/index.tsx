@@ -39,7 +39,7 @@ const HomePage = () => {
           </div>
         ) : (
           <div className={styles.pendingCasesContainer}>
-            {cases?.map((item) => <CaseCard className={"caseCard"} key={item.id} patientCase={item} />)}
+            {cases?.map((item) => <CaseCard className={"caseCard"} key={item.caseId} patientCase={item} />)}
           </div>
         )}
       </div>

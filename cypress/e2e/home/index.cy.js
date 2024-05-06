@@ -13,7 +13,7 @@ describe("Physicians can go to home screen with token", () => {
   });
 
   it("displays empty state when there are no cases", () => {
-    cy.intercept("GET", "/api/case", {
+    cy.intercept("GET", "/api/cases", {
       statusCode: 200,
       fixture: "home/EmptyCaseList.json",
     });
@@ -33,7 +33,7 @@ describe("Physicians can go to home screen with token", () => {
       statusCode: 200,
       fixture: "home/ValidCaseList.json",
     });
-    cy.contains("Case: 003-v112022").should("be.visible");
+    cy.contains("Case: 112022").should("be.visible");
     cy.get(".caseCard").should("have.length", 5);
   });
 });
