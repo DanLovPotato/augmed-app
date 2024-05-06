@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styles from "./index.module.scss";
 import { ICase } from "../../types/case";
 import path from "../../routes/path";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { getCaseDetail } from "../../services/caseService";
 import { useNavigate } from "react-router-dom";
 
 interface CaseCardProps {
@@ -16,19 +14,7 @@ const CaseCard = ({ className, patientCase, onClick }: CaseCardProps) => {
   const nav = useNavigate();
   const [, setSlot] = useState<React.ReactNode>(null);
 
-  const handleOnClick = () =>
-    getCaseDetail(patientCase.case_id)
-      .then(() => {
-        nav(path.case);
-      })
-      .catch((error) => {
-        setSlot(
-          <div className={styles.errorContainer}>
-            <ErrorOutlineIcon />
-            <span className={styles.errorMessage}>{error.message}</span>
-          </div>,
-        );
-      });
+  const handleOnClick = () => nav(path.case);
   return (
     <div className={`${styles.caseCardContainer} ${className} `} onClick={handleOnClick}>
       <div className={styles.caseIdContainer}>
