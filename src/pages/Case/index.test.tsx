@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import CasePage, { TreeNode } from "./index";
 import styles from "./index.module.scss";
 import homeStyles from "../Home/index.module.scss";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useRequest } from "ahooks";
 
 jest.mock("ahooks", () => ({
@@ -14,14 +14,12 @@ jest.mock("ahooks", () => ({
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: jest.fn(),
-  useLocation: jest.fn(),
   useNavigate: jest.fn(),
 }));
 
 describe("Case review page elements test", () => {
   beforeEach(() => {
     (useParams as jest.Mock).mockReturnValue({ caseId: "1" });
-    (useLocation as jest.Mock).mockReturnValue({ config: "1" });
   });
 
   test("render basic display of section and card", () => {
@@ -388,7 +386,6 @@ describe("Case review page elements test", () => {
 describe("Display configuration test", () => {
   beforeEach(() => {
     (useParams as jest.Mock).mockReturnValue({ caseId: "1" });
-    (useLocation as jest.Mock).mockReturnValue({ config: "1" });
   });
 
   test("collapse card by configure collapse of key", () => {

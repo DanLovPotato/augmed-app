@@ -20,9 +20,9 @@ describe("Case detail Tests", () => {
         },
       ] as TreeNode[],
     };
-    mock.onGet("/api/cases/1?config=1").reply(200, responseData);
+    mock.onGet("/api/case-reviews/1").reply(200, responseData);
 
-    const response = await getCaseDetail(1, 1);
+    const response = await getCaseDetail(1);
 
     expect(response.status).toBe(200);
     expect(response.data).toEqual(responseData);

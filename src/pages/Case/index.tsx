@@ -5,10 +5,9 @@ import { Button, Collapse, IconButton } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import classnames from "classnames";
-import qs from "qs";
 import { useRequest } from "ahooks";
 import { getCaseDetail } from "../../services/caseService";
-import { generatePath, useLocation, useNavigate, useParams } from "react-router-dom";
+import { generatePath, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { ErrorTwoTone } from "@mui/icons-material";
 import path from "../../routes/path";
@@ -109,8 +108,7 @@ const Card = ({ data, index }: { data: TreeNode; index: number }) => {
   return (
     <div
       data-testid={data.key}
-      className={classnames(styles.card, { [styles.highlightContent]: highlight })}
-      style={{ top: index === 0 ? "-1rem" : "", marginBottom: index === 0 ? 0 : "" }}
+      className={classnames(styles.card, { [styles.highlightContent]: highlight }, { [styles.firstCard]: index === 0 })}
     >
       <div className={classnames(styles.subTitle, { [styles.subTitleHighlight]: highlight })}>
         {data.key}
@@ -142,18 +140,15 @@ const Section = ({ data, index }: { data: TreeNode; index: number }) => {
 };
 
 const useGetCaseDetail = () => {
-  const { caseId } = useParams<{ caseId: string }>();
-  const { search } = useLocation();
-  const configId = qs.parse(search, { ignoreQueryPrefix: true }).config as string;
-  const caseIdAsInt = parseInt(caseId || "No number");
-  const { loading, data } = useRequest(() => getCaseDetail(caseIdAsInt, parseInt(configId)));
-  // console.log(data)
-  return { loading, response: data?.data, caseId };
+  const { caseConfigId } = useParams<{ caseConfigId: string }>();
+  const caseConfigIdAsInt = parseInt(caseConfigId || "No number");
+  const { loading, data } = useRequest(() => getCaseDetail(caseConfigIdAsInt));
+  return { loading, response: data?.data };
 };
 
 const CasePage = () => {
   const nav = useNavigate();
-  const { loading, response, caseId } = useGetCaseDetail();
+  const { loading, response } = useGetCaseDetail();
   const [caseState, setCaseState] = useAtom(caseAtom);
   useMemo(() => {
     setCaseState({
@@ -178,7 +173,7 @@ const CasePage = () => {
               <Button
                 className={styles.submit}
                 variant="contained"
-                onClick={() => nav(generatePath(path.diagnose, { caseId }))}
+                onClick={() => nav(generatePath(path.diagnose, { caseId: caseState.caseNumber }))}
               >
                 Go to Diagnose
               </Button>
