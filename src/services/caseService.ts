@@ -3,7 +3,7 @@ import { ICase } from "../types/case";
 import { TreeNode } from "../pages/Case";
 
 export const getCaseList = async () => {
-  return await request<ICase[]>(`/case`, {
+  return await request<ICase[]>(`/cases`, {
     method: "GET",
   });
 };

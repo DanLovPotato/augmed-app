@@ -23,13 +23,13 @@ describe("Physicians can go to home screen with token", () => {
   });
 
   it("displays error state when there is an unexpected error", () => {
-    cy.intercept("GET", "/api/case", { statusCode: 500 }).as("getCaseList");
+    cy.intercept("GET", "/api/cases", { statusCode: 500 }).as("getCaseList");
     cy.wait("@getCaseList");
     cy.contains("There is an unexpected error. Please check your internet and try again.").should("be.visible");
   });
 
   it("Physicians could access the home page viewing the pending cases.", () => {
-    cy.intercept("GET", "/api/case", {
+    cy.intercept("GET", "/api/cases", {
       statusCode: 200,
       fixture: "home/ValidCaseList.json",
     });

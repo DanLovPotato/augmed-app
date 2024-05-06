@@ -1,11 +1,12 @@
-export enum Sex {
+export enum Gender {
   MALE = "Male",
   FEMALE = "Female",
 }
 
 export interface ICase {
-  id: string;
-  patient_chief_complaint: string;
-  age: number;
-  sex: Sex;
+  configId: number;
+  caseId: number;
+  patientChiefComplaint: string;
+  age: string; // Changed from number to string to match the backend
+  gender: Gender; // Renamed from sex to gender and using the enum Sex
 }
