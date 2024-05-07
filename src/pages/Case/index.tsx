@@ -61,7 +61,7 @@ const NestedSection = ({ data, level }: { data: TreeNode; level: number }) => {
   ) as React.CSSProperties;
   return (
     <div className={classnames({ [styles.highlightContent]: highlight })} data-testid={data.key}>
-      <span>{data.key}</span>
+      <span className={styles.contentTitle}>{data.key}</span>
       {data.style?.collapse && (
         <IconButton onClick={() => setOpen(!open)} aria-label="expand" size="small">
           {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
