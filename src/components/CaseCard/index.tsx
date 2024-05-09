@@ -12,8 +12,6 @@ interface CaseCardProps {
 
 const CaseCard = ({ className, patientCase, onClick }: CaseCardProps) => {
   const nav = useNavigate();
-  const [, setSlot] = useState<React.ReactNode>(null);
-
   const handleOnClick = () => nav(generatePath(path.case, { caseConfigId: patientCase.config_id }));
   return (
     <div className={`${styles.caseCardContainer} ${className} `} onClick={handleOnClick}>

@@ -1,7 +1,8 @@
 import { instance } from "./api";
 import MockAdapter from "axios-mock-adapter";
 import { TreeNode } from "../pages/Case";
-import { getCaseDetail } from "./caseService";
+import { getCaseDetail, getCaseList } from "./caseService";
+import { Gender } from "../types/case";
 
 const mock = new MockAdapter(instance);
 
@@ -26,5 +27,22 @@ describe("Case detail Tests", () => {
 
     expect(response.status).toBe(200);
     expect(response.data).toEqual(responseData);
+  });
+});
+describe("getCaseList Tests", () => {
+  test("Should fetch case list successfully", async () => {
+    const caseListData = {
+      data: [
+        { config_id: 1, case_id: 101, patient_chief_complaint: "Cough", age: "45", gender: Gender.MALE },
+        { config_id: 2, case_id: 102, patient_chief_complaint: "Fever", age: "30", gender: Gender.FEMALE },
+      ],
+    };
+
+    mock.onGet("/cases").reply(200, caseListData);
+
+    const response = await getCaseList();
+
+    expect(response.status).toBe(200);
+    expect(response.data).toEqual(caseListData);
   });
 });
