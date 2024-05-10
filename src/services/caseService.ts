@@ -1,6 +1,5 @@
 import { request } from "./api";
-import { ICase } from "../types/case";
-import { TreeNode } from "../pages/Case";
+import { CaseDetail, ICase } from "../types/case";
 
 export const getCaseList = async () => {
   return await request<{ data: ICase[] }>(`/cases`, {
@@ -8,11 +7,8 @@ export const getCaseList = async () => {
   });
 };
 
-export const getCaseDetail = async (caseConfigId: number) => {
-  return await request<{ data: { personName: string; caseNumber: string; details: TreeNode[] } }>(
-    `/case-reviews/${caseConfigId}`,
-    {
-      method: "GET",
-    },
-  );
+export const getCaseDetail = async (caseConfigId: string) => {
+  return await request<{ data: CaseDetail }>(`/case-reviews/${caseConfigId}`, {
+    method: "GET",
+  });
 };

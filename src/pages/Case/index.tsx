@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import homeStyles from "../Home/index.module.scss";
 import { Button, Collapse, IconButton } from "@mui/material";
@@ -14,15 +14,7 @@ import path from "../../routes/path";
 import CaseTitle from "../../components/CaseTitle";
 import { useAtom } from "jotai/index";
 import { caseAtom } from "../../state";
-
-export interface TreeNode {
-  key: string;
-  values?: string[] | TreeNode[] | string;
-  style?: {
-    collapse?: boolean;
-    highlight?: boolean;
-  };
-}
+import { TreeNode } from "../../types/case";
 
 function isAllString(values: (string | TreeNode)[]) {
   return values.every((item) => typeof item == "string");
@@ -139,18 +131,13 @@ const Section = ({ data, index }: { data: TreeNode; index: number }) => {
   );
 };
 
-const useGetCaseDetail = () => {
-  const { caseConfigId } = useParams<{ caseConfigId: string }>();
-  const caseConfigIdAsInt = parseInt(caseConfigId || "No number");
-  const { loading, data } = useRequest(() => getCaseDetail(caseConfigIdAsInt));
-  return { loading, response: data?.data };
-};
-
 const CasePage = () => {
   const nav = useNavigate();
-  const { loading, response } = useGetCaseDetail();
+  const { caseConfigId } = useParams() as { caseConfigId: string };
+  const { loading, data } = useRequest(() => getCaseDetail(caseConfigId));
+  const response = data?.data;
   const [caseState, setCaseState] = useAtom(caseAtom);
-  useMemo(() => {
+  useEffect(() => {
     setCaseState({
       caseNumber: response?.data.caseNumber,
       personName: response?.data.personName,

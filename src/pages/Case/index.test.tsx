@@ -1,10 +1,11 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import CasePage, { TreeNode } from "./index";
+import CasePage from "./index";
 import styles from "./index.module.scss";
 import homeStyles from "../Home/index.module.scss";
 import { useParams } from "react-router-dom";
 import { useRequest } from "ahooks";
+import { TreeNode } from "../../types/case";
 
 jest.mock("ahooks", () => ({
   ...jest.requireActual("ahooks"),
