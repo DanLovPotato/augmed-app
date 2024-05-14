@@ -43,3 +43,33 @@
         font-weight: 500;
     }
 }
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation: 1.4s linear 0s infinite normal none running spin;
+}
+
+.errorContainer {
+    margin-bottom: 2rem;
+    padding: 10px;
+    border: 1px red solid;
+    color: red;
+    background: #ffe0de;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+  
+    span {
+      margin-left: 10px;
+      align-self: center;
+    }
+  }

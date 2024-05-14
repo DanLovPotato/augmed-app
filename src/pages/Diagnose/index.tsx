@@ -1,12 +1,17 @@
 import React, { ChangeEvent, useLayoutEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, TextField } from "@mui/material";
+import { Button, Snackbar, TextField } from "@mui/material";
+import SyncIcon from "@mui/icons-material/Sync";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import { useRequest } from "ahooks";
 import { useAtom } from "jotai";
 import cls from "classnames";
 
 import { caseAtom, diagnoseAtom } from "../../state";
 import Diagnosis, { DiagnosisProps } from "../../components/Diagnosis";
 import CaseTitle from "../../components/CaseTitle";
+import { saveDiagnose } from "../../services/diagnoseService";
+import path from "../../routes/path";
 
 import styles from "./index.module.scss";
 
@@ -26,24 +31,35 @@ export type DiagnoseFormData = {
 };
 
 const Diagnose = () => {
-  const { caseId } = useParams() as { caseId: string };
+  const { caseConfigId } = useParams() as { caseConfigId: string };
   const nav = useNavigate();
+  const [showToast, setShowToast] = useState(false);
+
+  const { loading, runAsync } = useRequest(saveDiagnose, {
+    manual: true,
+  });
 
   const [diagnoseState, setDiagnoseState] = useAtom(diagnoseAtom);
   const [caseState] = useAtom(caseAtom);
-  const defaultValue = diagnoseState[caseId];
+  const defaultValue = diagnoseState[caseConfigId];
 
   const [diagnose, setDiagnose] = useState<DiagnoseValue[]>(
     defaultValue?.diagnose ?? (Array.from({ length: DiagnosisCount }).fill(DEFAULT_DIAGNOSE_VALUE) as DiagnoseValue[]),
   );
   const [other, setOther] = useState(defaultValue?.other ?? "");
   const [disable, setDisable] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const diagnoseValuesIsRequired = useMemo(() => {
     return Array.from({ length: DiagnosisCount }).map((_, index) => {
       return index === 0;
     });
   }, []);
+
+  const handelToastOnClose = () => {
+    setShowToast(false);
+    nav(path.root);
+  };
 
   const handleOnDiagnoseChange = (index: number, value: DiagnoseValue) => {
     const updatedDiagnose = diagnose.reduce((prev, current, currentIdx) => {
@@ -57,7 +73,7 @@ const Diagnose = () => {
 
     setDiagnoseState({
       ...diagnoseState,
-      [caseId]: {
+      [caseConfigId]: {
         diagnose: updatedDiagnose,
         other: other,
       },
@@ -69,7 +85,7 @@ const Diagnose = () => {
 
     setDiagnoseState({
       ...diagnoseState,
-      [caseId]: {
+      [caseConfigId]: {
         diagnose,
         other: e.target.value,
       },
@@ -87,12 +103,16 @@ const Diagnose = () => {
   }, [diagnose, setDisable, diagnoseValuesIsRequired]);
 
   const onSubmit = () => {
-    const data = {
+    runAsync(caseConfigId, {
       diagnose,
-      other: other,
-    };
-
-    console.log(data);
+      other,
+    })
+      .then(() => {
+        setShowToast(true);
+      })
+      .catch((e: Error) => {
+        setErrorMsg(e.message);
+      });
   };
 
   return (
@@ -137,9 +157,28 @@ const Diagnose = () => {
           inputProps={{ maxLength: 1000 }}
           label="What other information would have been useful?"
         />
-        <Button className={styles.submit} disabled={disable} variant="contained" onClick={onSubmit}>
+        {errorMsg && (
+          <div className={styles.errorContainer}>
+            <ErrorOutlineIcon />
+            <span>{errorMsg}</span>
+          </div>
+        )}
+        <Button
+          className={styles.submit}
+          disabled={disable || loading}
+          variant="contained"
+          onClick={onSubmit}
+          endIcon={loading && <SyncIcon className={styles.spin} />}
+        >
           Submit
         </Button>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          open={showToast}
+          onClose={handelToastOnClose}
+          autoHideDuration={500}
+          message="Task is submitted."
+        />
       </div>
     </>
   );
