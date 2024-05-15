@@ -52,6 +52,8 @@ Object {
           </div>
           <div
             class="diagnosis"
+            data-testid="diagnosis-1"
+            id="diagnosis-1"
           >
             <div
               class="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-17vbkzs-MuiFormControl-root-MuiTextField-root"
@@ -197,6 +199,8 @@ Object {
           </div>
           <div
             class="diagnosis"
+            data-testid="diagnosis-2"
+            id="diagnosis-2"
           >
             <div
               class="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-17vbkzs-MuiFormControl-root-MuiTextField-root"
@@ -342,6 +346,8 @@ Object {
           </div>
           <div
             class="diagnosis"
+            data-testid="diagnosis-3"
+            id="diagnosis-3"
           >
             <div
               class="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-17vbkzs-MuiFormControl-root-MuiTextField-root"
@@ -521,7 +527,9 @@ Object {
         </div>
         <button
           class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary submit css-sghohy-MuiButtonBase-root-MuiButton-root"
+          data-testid="diagnose-submit-btn"
           disabled=""
+          id="diagnose-submit-btn"
           tabindex="-1"
           type="button"
         >
@@ -578,6 +586,8 @@ Object {
         </div>
         <div
           class="diagnosis"
+          data-testid="diagnosis-1"
+          id="diagnosis-1"
         >
           <div
             class="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-17vbkzs-MuiFormControl-root-MuiTextField-root"
@@ -723,6 +733,8 @@ Object {
         </div>
         <div
           class="diagnosis"
+          data-testid="diagnosis-2"
+          id="diagnosis-2"
         >
           <div
             class="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-17vbkzs-MuiFormControl-root-MuiTextField-root"
@@ -868,6 +880,8 @@ Object {
         </div>
         <div
           class="diagnosis"
+          data-testid="diagnosis-3"
+          id="diagnosis-3"
         >
           <div
             class="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-17vbkzs-MuiFormControl-root-MuiTextField-root"
@@ -1047,7 +1061,9 @@ Object {
       </div>
       <button
         class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary submit css-sghohy-MuiButtonBase-root-MuiButton-root"
+        data-testid="diagnose-submit-btn"
         disabled=""
+        id="diagnose-submit-btn"
         tabindex="-1"
         type="button"
       >

@@ -14,6 +14,7 @@ import { saveDiagnose } from "../../services/diagnoseService";
 import path from "../../routes/path";
 
 import styles from "./index.module.scss";
+import testId from "../../utils/testId";
 
 type DiagnoseValue = DiagnosisProps["value"];
 
@@ -139,6 +140,7 @@ const Diagnose = () => {
               </div>
               <Diagnosis
                 key={i}
+                {...testId(`diagnosis-${indexStartAt1}`)}
                 required={required}
                 value={value}
                 onChange={(value) => handleOnDiagnoseChange(i, value)}
@@ -164,6 +166,7 @@ const Diagnose = () => {
           </div>
         )}
         <Button
+          {...testId("diagnose-submit-btn")}
           className={styles.submit}
           disabled={disable || loading}
           variant="contained"
