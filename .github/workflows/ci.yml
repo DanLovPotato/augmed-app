@@ -22,6 +22,8 @@ jobs:
       - name: Check and lint code formatting
         run: |
           npm run lint-staged
+      - name: check-secrets
+        uses: secret-scanner/action@0.0.2
 
   test:
     needs: lint

@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
+npm run detect-secrets
 npm run lint-staged

@@ -12,7 +12,8 @@
     "prettier": "prettier src --write",
     "start": "react-scripts start",
     "test": "react-scripts test",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "detect-secrets": "git diff --staged --name-only -z | xargs -0 detect-secrets-hook --baseline .secrets.baseline"
   },
   "lint-staged": {
     "src/**/*.{js,ts,jsx,tsx}": [
