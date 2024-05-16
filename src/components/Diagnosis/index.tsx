@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useLayoutEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { FormHelperText, Slider, TextField, styled } from "@mui/material";
 
 import styles from "./index.module.scss";
@@ -69,7 +69,7 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
       />
       {require.rationale && <FormHelperText error>Brief rationale for diagnosis field is required.</FormHelperText>}
       <div className={styles.confidence}>
-        <ConfidenceSlider name="confidence" value={value?.confidence} onChange={handleOnChange("confidence")!} />
+        <ConfidenceSlider name="confidence" value={value?.confidence} onChange={handleOnChange("confidence")} />
         <div className={styles.label}>
           <span className={styles.low}>LOW CONFIDENCE</span>
           <span className={styles.high}>HIGH CONFIDENCE</span>
