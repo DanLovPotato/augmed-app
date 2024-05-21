@@ -180,7 +180,7 @@ const Diagnose = () => {
           open={showToast}
           onClose={handelToastOnClose}
           autoHideDuration={500}
-          message="Task is submitted."
+          message="Case is submitted."
         />
       </div>
     </>

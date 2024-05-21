@@ -18,7 +18,7 @@ describe("Physicians can go to home screen with token", () => {
       fixture: "home/EmptyCaseList.json",
     });
     cy.contains(
-      "There is no available task for you now. Please contact dhep.lab@gmail.com to get new tasks. Or try to refresh the page.",
+      "There is no available case for you now. Please contact dhep.lab@gmail.com to get new cases. Or try to refresh the page.",
     ).should("be.visible");
   });
 

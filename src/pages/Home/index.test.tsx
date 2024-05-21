@@ -36,7 +36,7 @@ describe("HomePage", () => {
       data: { data: { data: [] } },
     }));
     render(<HomePage />);
-    expect(screen.getByText(/There is no available task for you now. Please contact/)).toBeInTheDocument();
+    expect(screen.getByText(/There is no available case for you now. Please contact/)).toBeInTheDocument();
   });
 
   test("shows error message when there is an unexpected error", () => {

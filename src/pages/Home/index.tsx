@@ -20,14 +20,14 @@ const HomePage = () => {
     <Loading loading={loading}>
       <div className={styles.app}>
         <div className={styles.titleContainer}>
-          <span className={styles.title}>Pending Cases</span>
+          <span className={styles.title}>Pending Case</span>
         </div>
         {cases?.length === 0 ? (
           <div className={styles.empty}>
             <UpcomingTwoTone className={styles.icon} />
             <span className={styles.emptyText}>
-              There is no available task for you now. Please contact{" "}
-              <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to get new tasks. Or try to refresh the page.
+              There is no available case for you now. Please contact{" "}
+              <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to get new cases. Or try to refresh the page.
             </span>
           </div>
         ) : !cases ? (
