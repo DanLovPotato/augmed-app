@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
+import { SnackbarProvider } from "notistack";
 
 import reportWebVitals from "./reportWebVitals";
 import { routes } from "./routes";
@@ -19,7 +20,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <App />
+        <SnackbarProvider>
+          <App />
+        </SnackbarProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,

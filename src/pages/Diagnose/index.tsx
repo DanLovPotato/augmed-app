@@ -6,15 +6,16 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { useRequest } from "ahooks";
 import { useAtom } from "jotai";
 import cls from "classnames";
+import { useSnackbar } from "notistack";
 
 import { caseAtom, diagnoseAtom } from "../../state";
 import Diagnosis, { DiagnosisProps } from "../../components/Diagnosis";
 import CaseTitle from "../../components/CaseTitle";
 import { saveDiagnose } from "../../services/diagnoseService";
 import path from "../../routes/path";
+import testId from "../../utils/testId";
 
 import styles from "./index.module.scss";
-import testId from "../../utils/testId";
 
 type DiagnoseValue = DiagnosisProps["value"];
 
@@ -34,7 +35,7 @@ export type DiagnoseFormData = {
 const Diagnose = () => {
   const { caseConfigId } = useParams() as { caseConfigId: string };
   const nav = useNavigate();
-  const [showToast, setShowToast] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const { loading, runAsync } = useRequest(saveDiagnose, {
     manual: true,
@@ -56,11 +57,6 @@ const Diagnose = () => {
       return index === 0;
     });
   }, []);
-
-  const handelToastOnClose = () => {
-    setShowToast(false);
-    nav(path.root);
-  };
 
   const handleOnDiagnoseChange = (index: number, value: DiagnoseValue) => {
     const updatedDiagnose = diagnose.reduce((prev, current, currentIdx) => {
@@ -109,7 +105,15 @@ const Diagnose = () => {
       other,
     })
       .then(() => {
-        setShowToast(true);
+        enqueueSnackbar("Case is submitted.", {
+          anchorOrigin: {
+            horizontal: "center",
+            vertical: "bottom",
+          },
+          variant: "success",
+          autoHideDuration: 2000,
+        });
+        nav(path.root);
       })
       .catch((e: Error) => {
         setErrorMsg(e.message);
@@ -175,13 +179,6 @@ const Diagnose = () => {
         >
           Submit
         </Button>
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={showToast}
-          onClose={handelToastOnClose}
-          autoHideDuration={500}
-          message="Case is submitted."
-        />
       </div>
     </>
   );
