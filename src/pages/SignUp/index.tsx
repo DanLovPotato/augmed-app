@@ -47,7 +47,7 @@ const SignUpPage = () => {
           <img src={logo} className={styles.appLogo} alt="logo" />
           <span className={styles.title}>Sign Up</span>
           <p className={styles.subtitle}>
-            Welcome to participate in our AIM-AHEAD Clinical Decision Platform testing and shape the future of medical
+            Welcome to participate in our AugMed Clinical Decision Platform testing and shape the future of medical
             decision-making.
           </p>
         </div>
