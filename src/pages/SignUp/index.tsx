@@ -7,20 +7,28 @@ import { passwordPattern } from "../../utils/regexp";
 import path from "../../routes/path";
 import logo from "../../assets/images/aim_ahead_logo.jpg";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import { useSnackbar } from "notistack";
 
 import styles from "./index.module.scss";
-import Snackbar from "@mui/material/Snackbar";
 import { signup } from "../../services/userService";
 
 const SignUpPage = () => {
   const nav = useNavigate();
   const [slot, setSlot] = useState<React.ReactNode>(null);
-  const [showToast, setShowToast] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSignUp = (email: string, password: string) =>
     signup(email, password)
       .then(() => {
-        setShowToast(true);
+        enqueueSnackbar("Sign up completed! Please log in.", {
+          anchorOrigin: {
+            horizontal: "center",
+            vertical: "bottom",
+          },
+          variant: "success",
+          autoHideDuration: 2000,
+        });
+        nav(path.login);
       })
       .catch((error) => {
         setSlot(
@@ -33,11 +41,6 @@ const SignUpPage = () => {
 
   const handleFormChange = () => {
     setSlot(null);
-  };
-
-  const handelToastOnClose = () => {
-    setShowToast(false);
-    nav(path.login);
   };
 
   return (
@@ -57,13 +60,6 @@ const SignUpPage = () => {
           pageType={FormType.SignUp}
           handelSubmit={handleSignUp}
           passwordRegex={passwordPattern}
-        />
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={showToast}
-          onClose={handelToastOnClose}
-          autoHideDuration={2000}
-          message="Sign up completed! Please log in."
         />
       </div>
     </Layout>
