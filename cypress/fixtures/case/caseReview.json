@@ -1,0 +1,168 @@
+{
+  "data": {
+    "caseNumber": "1",
+    "details": [
+      {
+        "key": "BACKGROUND",
+        "style": null,
+        "values": [
+          {
+            "key": "Patient Demographics",
+            "style": {
+              "collapse": true
+            },
+            "values": [
+              {
+                "key": "Age",
+                "style": null,
+                "values": "32"
+              },
+              {
+                "key": "Gender",
+                "style": null,
+                "values": "MALE"
+              }
+            ]
+          },
+          {
+            "key": "Family History",
+            "style": {
+              "highlight": true
+            },
+            "values": "POLYCYSTIC KIDNEY"
+          },
+          {
+            "key": "Social History",
+            "style": null,
+            "values": [
+              {
+                "key": "Smoke",
+                "style": {
+                  "collapse": true,
+                  "highlight": true
+                },
+                "values": "non-somker"
+              },
+              {
+                "key": "Alcohol",
+                "style": null,
+                "values": "10 alcohol unit per week"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "PATIENT COMPLAINT",
+        "style": null,
+        "values": [
+          {
+            "key": "Chief Complaint",
+            "style": {
+              "highlight": true
+            },
+            "values": [
+              {
+                "key": "Polyuria",
+                "style": null,
+                "values": [
+                  "5x Per night",
+                  "Accomp: Extreme thirst",
+                  "Onset: Abrupt",
+                  "Duration : 4 week"
+                ]
+              }
+            ]
+          },
+          {
+            "key": "Current Symptoms",
+            "style": null,
+            "values": [
+              {
+                "key": "Frontal headache",
+                "style": null,
+                "values": [
+                  "Assos w/ early morning nausea",
+                  "Worsened by coughing or lying down"
+                ]
+              },
+              {
+                "key": "Back pain",
+                "style": null,
+                "values": "Duration: 3 months"
+              },
+              {
+                "key": "Feeling unwell",
+                "style": null,
+                "values": "Duration : 3 month"
+              },
+              {
+                "key": "Weight loss",
+                "style": null,
+                "values": [
+                  "3 kilogram",
+                  "Duration: 4 months"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "PHYSICAL EXAMINATION",
+        "style": null,
+        "values": [
+          {
+            "key": "Body measure",
+            "style": null,
+            "values": [
+              {
+                "key": "Body weight characteristic",
+                "style": null,
+                "values": "thin"
+              }
+            ]
+          },
+          {
+            "key": "Vital signs",
+            "style": {
+              "highlight": true
+            },
+            "values": [
+              {
+                "key": "Pulse rate",
+                "style": {
+                  "highlight": true
+                },
+                "values": "72 per minute"
+              },
+              {
+                "key": "Blood pressure",
+                "style": null,
+                "values": "120 millimeter mercury column"
+              }
+            ]
+          },
+          {
+            "key": "Cardiac process",
+            "style": null,
+            "values": [
+              {
+                "key": "Pulse rate",
+                "style": null,
+                "values": "72 per minute"
+              },
+              {
+                "key": "Blood pressure",
+                "style": null,
+                "values": "120 millimeter mercury column"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "personName": "sunwukong"
+  },
+  "error": null
+}
