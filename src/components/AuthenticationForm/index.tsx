@@ -94,7 +94,7 @@ const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onCha
           <span className={styles.invalidEmailText}>Invalid email address. Please correct it and try again.</span>
         )}
       </FormControl>
-      <FormControl className={styles.formController} sx={{ marginBottom: "30px" }}>
+      <FormControl className={`${styles.formController} ${styles.pwController} `} sx={{ marginBottom: "30px" }}>
         <label className={styles.inputLabel} htmlFor="password-input" data-testid="password-label">
           Password
         </label>
