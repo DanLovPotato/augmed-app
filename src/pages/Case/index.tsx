@@ -82,6 +82,11 @@ const theme = {
     "--sub-title-color": "#B1C7D1",
     "--card-background": "#EFF6F6",
   },
+  important: {
+    "--title-background": "#F3D18E",
+    "--sub-title-color": "#98D3CF",
+    "--card-background": "#FDF3DE",
+  },
 };
 
 function getColorStyle(index: number) {
@@ -131,6 +136,34 @@ const Section = ({ data, index }: { data: TreeNode; index: number }) => {
   );
 };
 
+const ImportantCard = ({ data }: { data: TreeNode[] }) => {
+  return (
+    <div style={theme.important as React.CSSProperties} className={styles.container} data-testid="important-info">
+      <div className={`${styles.title}`}>IMPORTANT INFO</div>
+      <div className={classnames(styles.card, styles.firstCard)}>
+        <div className={styles.content}>
+          {data.map((item, index) => {
+            if (item.key === "ignore") {
+              return <NestedContent data={item} level={2} key={index} />;
+            }
+            const inlineStyle = (
+              typeof item.values === "string" ? { display: "inline-block" } : undefined
+            ) as React.CSSProperties;
+            return (
+              <div key={index}>
+                <span className={styles.contentTitle}>{item.key}</span>
+                <div style={inlineStyle}>
+                  <NestedContent data={item} level={3} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const CasePage = () => {
   const nav = useNavigate();
   const { caseConfigId } = useParams() as { caseConfigId: string };
@@ -153,6 +186,11 @@ const CasePage = () => {
         {response?.data ? (
           <>
             <CaseTitle name={caseState.personName} case={"Case " + caseState.caseNumber} />
+            {response?.data.importantInfos && response.data.importantInfos.length > 0 ? (
+              <ImportantCard data={response.data.importantInfos} />
+            ) : (
+              ""
+            )}
             {(response.data.details as TreeNode[]).map((item, index) => (
               <Section data={item} key={index} index={index}></Section>
             ))}

@@ -18,35 +18,39 @@ jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 
+const response = {
+  loading: false,
+  data: {
+    data: {
+      status: 200,
+      data: {
+        caseNumber: "caseNumber",
+        personName: "personName",
+        details: [] as TreeNode[],
+        importantInfos: [] as TreeNode[],
+      },
+    },
+  },
+};
+
 describe("Case review page elements test", () => {
   beforeEach(() => {
     (useParams as jest.Mock).mockReturnValue({ caseId: "1" });
+    (useRequest as jest.Mock).mockReturnValue(response);
   });
 
   test("render basic display of section and card", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
-              {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: "text",
-                  },
-                ],
-              },
-            ] as TreeNode[],
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: "text",
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -77,31 +81,21 @@ describe("Case review page elements test", () => {
 
     const submit = screen.getByText("Go to Diagnose");
     expect(submit).toBeInTheDocument();
+
+    expect(screen.queryByTestId("important-info")).not.toBeInTheDocument();
   });
 
   test("show none when the value of card key is undefined", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
-              {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                  },
-                ],
-              },
-            ] as TreeNode[],
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -112,33 +106,21 @@ describe("Case review page elements test", () => {
   });
 
   test("only show key when the value is undefined and key inner card", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: [
               {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: [
-                      {
-                        key: "nothing",
-                      },
-                    ],
-                  },
-                ],
+                key: "nothing",
               },
-            ] as TreeNode[],
+            ],
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -149,29 +131,17 @@ describe("Case review page elements test", () => {
   });
 
   test("show text when the value of card key is a string", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
-              {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: "text",
-                  },
-                ],
-              },
-            ] as TreeNode[],
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: "text",
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -182,34 +152,22 @@ describe("Case review page elements test", () => {
   });
 
   test("show value with colon when the value is a string and key inner card", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: [
               {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: [
-                      {
-                        key: "key",
-                        values: "value",
-                      },
-                    ],
-                  },
-                ],
+                key: "key",
+                values: "value",
               },
-            ] as TreeNode[],
+            ],
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -222,34 +180,22 @@ describe("Case review page elements test", () => {
   });
 
   test("show a ul list when the value is list string", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: [
               {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: [
-                      {
-                        key: "key",
-                        values: ["value"],
-                      },
-                    ],
-                  },
-                ],
+                key: "key",
+                values: ["value"],
               },
-            ] as TreeNode[],
+            ],
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -262,38 +208,26 @@ describe("Case review page elements test", () => {
   });
 
   test("show nested node when value is list object", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: [
               {
-                key: "BACKGROUND",
+                key: "key",
                 values: [
                   {
-                    key: "Patient Demographics",
-                    values: [
-                      {
-                        key: "key",
-                        values: [
-                          {
-                            key: "nestedKey",
-                          },
-                        ],
-                      },
-                    ],
+                    key: "nestedKey",
                   },
                 ],
               },
-            ] as TreeNode[],
+            ],
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -304,47 +238,35 @@ describe("Case review page elements test", () => {
   });
 
   test("show different theme when multi sections", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
-              {
-                key: "Section1",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: "Normal",
-                  },
-                ],
-              },
-              {
-                key: "Section2",
-                values: [
-                  {
-                    key: "Medical history",
-                    values: "Normal",
-                  },
-                ],
-              },
-              {
-                key: "Section3",
-                values: [
-                  {
-                    key: "Family history",
-                    values: "Normal",
-                  },
-                ],
-              },
-            ] as TreeNode[],
+    response.data.data.data.details = [
+      {
+        key: "Section1",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: "Normal",
           },
-        },
+        ],
       },
-    });
+      {
+        key: "Section2",
+        values: [
+          {
+            key: "Medical history",
+            values: "Normal",
+          },
+        ],
+      },
+      {
+        key: "Section3",
+        values: [
+          {
+            key: "Family history",
+            values: "Normal",
+          },
+        ],
+      },
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -382,40 +304,90 @@ describe("Case review page elements test", () => {
     expect(errorContent).toBeInTheDocument();
     expect(errorContent).toHaveClass(homeStyles.emptyText);
   });
+
+  test("show important area when response return important infos", () => {
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: "text",
+          },
+        ],
+      },
+    ] as TreeNode[];
+    response.data.data.data.importantInfos = [
+      {
+        key: "key",
+        values: "value",
+      },
+      {
+        key: "list",
+        values: ["item1"],
+      },
+      {
+        key: "ignore",
+        values: "family history",
+      },
+      {
+        key: "ignore",
+        values: [
+          {
+            key: "Age",
+            values: "20",
+          },
+          {
+            key: "Gender",
+            values: "Male",
+          },
+        ],
+      },
+    ] as TreeNode[];
+
+    render(<CasePage />);
+
+    const section = screen.getByTestId("important-info");
+    const title = screen.getByText("IMPORTANT INFO");
+    expect(section).toBeInTheDocument();
+    expect(section).toContainElement(title);
+
+    const keyPairContent = screen.getByText(": value");
+    expect(section).toContainElement(keyPairContent);
+
+    const liContent = screen.getByRole("listitem");
+    expect(liContent).toContainHTML("item1");
+    expect(section).toContainElement(liContent);
+
+    const textContent = screen.getByText("family history");
+    expect(section).toContainElement(textContent);
+
+    const nestedContent = screen.getByText("Age");
+    expect(section).toContainElement(nestedContent);
+  });
 });
 
 describe("Display configuration test", () => {
   beforeEach(() => {
     (useParams as jest.Mock).mockReturnValue({ caseId: "1" });
+    (useRequest as jest.Mock).mockReturnValue(response);
   });
 
   test("collapse card by configure collapse of key", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
-              {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: "text",
-                    style: {
-                      collapse: true,
-                    },
-                  },
-                ],
-              },
-            ] as TreeNode[],
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: "text",
+            style: {
+              collapse: true,
+            },
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -425,32 +397,20 @@ describe("Display configuration test", () => {
   });
 
   test("should expand card when click on expand button when configure collapse of key", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
-              {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: "text",
-                    style: {
-                      collapse: true,
-                    },
-                  },
-                ],
-              },
-            ] as TreeNode[],
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: "text",
+            style: {
+              collapse: true,
+            },
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
     const expandButton = screen.getByLabelText("expand");
@@ -462,32 +422,20 @@ describe("Display configuration test", () => {
   });
 
   test("Highlight card when configure highlight of card key", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
-              {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: "text",
-                    style: {
-                      highlight: true,
-                    },
-                  },
-                ],
-              },
-            ] as TreeNode[],
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: "text",
+            style: {
+              highlight: true,
+            },
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -496,36 +444,24 @@ describe("Display configuration test", () => {
   });
 
   test("highlight content when configure highlight of key", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: [
               {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: [
-                      {
-                        key: "key",
-                        style: {
-                          highlight: true,
-                        },
-                      },
-                    ],
-                  },
-                ],
+                key: "key",
+                style: {
+                  highlight: true,
+                },
               },
-            ] as TreeNode[],
+            ],
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 
@@ -534,37 +470,25 @@ describe("Display configuration test", () => {
   });
 
   test("collapse nested content by configure collapse of field", () => {
-    (useRequest as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        data: {
-          status: 200,
-          data: {
-            caseNumber: "caseNumber",
-            personName: "personName",
-            details: [
+    response.data.data.data.details = [
+      {
+        key: "BACKGROUND",
+        values: [
+          {
+            key: "Patient Demographics",
+            values: [
               {
-                key: "BACKGROUND",
-                values: [
-                  {
-                    key: "Patient Demographics",
-                    values: [
-                      {
-                        key: "Age",
-                        values: "32",
-                        style: {
-                          collapse: true,
-                        },
-                      },
-                    ],
-                  },
-                ],
+                key: "Age",
+                values: "32",
+                style: {
+                  collapse: true,
+                },
               },
-            ] as TreeNode[],
+            ],
           },
-        },
+        ],
       },
-    });
+    ] as TreeNode[];
 
     render(<CasePage />);
 

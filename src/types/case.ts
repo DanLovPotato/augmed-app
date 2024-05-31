@@ -15,6 +15,7 @@ export interface CaseDetail {
   personName: string;
   caseNumber: string;
   details: TreeNode[];
+  importantInfos: TreeNode[];
 }
 
 export interface TreeNode {
