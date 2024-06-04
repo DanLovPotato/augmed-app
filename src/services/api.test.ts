@@ -1,4 +1,4 @@
-import { instance } from "./api";
+import { instance, request } from "./api";
 import MockAdapter from "axios-mock-adapter";
 
 const localStorageMock = (function () {
@@ -38,7 +38,7 @@ describe("API Tests", () => {
   });
 
   test("Authorization header is correctly set in request", async () => {
-    const token = "123456";
+    const token = Math.random().toString(16);
     localStorage.setItem("token", token);
     const url = "/protected";
     mock.onGet(url).reply((config) => {
@@ -50,7 +50,7 @@ describe("API Tests", () => {
   });
 
   test("Token is stored on receiving new token", async () => {
-    const newToken = "newToken";
+    const newToken = Math.random().toString(16);
     mock.onGet("/api/users").reply(200, {}, { authorization: `Bearer ${newToken}` });
 
     await instance.get("/api/users");
@@ -59,10 +59,7 @@ describe("API Tests", () => {
 
   test("Error handling interceptor", async () => {
     const url = "/api/nonexistent";
-    try {
-      await instance.get(url);
-    } catch ({ message }) {
-      expect(message).toEqual("Request failed with status code 404");
-    }
+
+    await expect(request(url)).rejects.toThrow(Error);
   });
 });

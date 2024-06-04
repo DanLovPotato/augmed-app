@@ -3,7 +3,7 @@ describe("Physicians can go to home screen with token", () => {
 
   beforeEach(() => {
     cy.window().then((win) => {
-      win.localStorage.setItem("token", "mock_token");
+      win.localStorage.setItem("token", Math.random().toString(16));
     });
     cy.visit(homeLink);
   });

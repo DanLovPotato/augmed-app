@@ -13,7 +13,7 @@ const WrappedComponent = withCredencial(() => {
 
 describe("withCredencial", () => {
   it("should render the wrapped component if token exists", () => {
-    require("../../services/api").getToken.mockReturnValue("token");
+    require("../../services/api").getToken.mockReturnValue(Math.random().toString(16));
 
     const { getByText } = render(
       <MemoryRouter initialEntries={["/"]}>

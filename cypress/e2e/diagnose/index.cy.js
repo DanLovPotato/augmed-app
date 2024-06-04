@@ -3,7 +3,7 @@ describe("Physicians can submit a case", () => {
   
     beforeEach(() => {
       cy.window().then((win) => {
-        win.localStorage.setItem("token", "mock_token");
+        win.localStorage.setItem("token", Math.random().toString(16));
       });
       cy.visit(diagnosePageLink);
 
@@ -35,6 +35,10 @@ describe("Physicians can submit a case", () => {
         cy.intercept('POST', '/api/diagnose/*', {
             statusCode: 200,
             fixture: 'diagnose/saveDiagnose.json'
+        });
+        cy.intercept("GET", "/api/cases", {
+          statusCode: 200,
+          fixture: "home/EmptyCaseList.json",
         });
 
         cy.get('@submitBtn').click();

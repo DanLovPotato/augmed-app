@@ -30,6 +30,7 @@ module.exports = {
   plugins: ["@typescript-eslint", "react", "cypress"],
   rules: {
     "testing-library/prefer-screen-queries": "off",
-    "testing-library/no-render-in-setup": "warn"
+    "testing-library/no-render-in-setup": "warn",
+    "@typescript-eslint/no-var-requires": "off",  // using on jest mock
   },
 };

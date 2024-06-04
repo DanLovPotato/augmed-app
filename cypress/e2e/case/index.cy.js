@@ -11,7 +11,7 @@ describe("User journey testing", () => {
         {
           statusCode: 200,
           headers: {
-            Authorization: 'Bearer token'
+            Authorization: `Bearer ${Math.random().toString(16)}`
           }
         }
     );
