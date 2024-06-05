@@ -5,7 +5,7 @@ import AuthenticationForm, { FormType } from "../../components/AuthenticationFor
 import Layout from "../../components/Layout";
 import { passwordPattern } from "../../utils/regexp";
 import path from "../../routes/path";
-import logo from "../../assets/images/aim_ahead_logo.jpg";
+import logo from "../../assets/images/logo.jpg";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { useSnackbar } from "notistack";
 

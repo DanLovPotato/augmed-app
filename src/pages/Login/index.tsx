@@ -5,7 +5,7 @@ import Layout from "../../components/Layout";
 
 import styles from "./index.module.scss";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/images/aim_ahead_logo.jpg";
+import logo from "../../assets/images/logo.jpg";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import path from "../../routes/path";
 import { login } from "../../services/userService";
