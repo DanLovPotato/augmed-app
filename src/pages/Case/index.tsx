@@ -186,10 +186,8 @@ const CasePage = () => {
         {response?.data ? (
           <>
             <CaseTitle name={caseState.personName} case={"Case " + caseState.caseNumber} />
-            {response?.data.importantInfos && response.data.importantInfos.length > 0 ? (
+            {response.data.importantInfos && response.data.importantInfos.length > 0 && (
               <ImportantCard data={response.data.importantInfos} />
-            ) : (
-              ""
             )}
             {(response.data.details as TreeNode[]).map((item, index) => (
               <Section data={item} key={index} index={index}></Section>
