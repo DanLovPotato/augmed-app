@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { FormControl, FormLabel, Radio } from "@mui/material";
+import { Checkbox, FormControl, FormLabel } from "@mui/material";
 
-interface SingleChoiceProps {
+interface MultipleChoiceProps {
   question: string;
   options: string[];
 }
 
-const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
+const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) => {
   const [selectedValue, setSelectedValue] = React.useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,7 @@ const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
         {props.options.map((option, index) => (
           <FormControlLabel
             key={index}
-            control={<Radio checked={selectedValue === option} onChange={handleChange} value={option} />}
+            control={<Checkbox checked={selectedValue === option} onChange={handleChange} value={option} />}
             label={option}
           />
         ))}
@@ -31,4 +31,4 @@ const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
   );
 };
 
-export default SingleChoiceComponent;
+export default MultipleChoiceComponent;
