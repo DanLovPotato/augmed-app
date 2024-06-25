@@ -11,8 +11,7 @@ const ShortTextComponent: FunctionComponent<ShortTextProps> = (props) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
-
-  return <TextField label={props.question} value={inputValue} onChange={handleInputChange} />;
+  return <TextField label={props.question} fullWidth value={inputValue} onChange={handleInputChange} />;
 };
 
 export default ShortTextComponent;

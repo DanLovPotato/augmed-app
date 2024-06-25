@@ -12,7 +12,9 @@ const ParagraphComponent: FunctionComponent<ParagraphProps> = (props) => {
     setInputValue(event.target.value);
   };
 
-  return <TextField label={props.question} value={inputValue} onChange={handleInputChange} />;
+  return (
+    <TextField label={props.question} multiline rows={4} fullWidth value={inputValue} onChange={handleInputChange} />
+  );
 };
 
 export default ParagraphComponent;
