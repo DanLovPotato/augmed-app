@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Checkbox, FormControl, FormLabel } from "@mui/material";
@@ -8,21 +8,22 @@ interface MultipleChoiceProps {
   options: string[];
 }
 
-const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) => {
-  const [selectedValue, setSelectedValue] = React.useState("");
+const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = ({ question, options }) => {
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue((event.target as HTMLInputElement).value);
+    const option = event.target.value;
+    setSelectedValues((prev) => (prev.includes(option) ? prev.filter((value) => value !== option) : [...prev, option]));
   };
 
   return (
     <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-      <FormLabel component="legend">{props.question}</FormLabel>
+      <FormLabel component="legend">{question}</FormLabel>
       <FormGroup>
-        {props.options.map((option, index) => (
+        {options.map((option, index) => (
           <FormControlLabel
             key={index}
-            control={<Checkbox checked={selectedValue === option} onChange={handleChange} value={option} />}
+            control={<Checkbox checked={selectedValues.includes(option)} onChange={handleChange} value={option} />}
             label={option}
           />
         ))}
