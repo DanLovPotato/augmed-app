@@ -20,7 +20,7 @@ function isAllString(values: (string | TreeNode)[]) {
   return values.every((item) => typeof item == "string");
 }
 
-const NestedContent = ({ data, level }: { data: TreeNode; level: number }) => {
+const NestedContent = ({ data, level, important = false }: { data: TreeNode; level: number; important?: boolean }) => {
   if (!data.values) {
     return <span>{level === 2 && "none"}</span>;
   }
@@ -39,29 +39,35 @@ const NestedContent = ({ data, level }: { data: TreeNode; level: number }) => {
   return (
     <>
       {(data.values as TreeNode[]).map((item, index) => {
-        return <NestedSection data={item} key={index} level={level + 1}></NestedSection>;
+        return <NestedSection data={item} key={index} level={level + 1} important={important}></NestedSection>;
       })}
     </>
   );
 };
 
-const NestedSection = ({ data, level }: { data: TreeNode; level: number }) => {
+const NestedSection = ({ data, level, important }: { data: TreeNode; level: number; important: boolean }) => {
   const [open, setOpen] = useState(!data.style?.collapse);
-  const highlight = data.style?.highlight || false;
+  const highlight = !important && (data.style?.highlight || false);
   const inlineStyle = (
     typeof data.values === "string" ? { display: "inline-block" } : undefined
   ) as React.CSSProperties;
   return (
     <div className={classnames({ [styles.highlightContent]: highlight })} data-testid={data.key}>
       <span className={styles.contentTitle}>{data.key}</span>
-      {data.style?.collapse && (
+      {!important && data.style?.collapse && (
         <IconButton onClick={() => setOpen(!open)} aria-label="expand" size="small">
           {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         </IconButton>
       )}
-      <Collapse in={open} timeout="auto" unmountOnExit style={inlineStyle}>
-        <NestedContent data={data} level={level} />
-      </Collapse>
+      {!important ? (
+        <Collapse in={open} timeout="auto" unmountOnExit style={inlineStyle}>
+          <NestedContent data={data} level={level} important={important} />
+        </Collapse>
+      ) : (
+        <div style={inlineStyle}>
+          <NestedContent data={data} level={level} important={important} />
+        </div>
+      )}
     </div>
   );
 };
@@ -144,19 +150,9 @@ const ImportantCard = ({ data }: { data: TreeNode[] }) => {
         <div className={styles.content}>
           {data.map((item, index) => {
             if (item.key === "ignore") {
-              return <NestedContent data={item} level={2} key={index} />;
+              return <NestedContent data={item} level={2} key={index} important={true} />;
             }
-            const inlineStyle = (
-              typeof item.values === "string" ? { display: "inline-block" } : undefined
-            ) as React.CSSProperties;
-            return (
-              <div key={index}>
-                <span className={styles.contentTitle}>{item.key}</span>
-                <div style={inlineStyle}>
-                  <NestedContent data={item} level={3} />
-                </div>
-              </div>
-            );
+            return <NestedSection data={item} level={3} important={true} key={index} />;
           })}
         </div>
       </div>

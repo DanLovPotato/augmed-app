@@ -39,6 +39,10 @@ describe("Case review page elements test", () => {
     (useRequest as jest.Mock).mockReturnValue(response);
   });
 
+  afterEach(() => {
+    response.data.data.data.importantInfos = [] as TreeNode[];
+  });
+
   test("render basic display of section and card", () => {
     response.data.data.data.details = [
       {
