@@ -4,7 +4,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { FormControl, FormLabel, Radio } from "@mui/material";
 
 interface SingleChoiceProps {
-  question: string;
+  title: string;
   options: string[];
 }
 
@@ -16,8 +16,8 @@ const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
   };
 
   return (
-    <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-      <FormLabel component="legend">{props.question}</FormLabel>
+    <FormControl sx={{ m: 3, display: "block" }} component="fieldset" variant="standard">
+      <FormLabel component="legend">{props.title}</FormLabel>
       <FormGroup>
         {props.options.map((option, index) => (
           <FormControlLabel

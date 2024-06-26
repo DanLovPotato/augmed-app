@@ -7,7 +7,7 @@ describe("SingleChoiceComponent", () => {
   const options = ["JavaScript", "Python", "C++"];
 
   test("renders the question and options correctly", () => {
-    render(<SingleChoiceComponent question={question} options={options} />);
+    render(<SingleChoiceComponent title={question} options={options} />);
 
     expect(screen.getByText(question)).toBeInTheDocument();
 
@@ -17,7 +17,7 @@ describe("SingleChoiceComponent", () => {
   });
 
   test("allows only one selection and reflects the change correctly", () => {
-    render(<SingleChoiceComponent question={question} options={options} />);
+    render(<SingleChoiceComponent title={question} options={options} />);
 
     const pythonRadio = screen.getByLabelText("Python");
     fireEvent.click(pythonRadio);

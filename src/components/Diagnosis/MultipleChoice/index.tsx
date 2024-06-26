@@ -4,11 +4,11 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { Checkbox, FormControl, FormLabel } from "@mui/material";
 
 interface MultipleChoiceProps {
-  question: string;
+  title: string;
   options: string[];
 }
 
-const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = ({ question, options }) => {
+const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = ({ title, options }) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,9 +17,9 @@ const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = ({ quest
   };
 
   return (
-    <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-      <FormLabel component="legend">{question}</FormLabel>
-      <FormGroup>
+    <FormControl sx={{ m: 3, display: "block" }} component="fieldset" variant="standard">
+      <FormLabel component="legend">{title}</FormLabel>
+      <FormGroup sx={{ flexDirection: "column" }}>
         {options.map((option, index) => (
           <FormControlLabel
             key={index}

@@ -7,13 +7,13 @@ describe("ParagraphComponent", () => {
   const question = "Please describe your experience:";
 
   test("renders correctly with the given question", () => {
-    render(<ParagraphComponent question={question} />);
+    render(<ParagraphComponent title={question} />);
     expect(screen.getByLabelText(question)).toBeInTheDocument();
     expect(screen.getByRole("textbox")).toHaveAttribute("rows", "4");
   });
 
   test("updates input value on user typing", () => {
-    render(<ParagraphComponent question={question} />);
+    render(<ParagraphComponent title={question} />);
     const input = screen.getByLabelText(question);
     userEvent.type(input, "It was great!");
     expect(input).toHaveValue("It was great!");

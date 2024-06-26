@@ -7,12 +7,12 @@ describe("ShortTextComponent", () => {
   const question = "Your feedback:";
 
   test("renders correctly with the given question", () => {
-    render(<ShortTextComponent question={question} />);
+    render(<ShortTextComponent title={question} />);
     expect(screen.getByLabelText(question)).toBeInTheDocument();
   });
 
   test("updates input value on user typing", () => {
-    render(<ShortTextComponent question={question} />);
+    render(<ShortTextComponent title={question} />);
     const input = screen.getByLabelText(question);
     userEvent.type(input, "Great experience!");
     expect(input).toHaveValue("Great experience!");

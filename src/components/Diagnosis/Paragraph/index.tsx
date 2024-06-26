@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useState } from "react";
-import { TextField } from "@mui/material";
+import { FormControl, FormLabel, TextField } from "@mui/material";
 
 interface ParagraphProps {
-  question: string;
+  title: string;
 }
 
 const ParagraphComponent: FunctionComponent<ParagraphProps> = (props) => {
@@ -13,7 +13,12 @@ const ParagraphComponent: FunctionComponent<ParagraphProps> = (props) => {
   };
 
   return (
-    <TextField label={props.question} multiline rows={4} fullWidth value={inputValue} onChange={handleInputChange} />
+    <>
+      <FormControl fullWidth>
+        <FormLabel>{props.title}</FormLabel>
+        <TextField multiline rows={4} fullWidth value={inputValue} onChange={handleInputChange} />
+      </FormControl>
+    </>
   );
 };
 

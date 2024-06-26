@@ -7,7 +7,7 @@ describe("MultipleChoiceComponent", () => {
   const options = ["Red", "Green", "Blue"];
 
   test("renders the question and options correctly", () => {
-    render(<MultipleChoiceComponent question={question} options={options} />);
+    render(<MultipleChoiceComponent title={question} options={options} />);
 
     expect(screen.getByText(question)).toBeInTheDocument();
 
@@ -17,7 +17,7 @@ describe("MultipleChoiceComponent", () => {
   });
 
   test("allows multiple selections and reflects the change correctly", () => {
-    render(<MultipleChoiceComponent question={question} options={options} />);
+    render(<MultipleChoiceComponent title={question} options={options} />);
 
     const redCheckbox = screen.getByLabelText("Red");
     fireEvent.click(redCheckbox);

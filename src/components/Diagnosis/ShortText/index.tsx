@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useState } from "react";
-import { TextField } from "@mui/material";
+import { FormControl, FormLabel, TextField } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 interface ShortTextProps {
-  question: string;
+  title: string;
 }
 
 const ShortTextComponent: FunctionComponent<ShortTextProps> = (props) => {
@@ -11,7 +12,14 @@ const ShortTextComponent: FunctionComponent<ShortTextProps> = (props) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
-  return <TextField label={props.question} fullWidth value={inputValue} onChange={handleInputChange} />;
+  return (
+    <>
+      <FormControl fullWidth>
+        <FormLabel>{props.title}</FormLabel>
+        <TextField value={inputValue} onChange={handleInputChange} />
+      </FormControl>
+    </>
+  );
 };
 
 export default ShortTextComponent;
