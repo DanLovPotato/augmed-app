@@ -4,17 +4,30 @@ import userEvent from "@testing-library/user-event";
 import ShortTextComponent from "./index";
 
 describe("ShortTextComponent", () => {
-  const question = "Your feedback:";
+  const title = "Your feedback:";
+  const mockOnInputChange = jest.fn();
 
-  test("renders correctly with the given question", () => {
-    render(<ShortTextComponent title={question} />);
-    expect(screen.getByLabelText(question)).toBeInTheDocument();
+  beforeEach(() => {
+    mockOnInputChange.mockClear(); // Reset the mock function state before each test
+  });
+
+  test("renders correctly with the given title", () => {
+    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} />);
+    expect(screen.getByLabelText(title)).toBeInTheDocument();
   });
 
   test("updates input value on user typing", () => {
-    render(<ShortTextComponent title={question} />);
-    const input = screen.getByLabelText(question);
+    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} />);
+    const input = screen.getByLabelText(title);
     userEvent.type(input, "Great experience!");
     expect(input).toHaveValue("Great experience!");
+  });
+
+  test("calls onInputChange with the correct arguments when input changes", () => {
+    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} />);
+    const input = screen.getByLabelText(title);
+    userEvent.type(input, "Very positive");
+    expect(mockOnInputChange).toHaveBeenCalledTimes("Very positive".length); // Each character typed triggers the function
+    expect(mockOnInputChange).toHaveBeenLastCalledWith(title, "Very positive");
   });
 });

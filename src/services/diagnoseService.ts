@@ -1,8 +1,8 @@
-import { DiagnoseFormData } from "../pages/Diagnose";
+import { AnswerFormData } from "../pages/Diagnose";
 import { request } from "./api";
 import { AnswerPageConfigResponse } from "../types/answer";
 
-export const saveDiagnose = async (caseConfigId: string, diagnoseFormData: DiagnoseFormData) => {
+export const saveDiagnose = async (caseConfigId: string, diagnoseFormData: AnswerFormData) => {
   return await request(`/config/answer`, {
     method: "POST",
     data: diagnoseFormData,

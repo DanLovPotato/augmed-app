@@ -1,108 +1,55 @@
-import React, { ChangeEvent, useLayoutEffect, useMemo, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import SyncIcon from "@mui/icons-material/Sync";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { useRequest } from "ahooks";
 import { useAtom } from "jotai";
-import cls from "classnames";
 import { useSnackbar } from "notistack";
 
-import { caseAtom, diagnoseAtom } from "../../state";
-import Diagnosis, { DiagnosisProps } from "../../components/Diagnosis";
+import { caseAtom } from "../../state";
+import Diagnosis from "../../components/Diagnosis";
 import CaseTitle from "../../components/CaseTitle";
-import { saveDiagnose } from "../../services/diagnoseService";
+import { getAnswerPageConfig, saveDiagnose } from "../../services/diagnoseService";
 import path from "../../routes/path";
 import testId from "../../utils/testId";
 
 import styles from "./index.module.scss";
 
-type DiagnoseValue = DiagnosisProps["value"];
-
-const DiagnosisCount = 3;
-
-const DEFAULT_DIAGNOSE_VALUE = {
-  diagnosis: "",
-  rationale: "",
-  confidence: 0,
-};
-
-export type DiagnoseFormData = {
-  diagnose?: DiagnoseValue[];
-  other?: string;
-};
+export type AnswerFormData = Record<string, string>;
 
 const Diagnose = () => {
   const { caseConfigId } = useParams() as { caseConfigId: string };
   const nav = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { loading, runAsync } = useRequest(saveDiagnose, {
+  const { loading: submitLoading, runAsync } = useRequest(saveDiagnose, {
     manual: true,
   });
+  const { data } = useRequest(getAnswerPageConfig, {});
+  const configList = data?.data.data.config ?? [];
 
-  const [diagnoseState, setDiagnoseState] = useAtom(diagnoseAtom);
   const [caseState] = useAtom(caseAtom);
-  const defaultValue = diagnoseState[caseConfigId];
 
-  const [diagnose, setDiagnose] = useState<DiagnoseValue[]>(
-    defaultValue?.diagnose ?? (Array.from({ length: DiagnosisCount }).fill(DEFAULT_DIAGNOSE_VALUE) as DiagnoseValue[]),
-  );
-  const [other, setOther] = useState(defaultValue?.other ?? "");
   const [disable, setDisable] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const [answerFormData, setAnswerFormData] = useState({});
 
-  const diagnoseValuesIsRequired = useMemo(() => {
-    return Array.from({ length: DiagnosisCount }).map((_, index) => {
-      return index === 0;
-    });
-  }, []);
-
-  const handleOnDiagnoseChange = (index: number, value: DiagnoseValue) => {
-    const updatedDiagnose = diagnose.reduce((prev, current, currentIdx) => {
-      if (currentIdx === index) {
-        return [...prev, value];
-      }
-      return [...prev, current];
-    }, [] as DiagnoseValue[]);
-
-    setDiagnose(updatedDiagnose);
-
-    setDiagnoseState({
-      ...diagnoseState,
-      [caseConfigId]: {
-        diagnose: updatedDiagnose,
-        other: other,
-      },
-    });
+  const handleInputChange = (title: string, value: string) => {
+    setAnswerFormData((prev) => ({
+      ...prev,
+      [title]: value,
+    }));
   };
-
-  const handleOtherChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setOther(e.target.value);
-
-    setDiagnoseState({
-      ...diagnoseState,
-      [caseConfigId]: {
-        diagnose,
-        other: e.target.value,
-      },
-    });
-  };
-
   useLayoutEffect(() => {
-    const isDisabled = diagnose.some((value = {}, idx) => {
-      return Object.values(value).some((field) => {
-        return diagnoseValuesIsRequired[idx] && (field === null || field === undefined || field === "");
-      });
-    });
-
+    const isDisabled = Object.values(answerFormData).every(
+      (value) => value !== "" && value !== undefined && value !== null,
+    );
     setDisable(isDisabled);
-  }, [diagnose, setDisable, diagnoseValuesIsRequired]);
+  }, [answerFormData, setDisable]);
 
   const onSubmit = () => {
     runAsync(caseConfigId, {
-      diagnose,
-      other,
+      answerFormData,
     })
       .then(() => {
         enqueueSnackbar("Case is submitted.", {
@@ -133,49 +80,14 @@ const Diagnose = () => {
         }
       />
       <div className={styles.container}>
-        {diagnose.map((value, i) => {
-          const indexStartAt1 = i + 1;
-          const required = diagnoseValuesIsRequired[i];
-
-          return (
-            <div key={i}>
-              <div className={cls(styles.index, { [styles.require]: required })}>
-                <span className={styles.circle}>{indexStartAt1}</span>
-              </div>
-              <Diagnosis
-                key={i}
-                {...testId(`diagnosis-${indexStartAt1}`)}
-                required={required}
-                value={value}
-                onChange={(value) => handleOnDiagnoseChange(i, value)}
-              />
-            </div>
-          );
-        })}
-        <TextField
-          fullWidth
-          multiline
-          rows={4}
-          className={styles.otherFiled}
-          name="other"
-          value={other}
-          onChange={handleOtherChange}
-          inputProps={{ maxLength: 1000 }}
-          label="What other information would have been useful?"
-        />
-        {errorMsg && (
-          <div className={styles.errorContainer}>
-            <ErrorOutlineIcon />
-            <span>{errorMsg}</span>
-          </div>
-        )}
+        <Diagnosis configList={configList} onInputChange={handleInputChange} />
         <Button
           {...testId("diagnose-submit-btn")}
           className={styles.submit}
-          disabled={disable || loading}
+          disabled={disable || submitLoading}
           variant="contained"
           onClick={onSubmit}
-          endIcon={loading && <SyncIcon className={styles.spin} />}
+          endIcon={submitLoading && <SyncIcon className={styles.spin} />}
         >
           Submit
         </Button>

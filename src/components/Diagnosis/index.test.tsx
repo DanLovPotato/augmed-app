@@ -1,73 +1,81 @@
 import React from "react";
-// import { render, screen, fireEvent } from "@testing-library/react";
-// import "@testing-library/jest-dom/extend-expect";
-// import Diagnosis from ".";
-// import testId from "../../utils/testId";
-//
-// describe("Diagnosis component", () => {
-//   const mockOnChange = jest.fn();
-//
-//   beforeEach(() => {
-//     render(<Diagnosis onChange={mockOnChange} {...testId("diagnosis-component")} />);
-//   });
-//
-//   it("renders without crashing", () => {
-//     const diagnosisComponent = screen.getByTestId("diagnosis-component");
-//     expect(diagnosisComponent).toBeInTheDocument();
-//   });
-//
-//   it("updates diagnosis value on change", () => {
-//     const diagnosisInput = screen.getByLabelText("Probable Diagnosis");
-//     fireEvent.change(diagnosisInput, { target: { value: "Test Diagnosis" } });
-//     expect(mockOnChange).toHaveBeenCalledWith({
-//       diagnosis: "Test Diagnosis",
-//       rationale: undefined,
-//       confidence: undefined,
-//     });
-//   });
-//
-//   it("updates rationale value on change", () => {
-//     const rationaleInput = screen.getByLabelText("Brief rationale for diagnosis");
-//     fireEvent.change(rationaleInput, { target: { value: "Test Rationale" } });
-//     expect(mockOnChange).toHaveBeenCalledWith({
-//       diagnosis: undefined,
-//       rationale: "Test Rationale",
-//       confidence: undefined,
-//     });
-//   });
-//
-//   it("updates confidence value on change", () => {
-//     const confidenceSlider = screen.getByRole("slider");
-//     fireEvent.change(confidenceSlider, { target: { value: 50 } });
-//     expect(mockOnChange).toHaveBeenCalledWith({
-//       diagnosis: undefined,
-//       rationale: undefined,
-//       confidence: 50,
-//     });
-//   });
-// });
-//
-// describe("Render Diagnosis component with required", () => {
-//   const emptyText = "";
-//   it("should not display required message at probable diagnosis feild", () => {
-//     render(<Diagnosis {...testId("diagnosis-component")} />);
-//
-//     const diagnosisInput = screen.getByLabelText("Probable Diagnosis");
-//     fireEvent.change(diagnosisInput, { target: { value: "Test Diagnosis" } });
-//     fireEvent.change(diagnosisInput, { target: { value: emptyText } });
-//
-//     const helperText = screen.queryByText("Probable Diagnosis field is required.");
-//     expect(helperText).not.toBeInTheDocument();
-//   });
-//
-//   it("should display required message at probable diagnosis feild", () => {
-//     render(<Diagnosis required {...testId("diagnosis-component")} />);
-//
-//     const diagnosisInput = screen.getByLabelText("Probable Diagnosis");
-//     fireEvent.change(diagnosisInput, { target: { value: "Test Diagnosis" } });
-//     fireEvent.change(diagnosisInput, { target: { value: emptyText } });
-//
-//     const helperText = screen.queryByText("Probable Diagnosis field is required.");
-//     expect(helperText).toBeInTheDocument();
-//   });
-// });
+import { fireEvent, render, screen } from "@testing-library/react";
+import Diagnosis from "./index";
+import { MultipleChoiceProps } from "./MultipleChoice";
+import { SingleChoiceProps } from "./SingleChoice";
+import { ShortTextProps } from "./ShortText";
+import { ParagraphProps } from "./Paragraph";
+
+jest.mock("./MultipleChoiceComponent", () => {
+  const MultipleChoice = ({ title, onInputChange }: MultipleChoiceProps) => (
+    <div data-testid="multiple-choice" onClick={() => onInputChange(title, "Option 1")}>
+      {title}
+    </div>
+  );
+  MultipleChoice.displayName = "MockMultipleChoiceComponent";
+  return MultipleChoice;
+});
+
+jest.mock("./SingleChoiceComponent", () => {
+  const SingleChoice = ({ title, onInputChange }: SingleChoiceProps) => (
+    <div data-testid="single-choice" onClick={() => onInputChange(title, "Option A")}>
+      {title}
+    </div>
+  );
+  SingleChoice.displayName = "MockSingleChoiceComponent";
+  return SingleChoice;
+});
+
+jest.mock("./ShortTextComponent", () => {
+  const ShortText = ({ title, onInputChange }: ShortTextProps) => (
+    <div data-testid="short-text" onClick={() => onInputChange(title, "text input")}>
+      {title}
+    </div>
+  );
+  ShortText.displayName = "MockShortTextComponent";
+  return ShortText;
+});
+
+jest.mock("./ParagraphComponent", () => {
+  const Paragraph = ({ title, onInputChange }: ParagraphProps) => (
+    <div data-testid="paragraph" onClick={() => onInputChange(title, "paragraph input")}>
+      {title}
+    </div>
+  );
+  Paragraph.displayName = "MockParagraphComponent";
+  return Paragraph;
+});
+
+describe("Diagnosis Component", () => {
+  const mockOnInputChange = jest.fn();
+  const configList = [
+    { type: "MultipleChoice" as const, title: "Choose one", options: ["Option 1", "Option 2"] },
+    { type: "SingleChoice" as const, title: "Select one", options: ["Option A", "Option B"] },
+    { type: "Text" as const, title: "Enter text" },
+    { type: "Paragraph" as const, title: "Write paragraph" },
+  ];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("renders components based on configList and passes onInputChange correctly", () => {
+    render(<Diagnosis configList={configList} onInputChange={mockOnInputChange} />);
+
+    const multipleChoice = screen.getByTestId("multiple-choice");
+    fireEvent.click(multipleChoice);
+    expect(mockOnInputChange).toHaveBeenCalledWith("Choose one", "Option 1");
+
+    const singleChoice = screen.getByTestId("single-choice");
+    fireEvent.click(singleChoice);
+    expect(mockOnInputChange).toHaveBeenCalledWith("Select one", "Option A");
+
+    const shortText = screen.getByTestId("short-text");
+    fireEvent.click(shortText);
+    expect(mockOnInputChange).toHaveBeenCalledWith("Enter text", "text input");
+
+    const paragraph = screen.getByTestId("paragraph");
+    fireEvent.click(paragraph);
+    expect(mockOnInputChange).toHaveBeenCalledWith("Write paragraph", "paragraph input");
+  });
+});

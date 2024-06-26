@@ -1,7 +1,7 @@
 import { atom } from "jotai";
-import { DiagnoseFormData } from "../pages/Diagnose";
+import { AnswerFormData } from "../pages/Diagnose";
 
-type diagnoseState = Record<string, DiagnoseFormData>;
+type diagnoseState = Record<string, AnswerFormData>;
 type caseState = {
   personName?: string;
   caseNumber?: string;

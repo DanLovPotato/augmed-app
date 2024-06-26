@@ -3,16 +3,18 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { FormControl, FormLabel, Radio } from "@mui/material";
 
-interface SingleChoiceProps {
+export interface SingleChoiceProps {
   title: string;
   options: string[];
+  onInputChange: (title: string, value: string) => void;
 }
 
 const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
   const [selectedValue, setSelectedValue] = React.useState("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue((event.target as HTMLInputElement).value);
+    props.onInputChange(props.title, event.target.value);
   };
 
   return (
@@ -22,7 +24,7 @@ const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
         {props.options.map((option, index) => (
           <FormControlLabel
             key={index}
-            control={<Radio checked={selectedValue === option} onChange={handleChange} value={option} />}
+            control={<Radio checked={selectedValue === option} onChange={handleInputChange} value={option} />}
             label={option}
           />
         ))}
