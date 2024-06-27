@@ -8,6 +8,7 @@ export interface ShortTextProps {
 
 const ShortTextComponent: FunctionComponent<ShortTextProps> = (props) => {
   const [inputValue, setInputValue] = useState("");
+  const inputId = `input-${props.title.replace(/ /g, "-")}`;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -17,8 +18,8 @@ const ShortTextComponent: FunctionComponent<ShortTextProps> = (props) => {
   return (
     <>
       <FormControl fullWidth>
-        <FormLabel>{props.title}</FormLabel>
-        <TextField value={inputValue} onChange={handleInputChange} />
+        <FormLabel htmlFor={inputId}>{props.title}</FormLabel>
+        <TextField id={inputId} value={inputValue} onChange={handleInputChange} />
       </FormControl>
     </>
   );
