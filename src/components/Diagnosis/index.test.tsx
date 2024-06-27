@@ -6,7 +6,7 @@ import { SingleChoiceProps } from "./SingleChoice";
 import { ShortTextProps } from "./ShortText";
 import { ParagraphProps } from "./Paragraph";
 
-jest.mock("./MultipleChoiceComponent", () => {
+jest.mock("./MultipleChoice", () => {
   const MultipleChoice = ({ title, onInputChange }: MultipleChoiceProps) => (
     <div data-testid="multiple-choice" onClick={() => onInputChange(title, "Option 1")}>
       {title}
@@ -16,7 +16,7 @@ jest.mock("./MultipleChoiceComponent", () => {
   return MultipleChoice;
 });
 
-jest.mock("./SingleChoiceComponent", () => {
+jest.mock("./SingleChoice", () => {
   const SingleChoice = ({ title, onInputChange }: SingleChoiceProps) => (
     <div data-testid="single-choice" onClick={() => onInputChange(title, "Option A")}>
       {title}
@@ -26,7 +26,7 @@ jest.mock("./SingleChoiceComponent", () => {
   return SingleChoice;
 });
 
-jest.mock("./ShortTextComponent", () => {
+jest.mock("./ShortText", () => {
   const ShortText = ({ title, onInputChange }: ShortTextProps) => (
     <div data-testid="short-text" onClick={() => onInputChange(title, "text input")}>
       {title}
@@ -36,7 +36,7 @@ jest.mock("./ShortTextComponent", () => {
   return ShortText;
 });
 
-jest.mock("./ParagraphComponent", () => {
+jest.mock("./Paragraph", () => {
   const Paragraph = ({ title, onInputChange }: ParagraphProps) => (
     <div data-testid="paragraph" onClick={() => onInputChange(title, "paragraph input")}>
       {title}

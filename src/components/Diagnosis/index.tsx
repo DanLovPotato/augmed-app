@@ -10,6 +10,7 @@ export interface DiagnosisProps {
   configList: AnswerConfigList;
   onInputChange: (title: string, value: string) => void;
 }
+
 const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
   return (
     <div>
@@ -18,6 +19,7 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
           case "MultipleChoice":
             return (
               <MultipleChoiceComponent
+                key={index}
                 title={config.title}
                 options={config.options}
                 onInputChange={props.onInputChange}
@@ -26,15 +28,16 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
           case "SingleChoice":
             return (
               <SingleChoiceComponent
+                key={index}
                 title={config.title}
                 options={config.options}
                 onInputChange={props.onInputChange}
               />
             );
           case "Text":
-            return <ShortTextComponent title={config.title} onInputChange={props.onInputChange} />;
+            return <ShortTextComponent key={index} title={config.title} onInputChange={props.onInputChange} />;
           case "Paragraph":
-            return <ParagraphComponent title={config.title} onInputChange={props.onInputChange} />;
+            return <ParagraphComponent key={index} title={config.title} onInputChange={props.onInputChange} />;
         }
       })}
     </div>
