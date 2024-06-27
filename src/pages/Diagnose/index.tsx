@@ -32,7 +32,8 @@ const Diagnose = () => {
 
   const [disable, setDisable] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-  const [answerFormData, setAnswerFormData] = useState({});
+
+  const [answerFormData, setAnswerFormData] = useState({} as AnswerFormData);
 
   const handleInputChange = (title: string, value: string) => {
     setAnswerFormData((prev) => ({
@@ -48,9 +49,7 @@ const Diagnose = () => {
   }, [answerFormData, setDisable]);
 
   const onSubmit = () => {
-    runAsync(caseConfigId, {
-      answerFormData,
-    })
+    runAsync(caseConfigId, answerFormData)
       .then(() => {
         enqueueSnackbar("Case is submitted.", {
           anchorOrigin: {
