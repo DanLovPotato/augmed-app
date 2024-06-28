@@ -14,6 +14,10 @@ const AuthedAppLayout = withCredencial(Layout);
 
 const routes: RouteObject[] = [
   {
+    path: path.diagnose,
+    element: <Diagnose />,
+  },
+  {
     path: path.root,
     element: (
       <AuthedAppLayout>

@@ -1,16 +1,19 @@
 import React, { FunctionComponent, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Checkbox, FormControl, FormLabel } from "@mui/material";
+import { Checkbox, FormControl, FormLabel, FormHelperText } from "@mui/material";
 
 export interface MultipleChoiceProps {
   title: string;
   options: string[];
   onInputChange: (title: string, value: string[]) => void;
+  required?: boolean;
 }
 
 const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [unDirty, setUnDirty] = useState(false);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const option = event.target.value;
     const newSelectedValues = selectedValues.includes(option)
@@ -18,13 +21,21 @@ const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) 
       : [...selectedValues, option];
 
     setSelectedValues(newSelectedValues);
+    setUnDirty(true);
 
     props.onInputChange(props.title, newSelectedValues);
   };
 
   return (
-    <FormControl sx={{ m: 3, display: "block" }} component="fieldset" variant="standard">
-      <FormLabel component="legend">{props.title}</FormLabel>
+    <FormControl
+      sx={{ m: 3, display: "block" }}
+      component="fieldset"
+      variant="standard"
+      error={unDirty && props.required && selectedValues.length === 0}
+    >
+      <FormLabel component="legend" required={props.required}>
+        {props.title}
+      </FormLabel>
       <FormGroup sx={{ flexDirection: "column" }}>
         {props.options.map((option, index) => (
           <FormControlLabel
@@ -34,6 +45,9 @@ const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) 
           />
         ))}
       </FormGroup>
+      {unDirty && props.required && selectedValues.length === 0 && (
+        <FormHelperText>This field is required</FormHelperText>
+      )}
     </FormControl>
   );
 };

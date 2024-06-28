@@ -27,6 +27,7 @@ const Diagnose = () => {
   });
   const { data, loading } = useRequest(getAnswerPageConfig, {});
   const configList = data?.data.data.config ?? [];
+  const answerConfigId = data?.data.data.id ?? "";
 
   const [caseState] = useAtom(caseAtom);
 
@@ -56,7 +57,7 @@ const Diagnose = () => {
   }, [answerFormData, configList]);
 
   const onSubmit = () => {
-    runAsync(caseConfigId, answerFormData)
+    runAsync(caseConfigId, answerFormData, answerConfigId)
       .then(() => {
         enqueueSnackbar("Case is submitted.", {
           anchorOrigin: {

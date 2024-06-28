@@ -1,25 +1,35 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { FormControl, FormLabel, Radio } from "@mui/material";
+import { FormControl, FormLabel, Radio, FormHelperText } from "@mui/material";
 
 export interface SingleChoiceProps {
   title: string;
   options: string[];
   onInputChange: (title: string, value: string) => void;
+  required?: boolean;
 }
 
 const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
-  const [selectedValue, setSelectedValue] = React.useState("");
+  const [selectedValue, setSelectedValue] = useState("");
+  const [unDirty, setUnDirty] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue((event.target as HTMLInputElement).value);
+    setUnDirty(true);
+    setSelectedValue(event.target.value);
     props.onInputChange(props.title, event.target.value);
   };
 
   return (
-    <FormControl sx={{ m: 3, display: "block" }} component="fieldset" variant="standard">
-      <FormLabel component="legend">{props.title}</FormLabel>
+    <FormControl
+      sx={{ m: 3, display: "block" }}
+      component="fieldset"
+      variant="standard"
+      error={unDirty && props.required && !selectedValue}
+    >
+      <FormLabel component="legend" required={props.required}>
+        {props.title}
+      </FormLabel>
       <FormGroup>
         {props.options.map((option, index) => (
           <FormControlLabel
@@ -29,6 +39,7 @@ const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
           />
         ))}
       </FormGroup>
+      {unDirty && props.required && !selectedValue && <FormHelperText>This field is required</FormHelperText>}
     </FormControl>
   );
 };
