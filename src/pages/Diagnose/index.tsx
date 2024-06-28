@@ -15,7 +15,10 @@ import testId from "../../utils/testId";
 
 import styles from "./index.module.scss";
 
-export type AnswerFormData = Record<string, string>;
+export type AnswerFormData = {
+  answerConfigId: string;
+  answer: Record<string, any>;
+};
 
 const Diagnose = () => {
   const { caseConfigId } = useParams() as { caseConfigId: string };
@@ -25,7 +28,7 @@ const Diagnose = () => {
   const { loading: submitLoading, runAsync } = useRequest(saveDiagnose, {
     manual: true,
   });
-  const { data } = useRequest(getAnswerPageConfig, {});
+  const { data, loading } = useRequest(getAnswerPageConfig, {});
   const configList = data?.data.data.config ?? [];
 
   const [caseState] = useAtom(caseAtom);
@@ -35,7 +38,7 @@ const Diagnose = () => {
 
   const [answerFormData, setAnswerFormData] = useState({} as AnswerFormData);
 
-  const handleInputChange = (title: string, value: string) => {
+  const handleInputChange = (title: string, value: string | string[]) => {
     setAnswerFormData((prev) => ({
       ...prev,
       [title]: value,

@@ -8,7 +8,7 @@ import { ParagraphProps } from "./Paragraph";
 
 jest.mock("./MultipleChoice", () => {
   const MultipleChoice = ({ title, onInputChange }: MultipleChoiceProps) => (
-    <div data-testid="multiple-choice" onClick={() => onInputChange(title, "Option 1")}>
+    <div data-testid="multiple-choice" onClick={() => onInputChange(title, ["Option 1"])}>
       {title}
     </div>
   );

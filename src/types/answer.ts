@@ -6,6 +6,7 @@ export interface AnswerPageConfigResponse {
 type ShortText = {
   type: "Text";
   title: string;
+  required?: boolean;
 };
 
 type Paragraph = {

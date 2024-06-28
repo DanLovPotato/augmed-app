@@ -8,7 +8,7 @@ import { AnswerConfigList } from "../../types/answer";
 
 export interface DiagnosisProps {
   configList: AnswerConfigList;
-  onInputChange: (title: string, value: string) => void;
+  onInputChange: (title: string, value: string | string[]) => void;
 }
 
 const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {

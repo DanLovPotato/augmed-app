@@ -6,16 +6,20 @@ import { Checkbox, FormControl, FormLabel } from "@mui/material";
 export interface MultipleChoiceProps {
   title: string;
   options: string[];
-  onInputChange: (title: string, value: string) => void;
+  onInputChange: (title: string, value: string[]) => void;
 }
 
 const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const option = event.target.value;
-    setSelectedValues((prev) => (prev.includes(option) ? prev.filter((value) => value !== option) : [...prev, option]));
+    const newSelectedValues = selectedValues.includes(option)
+      ? selectedValues.filter((value) => value !== option)
+      : [...selectedValues, option];
 
-    props.onInputChange(props.title, event.target.value);
+    setSelectedValues(newSelectedValues);
+
+    props.onInputChange(props.title, newSelectedValues);
   };
 
   return (
