@@ -15,10 +15,7 @@ import testId from "../../utils/testId";
 
 import styles from "./index.module.scss";
 
-export type AnswerFormData = {
-  answerConfigId: string;
-  answer: Record<string, any>;
-};
+export type AnswerFormData = Record<string, any>;
 
 const Diagnose = () => {
   const { caseConfigId } = useParams() as { caseConfigId: string };
@@ -44,12 +41,19 @@ const Diagnose = () => {
       [title]: value,
     }));
   };
+
   useLayoutEffect(() => {
-    const isDisabled = Object.values(answerFormData).every(
-      (value) => value !== "" && value !== undefined && value !== null,
-    );
-    setDisable(isDisabled);
-  }, [answerFormData, setDisable]);
+    const isFormEmpty = Object.keys(answerFormData).length === 0;
+    const hasUnansweredRequiredFields = configList.some((config) => {
+      if (config.required) {
+        const value = answerFormData[config.title];
+        return !value || value.length === 0;
+      }
+      return false;
+    });
+
+    setDisable(isFormEmpty || hasUnansweredRequiredFields);
+  }, [answerFormData, configList]);
 
   const onSubmit = () => {
     runAsync(caseConfigId, answerFormData)

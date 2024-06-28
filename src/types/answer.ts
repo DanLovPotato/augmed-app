@@ -12,18 +12,21 @@ type ShortText = {
 type Paragraph = {
   type: "Paragraph";
   title: string;
+  required?: boolean;
 };
 
 type MultipleChoice = {
   type: "MultipleChoice";
   title: string;
   options: string[];
+  required?: boolean;
 };
 
 type SingleChoice = {
   type: "SingleChoice";
   title: string;
   options: string[];
+  required?: boolean;
 };
 
 export type AnswerConfigList = (ShortText | Paragraph | MultipleChoice | SingleChoice)[];
