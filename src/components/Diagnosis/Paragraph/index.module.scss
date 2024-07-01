@@ -1,0 +1,16 @@
+.container {
+    box-sizing: border-box;
+    border-radius: 14px;
+    background: #EDF6F3;
+    padding: 1em !important;
+    margin: 1em auto !important;
+
+
+    .label {
+        color: #333535;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        margin-bottom: 10px;
+    }
+}

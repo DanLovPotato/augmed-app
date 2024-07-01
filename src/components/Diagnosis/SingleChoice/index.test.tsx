@@ -43,7 +43,18 @@ describe("SingleChoiceComponent", () => {
     fireEvent.click(pythonRadio);
     expect(mockOnInputChange).toHaveBeenCalledWith(title, "Python");
 
-    // Check that it was called twice, once for each click
     expect(mockOnInputChange).toHaveBeenCalledTimes(2);
+  });
+
+  test("displays error message when required field is not filled and user interacts", async () => {
+    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} required />);
+
+    const firstOption = screen.getByLabelText(options[0]);
+    fireEvent.click(firstOption);
+
+    fireEvent.click(firstOption);
+
+    const errorMessage = screen.queryByText("This field is required");
+    expect(errorMessage).toBeInTheDocument();
   });
 });

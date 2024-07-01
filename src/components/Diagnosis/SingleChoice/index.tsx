@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { FormControl, FormLabel, Radio, FormHelperText } from "@mui/material";
+import styles from "./index.module.scss";
 
 export interface SingleChoiceProps {
   title: string;
@@ -22,6 +23,7 @@ const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
 
   return (
     <FormControl
+      className={styles.container}
       sx={{ m: 3, display: "block" }}
       component="fieldset"
       variant="standard"

@@ -27,13 +27,13 @@ describe("MultipleChoiceComponent", () => {
     fireEvent.click(redCheckbox);
 
     expect(redCheckbox).toBeChecked();
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, "Red");
+    expect(mockOnInputChange).toHaveBeenCalledWith(title, ["Red"]);
 
     const greenCheckbox = screen.getByLabelText("Green");
     fireEvent.click(greenCheckbox);
 
     expect(greenCheckbox).toBeChecked();
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, "Green");
+    expect(mockOnInputChange).toHaveBeenCalledWith(title, ["Red", "Green"]);
 
     expect(redCheckbox).toBeChecked();
   });
@@ -45,7 +45,20 @@ describe("MultipleChoiceComponent", () => {
     fireEvent.click(screen.getByLabelText("Green"));
 
     expect(mockOnInputChange).toHaveBeenCalledTimes(2);
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, "Red");
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, "Green");
+    expect(mockOnInputChange).toHaveBeenCalledWith(title, ["Red"]);
+    expect(mockOnInputChange).toHaveBeenCalledWith(title, ["Red", "Green"]);
+  });
+
+  test("displays error message when required field is not filled and user interacts", () => {
+    render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} required />);
+
+    const redCheckbox = screen.getByLabelText("Red");
+
+    expect(screen.queryByText("This field is required")).not.toBeInTheDocument();
+
+    fireEvent.click(redCheckbox);
+    fireEvent.click(redCheckbox);
+
+    expect(screen.getByText("This field is required")).toBeInTheDocument();
   });
 });

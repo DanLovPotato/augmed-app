@@ -31,4 +31,17 @@ describe("ShortTextComponent", () => {
     expect(mockOnInputChange).toHaveBeenCalledTimes("Very positive".length);
     expect(mockOnInputChange).toHaveBeenLastCalledWith(title, "Very positive");
   });
+
+  test("displays error message when required field is not filled and user interacts", () => {
+    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} required />);
+
+    const input = screen.getByLabelText(title);
+
+    expect(screen.queryByText("This field is required")).not.toBeInTheDocument();
+
+    userEvent.type(input, "Test");
+    userEvent.clear(input);
+
+    expect(screen.getByText("This field is required")).toBeInTheDocument();
+  });
 });

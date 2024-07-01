@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { FormControl, FormLabel, TextField, FormHelperText } from "@mui/material";
+import styles from "./index.module.scss";
 
 export interface ParagraphProps {
   title: string;
@@ -19,15 +20,13 @@ const ParagraphComponent: FunctionComponent<ParagraphProps> = (props) => {
   };
 
   return (
-    <>
-      <FormControl fullWidth error={unDirty && props.required && !inputValue}>
-        <FormLabel htmlFor={inputId} required={props.required}>
-          {props.title}
-        </FormLabel>
-        <TextField id={inputId} multiline rows={4} fullWidth value={inputValue} onChange={handleInputChange} />
-        {unDirty && props.required && !inputValue && <FormHelperText>This field is required</FormHelperText>}
-      </FormControl>
-    </>
+    <FormControl fullWidth className={styles.container} error={unDirty && props.required && !inputValue}>
+      <FormLabel htmlFor={inputId} required={props.required}>
+        {props.title}
+      </FormLabel>
+      <TextField id={inputId} multiline rows={4} fullWidth value={inputValue} onChange={handleInputChange} />
+      {unDirty && props.required && !inputValue && <FormHelperText>This field is required</FormHelperText>}
+    </FormControl>
   );
 };
 

@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Checkbox, FormControl, FormLabel, FormHelperText } from "@mui/material";
+import { Checkbox, FormControl, FormHelperText, FormLabel } from "@mui/material";
+import styles from "./index.module.scss";
 
 export interface MultipleChoiceProps {
   title: string;
@@ -31,6 +32,7 @@ const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) 
       sx={{ m: 3, display: "block" }}
       component="fieldset"
       variant="standard"
+      className={styles.container}
       error={unDirty && props.required && selectedValues.length === 0}
     >
       <FormLabel component="legend" required={props.required}>

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { FormControl, FormLabel, TextField } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel, TextField } from "@mui/material";
 import styles from "./index.module.scss";
 
 export interface ShortTextProps {
@@ -20,20 +20,13 @@ const ShortTextComponent: FunctionComponent<ShortTextProps> = (props) => {
   };
 
   return (
-    <>
-      <FormControl fullWidth className={styles.container}>
-        <FormLabel required={props.required} htmlFor={inputId} className={styles.label}>
-          {props.title}
-        </FormLabel>
-        <TextField
-          id={inputId}
-          value={inputValue}
-          onChange={handleInputChange}
-          error={unDirty && props.required && !inputValue}
-          helperText={unDirty && props.required && !inputValue ? "This field is required" : ""}
-        />
-      </FormControl>
-    </>
+    <FormControl fullWidth className={styles.container} error={unDirty && props.required && !inputValue}>
+      <FormLabel required={props.required} htmlFor={inputId} className={styles.label}>
+        {props.title}
+      </FormLabel>
+      <TextField id={inputId} value={inputValue} onChange={handleInputChange} />
+      {unDirty && props.required && !inputValue && <FormHelperText>This field is required</FormHelperText>}
+    </FormControl>
   );
 };
 
