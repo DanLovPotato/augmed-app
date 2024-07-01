@@ -57,15 +57,22 @@ describe("User journey testing", () => {
 
     // Go to diagnose
     cy.contains("Go to Diagnose").click()
+    cy.intercept('GET', '/api/config/answer', {
+      statusCode: 200,
+      fixture: 'diagnose/answerConfig.json'
+    });
     cy.url().should("include", "/diagnose/1");
 
     // Submit diagnose
-    cy.get('#diagnosis-1').within(() => {
-      cy.get('input[name="diagnosis"]').type('some diagnosis');
-      cy.get('textarea[name="rationale"]').type('some rationale');
-      cy.get('.MuiSlider-rail').click("center", {force: true});
-    });
-    cy.intercept('POST', '/api/diagnose/1', {
+    const title = "Patient Name";
+    const formattedTitle = title.replace(/ /g, "-");
+    const inputId = `input-${formattedTitle}`;
+
+    cy.get(`#${inputId}`)
+        .should('be.visible')
+        .type('Hello, world!'); // Typing text into the TextField
+
+    cy.intercept('POST', '/api/diagnose/*', {
       statusCode: 200,
       fixture: 'diagnose/saveDiagnose.json'
     });

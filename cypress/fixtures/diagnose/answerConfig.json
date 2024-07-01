@@ -1,0 +1,40 @@
+{
+  "data": {
+    "config": [
+      {
+        "title": "Patient Name",
+        "type": "Text",
+        "required": true
+      },
+      {
+        "title": "Medical History",
+        "type": "Paragraph"
+      },
+      {
+        "options": [
+          "None",
+          "Aspirin",
+          "Insulin",
+          "Beta-blockers",
+          "Other"
+        ],
+        "title": "Current Medications",
+        "type": "SingleChoice"
+      },
+      {
+        "options": [
+          "Fever",
+          "Cough",
+          "Fatigue",
+          "Loss of Appetite",
+          "Other"
+        ],
+        "title": "Symptoms",
+        "type": "MultipleChoice"
+      }
+    ],
+    "created_timestamp": "2024-06-28T07:26:58.016354",
+    "id": "586e61d5-8a02-4bfd-a2ee-d281b7b90931"
+  },
+  "error": null
+}

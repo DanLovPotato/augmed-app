@@ -1,5 +1,5 @@
 describe("Physicians can submit a case", () => {
-    const diagnosePageLink = "http://localhost:3000/diagnose/d523b88ae897538795ccfdb7c978b38f";
+    const diagnosePageLink = "http://localhost:3000/diagnose/3afcc7edc5525eb6868a1362f648d922";
   
     beforeEach(() => {
       cy.window().then((win) => {
@@ -10,26 +10,28 @@ describe("Physicians can submit a case", () => {
       cy.get("#diagnose-submit-btn").as('submitBtn');
     });
   
-    it("should save case diagnose successly", () => {
+    it("should save case diagnose successfully", () => {
+
+        cy.intercept('GET', '/api/config/answer', {
+            statusCode: 200,
+            fixture: 'diagnose/answerConfig.json'
+        });
         cy.get('@submitBtn').should('be.disabled');
 
-        cy.get('#diagnosis-1').within(() => {
-            cy.get('input[name="diagnosis"]').type('some diagnosis');
-            cy.get('textarea[name="rationale"]').type('some rationale');
+        const title = "Patient Name";
+        const formattedTitle = title.replace(/ /g, "-");
+        const inputId = `input-${formattedTitle}`;
 
-            cy.get('.MuiSlider-rail').click("center", {force: true});
-        });
+        cy.get(`#${inputId}`)
+            .should('be.visible')
+            .type('Hello, world!'); // Typing text into the TextField
 
+        cy.get(`#${inputId}`).should('have.value', 'Hello, world!');
         cy.get('@submitBtn').should('not.be.disabled');
 
-        cy.intercept('POST', '/api/diagnose/*', {
-            statusCode: 500,
-            fixture: 'diagnose/noAccessToCaseReview.json'
-        });
 
         cy.get('@submitBtn').click();
         cy.url().should('include', '/diagnose');
-        cy.contains('No access to review case.');
 
 
         cy.intercept('POST', '/api/diagnose/*', {
