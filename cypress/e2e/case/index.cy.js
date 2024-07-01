@@ -55,8 +55,8 @@ describe("User journey testing", () => {
       cy.getByTestId("Body measure").should("exist");
     })
 
-    // Go to diagnose
-    cy.contains("Go to Diagnose").click()
+    // Go to Answer Page
+    cy.contains("Go to Answer Page").click()
     cy.intercept('GET', '/api/config/answer', {
       statusCode: 200,
       fixture: 'diagnose/answerConfig.json'

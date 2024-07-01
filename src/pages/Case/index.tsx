@@ -194,7 +194,7 @@ const CasePage = () => {
                 variant="contained"
                 onClick={() => nav(generatePath(path.diagnose, { caseConfigId }))}
               >
-                Go to Diagnose
+                Go to Answer Page
               </Button>
             </div>
           </>

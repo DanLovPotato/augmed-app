@@ -83,7 +83,7 @@ describe("Case review page elements test", () => {
     const content = screen.getByText("text");
     expect(card).toContainElement(content);
 
-    const submit = screen.getByText("Go to Diagnose");
+    const submit = screen.getByText("Go to Answer Page");
     expect(submit).toBeInTheDocument();
 
     expect(screen.queryByTestId("important-info")).not.toBeInTheDocument();
