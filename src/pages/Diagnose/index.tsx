@@ -14,6 +14,7 @@ import path from "../../routes/path";
 import testId from "../../utils/testId";
 
 import styles from "./index.module.scss";
+import Loading from "../../components/Loading";
 
 export type AnswerFormData = Record<string, any>;
 
@@ -86,19 +87,21 @@ const Diagnose = () => {
           </Button>
         }
       />
-      <div className={styles.container}>
-        <Diagnosis configList={configList} onInputChange={handleInputChange} />
-        <Button
-          {...testId("diagnose-submit-btn")}
-          className={styles.submit}
-          disabled={disable || submitLoading}
-          variant="contained"
-          onClick={onSubmit}
-          endIcon={submitLoading && <SyncIcon className={styles.spin} />}
-        >
-          Submit
-        </Button>
-      </div>
+      <Loading loading={loading}>
+        <div className={styles.container}>
+          <Diagnosis configList={configList} onInputChange={handleInputChange} />
+          <Button
+            {...testId("diagnose-submit-btn")}
+            className={styles.submit}
+            disabled={disable || submitLoading}
+            variant="contained"
+            onClick={onSubmit}
+            endIcon={submitLoading && <SyncIcon className={styles.spin} />}
+          >
+            Submit
+          </Button>
+        </div>
+      </Loading>
     </>
   );
 };
