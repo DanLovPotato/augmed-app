@@ -29,16 +29,16 @@ const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) 
 
   return (
     <FormControl
+      fullWidth
       sx={{ m: 3, display: "block" }}
-      component="fieldset"
       variant="standard"
       className={styles.container}
       error={unDirty && props.required && selectedValues.length === 0}
     >
-      <FormLabel component="legend" required={props.required}>
+      <FormLabel required={props.required} className={styles.label}>
         {props.title}
       </FormLabel>
-      <FormGroup sx={{ flexDirection: "column" }}>
+      <FormGroup sx={{ flexDirection: "column" }} className={styles.checkBoxGroup}>
         {props.options.map((option, index) => (
           <FormControlLabel
             key={index}

@@ -13,26 +13,18 @@ export interface SingleChoiceProps {
 
 const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
   const [selectedValue, setSelectedValue] = useState("");
-  const [unDirty, setUnDirty] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUnDirty(true);
     setSelectedValue(event.target.value);
     props.onInputChange(props.title, event.target.value);
   };
 
   return (
-    <FormControl
-      className={styles.container}
-      sx={{ m: 3, display: "block" }}
-      component="fieldset"
-      variant="standard"
-      error={unDirty && props.required && !selectedValue}
-    >
-      <FormLabel component="legend" required={props.required}>
+    <FormControl fullWidth className={styles.container} sx={{ m: 3, display: "block" }} variant="standard">
+      <FormLabel required={props.required} className={styles.label}>
         {props.title}
       </FormLabel>
-      <FormGroup>
+      <FormGroup className={styles.radioGroup}>
         {props.options.map((option, index) => (
           <FormControlLabel
             key={index}
@@ -41,7 +33,6 @@ const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
           />
         ))}
       </FormGroup>
-      {unDirty && props.required && !selectedValue && <FormHelperText>This field is required</FormHelperText>}
     </FormControl>
   );
 };

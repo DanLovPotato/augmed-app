@@ -1,16 +1,19 @@
 .container {
-    box-sizing: border-box;
     border-radius: 14px;
     background: #EDF6F3;
     padding: 1em !important;
-    margin: 1em auto !important;
-
+    margin: 1em 0 !important;
 
     .label {
+        display: block;
         color: #333535;
-        font-size: 16px;
+        font-size: 16px ;
         font-weight: 400;
         line-height: 24px;
         margin-bottom: 10px;
+    }
+
+    .checkBoxGroup {
+        margin-left: 1em;
     }
 }

@@ -64,7 +64,7 @@ describe("Diagnosis Component", () => {
 
     const multipleChoice = screen.getByTestId("multiple-choice");
     fireEvent.click(multipleChoice);
-    expect(mockOnInputChange).toHaveBeenCalledWith("Choose one", "Option 1");
+    expect(mockOnInputChange).toHaveBeenCalledWith("Choose one", ["Option 1"]);
 
     const singleChoice = screen.getByTestId("single-choice");
     fireEvent.click(singleChoice);

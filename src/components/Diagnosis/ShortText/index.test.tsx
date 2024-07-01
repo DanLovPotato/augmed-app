@@ -35,7 +35,7 @@ describe("ShortTextComponent", () => {
   test("displays error message when required field is not filled and user interacts", () => {
     render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} required />);
 
-    const input = screen.getByLabelText(title);
+    const input = screen.getByLabelText(`${title} *`);
 
     expect(screen.queryByText("This field is required")).not.toBeInTheDocument();
 
