@@ -77,7 +77,7 @@ const Diagnose = () => {
 
   return (
     <>
-      <div className={styles.header}>Diagnose</div>
+      <div className={styles.header}>Answer</div>
       <CaseTitle
         name={caseState.personName}
         case={`Case ${caseState.caseNumber}`}
