@@ -15,6 +15,7 @@ import testId from "../../utils/testId";
 
 import styles from "./index.module.scss";
 import Loading from "../../components/Loading";
+import { UpcomingTwoTone } from "@mui/icons-material";
 
 export type AnswerFormData = Record<string, any>;
 
@@ -88,19 +89,29 @@ const Diagnose = () => {
         }
       />
       <Loading loading={loading}>
-        <div className={styles.container}>
-          <Diagnosis configList={configList} onInputChange={handleInputChange} />
-          <Button
-            {...testId("diagnose-submit-btn")}
-            className={styles.submit}
-            disabled={disable || submitLoading}
-            variant="contained"
-            onClick={onSubmit}
-            endIcon={submitLoading && <SyncIcon className={styles.spin} />}
-          >
-            Submit
-          </Button>
-        </div>
+        {configList.length === 0 ? (
+          <div className={styles.empty}>
+            <UpcomingTwoTone className={styles.icon} />
+            <span className={styles.emptyText}>
+              Failed to show Answer page. Please contact <a href="mailto:dhep.lab@gmail.com">dhep.lab@gmail.com</a> to
+              configure the answer page.
+            </span>
+          </div>
+        ) : (
+          <div className={styles.container}>
+            <Diagnosis configList={configList} onInputChange={handleInputChange} />
+            <Button
+              {...testId("diagnose-submit-btn")}
+              className={styles.submit}
+              disabled={disable || submitLoading}
+              variant="contained"
+              onClick={onSubmit}
+              endIcon={submitLoading && <SyncIcon className={styles.spin} />}
+            >
+              Submit
+            </Button>
+          </div>
+        )}
       </Loading>
     </>
   );
