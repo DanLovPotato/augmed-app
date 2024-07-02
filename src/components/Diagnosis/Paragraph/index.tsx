@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { FormControl, FormLabel, TextField, FormHelperText } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel, TextField } from "@mui/material";
 import styles from "./index.module.scss";
 
 export interface ParagraphProps {

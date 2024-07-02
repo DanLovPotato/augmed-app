@@ -23,6 +23,7 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
                 title={config.title}
                 options={config.options}
                 onInputChange={props.onInputChange}
+                required={config.required}
               />
             );
           case "SingleChoice":
@@ -32,12 +33,27 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
                 title={config.title}
                 options={config.options}
                 onInputChange={props.onInputChange}
+                required={config.required}
               />
             );
           case "Text":
-            return <ShortTextComponent key={index} title={config.title} onInputChange={props.onInputChange} />;
+            return (
+              <ShortTextComponent
+                key={index}
+                title={config.title}
+                onInputChange={props.onInputChange}
+                required={config.required}
+              />
+            );
           case "Paragraph":
-            return <ParagraphComponent key={index} title={config.title} onInputChange={props.onInputChange} />;
+            return (
+              <ParagraphComponent
+                key={index}
+                title={config.title}
+                onInputChange={props.onInputChange}
+                required={config.required}
+              />
+            );
         }
       })}
     </div>

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 import SyncIcon from "@mui/icons-material/Sync";
@@ -44,9 +44,7 @@ const Diagnose = () => {
       [title]: value,
     }));
   };
-
-  useLayoutEffect(() => {
-    const isFormEmpty = Object.keys(answerFormData).length === 0;
+  useEffect(() => {
     const hasUnansweredRequiredFields = configList.some((config) => {
       if (config.required) {
         const value = answerFormData[config.title];
@@ -55,7 +53,7 @@ const Diagnose = () => {
       return false;
     });
 
-    setDisable(isFormEmpty || hasUnansweredRequiredFields);
+    setDisable(hasUnansweredRequiredFields);
   }, [answerFormData, configList]);
 
   const onSubmit = () => {
