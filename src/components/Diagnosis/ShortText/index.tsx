@@ -25,7 +25,9 @@ const ShortTextComponent: FunctionComponent<ShortTextProps> = (props) => {
         {props.title}
       </FormLabel>
       <TextField id={inputId} value={inputValue} onChange={handleInputChange} />
-      {unDirty && props.required && !inputValue && <FormHelperText>This field is required</FormHelperText>}
+      {unDirty && props.required && !inputValue && (
+        <FormHelperText className={styles.formHelperText}>This field is required</FormHelperText>
+      )}
     </FormControl>
   );
 };

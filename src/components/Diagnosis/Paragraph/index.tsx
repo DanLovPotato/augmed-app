@@ -25,7 +25,9 @@ const ParagraphComponent: FunctionComponent<ParagraphProps> = (props) => {
         {props.title}
       </FormLabel>
       <TextField id={inputId} multiline rows={4} fullWidth value={inputValue} onChange={handleInputChange} />
-      {unDirty && props.required && !inputValue && <FormHelperText>This field is required</FormHelperText>}
+      {unDirty && props.required && !inputValue && (
+        <FormHelperText className={styles.formHelperText}>This field is required</FormHelperText>
+      )}
     </FormControl>
   );
 };
