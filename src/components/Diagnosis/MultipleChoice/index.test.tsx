@@ -12,7 +12,7 @@ describe("MultipleChoiceComponent", () => {
   });
 
   test("renders the title and options correctly", () => {
-    render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} />);
+    render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value={[]} />);
 
     expect(screen.getByText(title)).toBeInTheDocument();
     options.forEach((option) => {
@@ -20,8 +20,16 @@ describe("MultipleChoiceComponent", () => {
     });
   });
 
+  test("initializes with the correct values when provided", () => {
+    render(
+      <MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value={["Red"]} />,
+    );
+    const redCheckbox = screen.getByLabelText("Red");
+    expect(redCheckbox).toBeChecked();
+  });
+
   test("allows multiple selections and reflects the change correctly", () => {
-    render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} />);
+    render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value={[]} />);
 
     const redCheckbox = screen.getByLabelText("Red");
     fireEvent.click(redCheckbox);
@@ -39,7 +47,7 @@ describe("MultipleChoiceComponent", () => {
   });
 
   test("records multiple invocations of onInputChange", () => {
-    render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} />);
+    render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value={[]} />);
 
     fireEvent.click(screen.getByLabelText("Red"));
     fireEvent.click(screen.getByLabelText("Green"));
@@ -50,7 +58,9 @@ describe("MultipleChoiceComponent", () => {
   });
 
   test("displays error message when required field is not filled and user interacts", () => {
-    render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} required />);
+    render(
+      <MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} required value={[]} />,
+    );
 
     const redCheckbox = screen.getByLabelText("Red");
 

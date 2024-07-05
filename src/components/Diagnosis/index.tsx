@@ -1,5 +1,4 @@
-import React, { FunctionComponent } from "react";
-
+import React from "react";
 import MultipleChoiceComponent from "./MultipleChoice";
 import SingleChoiceComponent from "./SingleChoice";
 import ShortTextComponent from "./ShortText";
@@ -9,12 +8,15 @@ import { AnswerConfigList } from "../../types/answer";
 export interface DiagnosisProps {
   configList: AnswerConfigList;
   onInputChange: (title: string, value: string | string[]) => void;
+  answerFormData: Record<string, string | string[]>;
 }
 
-const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
+const Diagnosis: React.FC<DiagnosisProps> = ({ configList, onInputChange, answerFormData }) => {
   return (
     <div>
-      {props.configList.map((config, index) => {
+      {configList.map((config, index) => {
+        const value = answerFormData[config.title] || "";
+
         switch (config.type) {
           case "MultipleChoice":
             return (
@@ -22,8 +24,9 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
                 key={index}
                 title={config.title}
                 options={config.options}
-                onInputChange={props.onInputChange}
+                onInputChange={onInputChange}
                 required={config.required}
+                value={value as string[]}
               />
             );
           case "SingleChoice":
@@ -32,8 +35,9 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
                 key={index}
                 title={config.title}
                 options={config.options}
-                onInputChange={props.onInputChange}
+                onInputChange={onInputChange}
                 required={config.required}
+                value={value as string}
               />
             );
           case "Text":
@@ -41,8 +45,9 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
               <ShortTextComponent
                 key={index}
                 title={config.title}
-                onInputChange={props.onInputChange}
+                onInputChange={onInputChange}
                 required={config.required}
+                value={value as string}
               />
             );
           case "Paragraph":
@@ -50,8 +55,9 @@ const Diagnosis: FunctionComponent<DiagnosisProps> = (props) => {
               <ParagraphComponent
                 key={index}
                 title={config.title}
-                onInputChange={props.onInputChange}
+                onInputChange={onInputChange}
                 required={config.required}
+                value={value as string}
               />
             );
         }

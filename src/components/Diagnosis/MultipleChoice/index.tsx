@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Checkbox, FormControl, FormHelperText, FormLabel } from "@mui/material";
@@ -9,11 +9,16 @@ export interface MultipleChoiceProps {
   options: string[];
   onInputChange: (title: string, value: string[]) => void;
   required?: boolean;
+  value: string[];
 }
 
 const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const [unDirty, setUnDirty] = useState(false);
+
+  useEffect(() => {
+    setSelectedValues(props.value);
+  }, [props.value]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const option = event.target.value;

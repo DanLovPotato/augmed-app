@@ -1,13 +1,10 @@
 import { atom } from "jotai";
-import { AnswerFormData } from "../pages/Diagnose";
 
-type diagnoseState = Record<string, AnswerFormData>;
+export type AnswerFormData = Record<string, string | string[]>;
 type caseState = {
   personName?: string;
   caseNumber?: string;
 };
 
-const diagnoseAtom = atom<diagnoseState>({});
-const caseAtom = atom<caseState>({});
-
-export { diagnoseAtom, caseAtom };
+export const answerFormAtom = atom<AnswerFormData>({});
+export const caseAtom = atom<caseState>({});

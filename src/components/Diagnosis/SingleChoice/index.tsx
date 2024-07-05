@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { FormControl, FormLabel, Radio, FormHelperText } from "@mui/material";
@@ -9,6 +9,7 @@ export interface SingleChoiceProps {
   options: string[];
   onInputChange: (title: string, value: string) => void;
   required?: boolean;
+  value: string;
 }
 
 const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
@@ -18,6 +19,10 @@ const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
     setSelectedValue(event.target.value);
     props.onInputChange(props.title, event.target.value);
   };
+
+  useEffect(() => {
+    setSelectedValue(props.value);
+  }, [props.value]);
 
   return (
     <FormControl fullWidth className={styles.container} sx={{ m: 3, display: "block" }} variant="standard">

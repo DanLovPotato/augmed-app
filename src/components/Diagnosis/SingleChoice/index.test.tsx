@@ -8,11 +8,11 @@ describe("SingleChoiceComponent", () => {
   const mockOnInputChange = jest.fn();
 
   beforeEach(() => {
-    mockOnInputChange.mockClear(); // Reset the mock function state before each test
+    mockOnInputChange.mockClear();
   });
 
   test("renders the title and options correctly", () => {
-    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} />);
+    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="" />);
     expect(screen.getByText(title)).toBeInTheDocument();
     options.forEach((option) => {
       expect(screen.getByLabelText(option)).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe("SingleChoiceComponent", () => {
   });
 
   test("allows only one selection and reflects the change correctly", () => {
-    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} />);
+    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="" />);
 
     const pythonRadio = screen.getByLabelText("Python");
     fireEvent.click(pythonRadio);
@@ -33,7 +33,7 @@ describe("SingleChoiceComponent", () => {
   });
 
   test("calls onInputChange with the correct arguments when an option is selected", () => {
-    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} />);
+    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="" />);
 
     const cppRadio = screen.getByLabelText("C++");
     fireEvent.click(cppRadio);
@@ -44,5 +44,18 @@ describe("SingleChoiceComponent", () => {
     expect(mockOnInputChange).toHaveBeenCalledWith(title, "Python");
 
     expect(mockOnInputChange).toHaveBeenCalledTimes(2);
+  });
+
+  test("initializes with the correct value when provided", () => {
+    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="Python" />);
+
+    const pythonRadio = screen.getByLabelText("Python");
+    expect(pythonRadio).toBeChecked();
+
+    const javascriptRadio = screen.getByLabelText("JavaScript");
+    expect(javascriptRadio).not.toBeChecked();
+
+    const cppRadio = screen.getByLabelText("C++");
+    expect(cppRadio).not.toBeChecked();
   });
 });

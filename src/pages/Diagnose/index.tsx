@@ -1,3 +1,4 @@
+// Diagnose.tsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -6,7 +7,6 @@ import { useRequest } from "ahooks";
 import { useAtom } from "jotai";
 import { useSnackbar } from "notistack";
 
-import { caseAtom } from "../../state";
 import Diagnosis from "../../components/Diagnosis";
 import CaseTitle from "../../components/CaseTitle";
 import { getAnswerPageConfig, saveDiagnose } from "../../services/diagnoseService";
@@ -16,8 +16,7 @@ import testId from "../../utils/testId";
 import styles from "./index.module.scss";
 import Loading from "../../components/Loading";
 import { UpcomingTwoTone } from "@mui/icons-material";
-
-export type AnswerFormData = Record<string, any>;
+import { answerFormAtom, caseAtom } from "../../state";
 
 const Diagnose = () => {
   const { caseConfigId } = useParams() as { caseConfigId: string };
@@ -32,11 +31,10 @@ const Diagnose = () => {
   const answerConfigId = data?.data.data.id ?? "";
 
   const [caseState] = useAtom(caseAtom);
+  const [answerFormData, setAnswerFormData] = useAtom(answerFormAtom);
 
   const [disable, setDisable] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-
-  const [answerFormData, setAnswerFormData] = useState({} as AnswerFormData);
 
   const handleInputChange = (title: string, value: string | string[]) => {
     setAnswerFormData((prev) => ({
@@ -44,6 +42,8 @@ const Diagnose = () => {
       [title]: value,
     }));
   };
+  console.log("answerFormData", answerFormData);
+
   useEffect(() => {
     const hasUnansweredRequiredFields = configList.some((config) => {
       if (config.required) {
@@ -67,6 +67,7 @@ const Diagnose = () => {
           variant: "success",
           autoHideDuration: 2000,
         });
+        setAnswerFormData({});
         nav(path.root);
       })
       .catch((e: Error) => {
@@ -97,7 +98,7 @@ const Diagnose = () => {
           </div>
         ) : (
           <div className={styles.container}>
-            <Diagnosis configList={configList} onInputChange={handleInputChange} />
+            <Diagnosis configList={configList} onInputChange={handleInputChange} answerFormData={answerFormData} />
             <Button
               {...testId("diagnose-submit-btn")}
               className={styles.submit}

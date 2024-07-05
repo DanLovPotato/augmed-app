@@ -11,13 +11,19 @@ describe("ShortTextComponent", () => {
     mockOnInputChange.mockClear();
   });
 
-  test("renders correctly with the given title", async () => {
-    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} />);
+  test("renders correctly with the given title", () => {
+    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} value="" />);
     expect(screen.getByText(title)).toBeInTheDocument();
   });
 
+  test("initializes with the correct value when provided", () => {
+    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} value="Initial value" />);
+    const input = screen.getByLabelText(title);
+    expect(input).toHaveValue("Initial value");
+  });
+
   test("updates input value on user typing", async () => {
-    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} />);
+    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} value="" />);
     const input = screen.getByLabelText(title);
     userEvent.type(input, "Great experience!");
     await screen.findByDisplayValue("Great experience!");
@@ -25,7 +31,7 @@ describe("ShortTextComponent", () => {
   });
 
   test("calls onInputChange with the correct arguments when input changes", async () => {
-    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} />);
+    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} value="" />);
     const input = screen.getByLabelText(title);
     userEvent.type(input, "Very positive");
     expect(mockOnInputChange).toHaveBeenCalledTimes("Very positive".length);
@@ -33,7 +39,7 @@ describe("ShortTextComponent", () => {
   });
 
   test("displays error message when required field is not filled and user interacts", () => {
-    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} required />);
+    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} required value="" />);
 
     const input = screen.getByLabelText(`${title} *`);
 

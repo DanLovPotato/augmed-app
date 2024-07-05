@@ -1,6 +1,6 @@
-import { AnswerFormData } from "../pages/Diagnose";
 import { request } from "./api";
 import { AnswerPageConfigResponse } from "../types/answer";
+import { AnswerFormData } from "../state";
 
 export const saveDiagnose = async (caseConfigId: string, answerFormData: AnswerFormData, answerConfigId: string) => {
   return await request(`/diagnose/${caseConfigId}`, {

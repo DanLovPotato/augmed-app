@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { FormControl, FormHelperText, FormLabel, TextField } from "@mui/material";
 import styles from "./index.module.scss";
 
@@ -6,12 +6,17 @@ export interface ShortTextProps {
   title: string;
   onInputChange: (title: string, value: string) => void;
   required?: boolean;
+  value: string;
 }
 
 const ShortTextComponent: FunctionComponent<ShortTextProps> = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [unDirty, setUnDirty] = useState(false);
   const inputId = `input-${props.title.replace(/ /g, "-")}`;
+
+  useEffect(() => {
+    setInputValue(props.value);
+  }, [props.value]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUnDirty(true);
