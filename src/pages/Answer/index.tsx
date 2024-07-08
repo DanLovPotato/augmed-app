@@ -97,7 +97,7 @@ const AnswerPage = () => {
           <div className={styles.container}>
             <Answer configList={configList} onInputChange={handleInputChange} answerFormData={answerFormData} />
             <Button
-              {...testId("diagnose-submit-btn")}
+              {...testId("answer-submit-btn")}
               className={styles.submit}
               disabled={disable || submitLoading}
               variant="contained"
