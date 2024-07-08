@@ -2,8 +2,8 @@ import { request } from "./api";
 import { AnswerPageConfigResponse } from "../types/answer";
 import { AnswerFormData } from "../state";
 
-export const saveDiagnose = async (caseConfigId: string, answerFormData: AnswerFormData, answerConfigId: string) => {
-  return await request(`/diagnose/${caseConfigId}`, {
+export const saveAnswer = async (caseConfigId: string, answerFormData: AnswerFormData, answerConfigId: string) => {
+  return await request(`/answer/${caseConfigId}`, {
     method: "POST",
     data: {
       answer: answerFormData,
@@ -11,7 +11,6 @@ export const saveDiagnose = async (caseConfigId: string, answerFormData: AnswerF
     },
   });
 };
-
 export const getAnswerPageConfig = async () => {
   return await request<{ data: AnswerPageConfigResponse }>(`/config/answer `, {
     method: "GET",
