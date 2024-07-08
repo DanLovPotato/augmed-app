@@ -9,7 +9,7 @@ import { useSnackbar } from "notistack";
 
 import Diagnosis from "../../components/Diagnosis";
 import CaseTitle from "../../components/CaseTitle";
-import { getAnswerPageConfig, saveDiagnose } from "../../services/diagnoseService";
+import { getAnswerPageConfig, saveAnswer } from "../../services/answerService";
 import path from "../../routes/path";
 import testId from "../../utils/testId";
 
@@ -23,7 +23,7 @@ const Diagnose = () => {
   const nav = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { loading: submitLoading, runAsync } = useRequest(saveDiagnose, {
+  const { loading: submitLoading, runAsync } = useRequest(saveAnswer, {
     manual: true,
   });
   const { data, loading } = useRequest(getAnswerPageConfig, {});
@@ -42,7 +42,6 @@ const Diagnose = () => {
       [title]: value,
     }));
   };
-  console.log("answerFormData", answerFormData);
 
   useEffect(() => {
     const hasUnansweredRequiredFields = configList.some((config) => {
@@ -74,7 +73,6 @@ const Diagnose = () => {
         setErrorMsg(e.message);
       });
   };
-
   return (
     <>
       <div className={styles.header}>Answer</div>
@@ -88,7 +86,7 @@ const Diagnose = () => {
         }
       />
       <Loading loading={loading}>
-        {configList.length === 0 ? (
+        {!configList || configList.length === 0 ? (
           <div className={styles.empty}>
             <UpcomingTwoTone className={styles.icon} />
             <span className={styles.emptyText}>
