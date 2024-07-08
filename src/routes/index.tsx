@@ -8,7 +8,7 @@ import SignUpPage from "../pages/SignUp";
 import withCredencial from "../components/withCredencial";
 import CasePage from "../pages/Case";
 import Layout from "../components/Layout";
-import Diagnose from "../pages/Diagnose";
+import AnswerPage from "../pages/Answer";
 
 const AuthedAppLayout = withCredencial(Layout);
 
@@ -26,8 +26,8 @@ const routes: RouteObject[] = [
         element: <Home />,
       },
       {
-        path: path.diagnose,
-        element: <Diagnose />,
+        path: path.answer,
+        element: <AnswerPage />,
       },
       {
         path: path.case,

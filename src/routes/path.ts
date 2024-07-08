@@ -3,7 +3,7 @@ export const path = {
   signup: "/signup",
   login: "/login",
   case: "/case-review/:caseConfigId",
-  diagnose: "/diagnose/:caseConfigId",
+  answer: "/answer/:caseConfigId",
 };
 
 export default path;

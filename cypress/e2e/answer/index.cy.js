@@ -1,20 +1,20 @@
 describe("Physicians can submit a case", () => {
-    const diagnosePageLink = "http://localhost:3000/diagnose/3afcc7edc5525eb6868a1362f648d922";
+    const answerPageLink = "http://localhost:3000/answer/3afcc7edc5525eb6868a1362f648d922";
   
     beforeEach(() => {
       cy.window().then((win) => {
         win.localStorage.setItem("token", Math.random().toString(16));
       });
-      cy.visit(diagnosePageLink);
+      cy.visit(answerPageLink);
 
-      cy.get("#diagnose-submit-btn").as('submitBtn');
+      cy.get("#answer-submit-btn").as('submitBtn');
     });
   
-    it("should save case diagnose successfully", () => {
+    it("should save case answer successfully", () => {
 
         cy.intercept('GET', '/api/config/answer', {
             statusCode: 200,
-            fixture: 'diagnose/answerConfig.json'
+            fixture: 'answer/answerConfig.json'
         });
         cy.get('@submitBtn').should('be.disabled');
 
@@ -31,12 +31,12 @@ describe("Physicians can submit a case", () => {
 
 
         cy.get('@submitBtn').click();
-        cy.url().should('include', '/diagnose');
+        cy.url().should('include', '/answer');
 
 
-        cy.intercept('POST', '/api/diagnose/*', {
+        cy.intercept('POST', '/api/answer/*', {
             statusCode: 200,
-            fixture: 'diagnose/saveDiagnose.json'
+            fixture: 'answer/saveAnswer.json'
         });
         cy.intercept("GET", "/api/cases", {
           statusCode: 200,

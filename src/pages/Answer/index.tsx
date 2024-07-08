@@ -1,4 +1,3 @@
-// Diagnose.tsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -7,7 +6,7 @@ import { useRequest } from "ahooks";
 import { useAtom } from "jotai";
 import { useSnackbar } from "notistack";
 
-import Diagnosis from "../../components/Diagnosis";
+import Answer from "../../components/Answer";
 import CaseTitle from "../../components/CaseTitle";
 import { getAnswerPageConfig, saveAnswer } from "../../services/answerService";
 import path from "../../routes/path";
@@ -18,7 +17,7 @@ import Loading from "../../components/Loading";
 import { UpcomingTwoTone } from "@mui/icons-material";
 import { answerFormAtom, caseAtom } from "../../state";
 
-const Diagnose = () => {
+const AnswerPage = () => {
   const { caseConfigId } = useParams() as { caseConfigId: string };
   const nav = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -96,7 +95,7 @@ const Diagnose = () => {
           </div>
         ) : (
           <div className={styles.container}>
-            <Diagnosis configList={configList} onInputChange={handleInputChange} answerFormData={answerFormData} />
+            <Answer configList={configList} onInputChange={handleInputChange} answerFormData={answerFormData} />
             <Button
               {...testId("diagnose-submit-btn")}
               className={styles.submit}
@@ -114,4 +113,4 @@ const Diagnose = () => {
   );
 };
 
-export default Diagnose;
+export default AnswerPage;

@@ -39,6 +39,7 @@ const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onCha
     setPassword(event.target.value);
     setIsPasswordValid(true);
   };
+  //todo delete
 
   const validateAndSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

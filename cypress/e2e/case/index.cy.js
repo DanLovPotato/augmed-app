@@ -6,7 +6,7 @@ describe("User journey testing", () => {
     password: "&2vVTx=J",
   };
 
-  it("Login and review a case then submit the diagnose", () => {
+  it("Login and review a case then submit the answer", () => {
     cy.intercept("POST", "/api/auth/login",
         {
           statusCode: 200,
@@ -59,11 +59,11 @@ describe("User journey testing", () => {
     cy.contains("Go to Answer Page").click()
     cy.intercept('GET', '/api/config/answer', {
       statusCode: 200,
-      fixture: 'diagnose/answerConfig.json'
+      fixture: 'answer/answerConfig.json'
     });
-    cy.url().should("include", "/diagnose/1");
+    cy.url().should("include", "/answer/1");
 
-    // Submit diagnose
+    // Submit answer
     const title = "Patient Name";
     const formattedTitle = title.replace(/ /g, "-");
     const inputId = `input-${formattedTitle}`;
@@ -72,11 +72,11 @@ describe("User journey testing", () => {
         .should('be.visible')
         .type('Hello, world!'); // Typing text into the TextField
 
-    cy.intercept('POST', '/api/diagnose/*', {
+    cy.intercept('POST', '/api/answer/*', {
       statusCode: 200,
-      fixture: 'diagnose/saveDiagnose.json'
+      fixture: 'answer/saveAnswer.json'
     });
-    cy.get("#diagnose-submit-btn").click()
+    cy.get("#answer-submit-btn").click()
     cy.url().should('include', '/');
   });
 });

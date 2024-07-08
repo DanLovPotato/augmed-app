@@ -192,7 +192,7 @@ const CasePage = () => {
               <Button
                 className={styles.submit}
                 variant="contained"
-                onClick={() => nav(generatePath(path.diagnose, { caseConfigId }))}
+                onClick={() => nav(generatePath(path.answer, { caseConfigId }))}
               >
                 Go to Answer Page
               </Button>
