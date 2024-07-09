@@ -10,27 +10,21 @@ export interface ParagraphProps {
 }
 
 const ParagraphComponent: FunctionComponent<ParagraphProps> = (props) => {
-  const [inputValue, setInputValue] = useState(props.value); // Initialize state with prop value
   const [unDirty, setUnDirty] = useState(false);
   const inputId = `input-${props.title.replace(/ /g, "-")}`;
 
-  useEffect(() => {
-    setInputValue(props.value);
-  }, [props.value]);
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUnDirty(true);
-    setInputValue(event.target.value);
     props.onInputChange(props.title, event.target.value);
   };
 
   return (
-    <FormControl fullWidth className={styles.container} error={unDirty && props.required && !inputValue}>
+    <FormControl fullWidth className={styles.container} error={unDirty && props.required && !props.value}>
       <FormLabel htmlFor={inputId} required={props.required} className={styles.label}>
         {props.title}
       </FormLabel>
-      <TextField id={inputId} multiline rows={4} fullWidth value={inputValue} onChange={handleInputChange} />
-      {unDirty && props.required && !inputValue && (
+      <TextField id={inputId} multiline rows={4} fullWidth onChange={handleInputChange} data-testid={inputId} />
+      {unDirty && props.required && !props.value && (
         <FormHelperText className={styles.formHelperText}>This field is required</FormHelperText>
       )}
     </FormControl>

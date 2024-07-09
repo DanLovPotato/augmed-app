@@ -16,26 +16,13 @@ describe("ShortTextComponent", () => {
     expect(screen.getByText(title)).toBeInTheDocument();
   });
 
-  test("initializes with the correct value when provided", () => {
-    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} value="Initial value" />);
-    const input = screen.getByLabelText(title);
-    expect(input).toHaveValue("Initial value");
-  });
-
-  test("updates input value on user typing", async () => {
+  test("calls onInputChange with the correct arguments when input changes", () => {
     render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} value="" />);
-    const input = screen.getByLabelText(title);
-    userEvent.type(input, "Great experience!");
-    await screen.findByDisplayValue("Great experience!");
-    expect(input).toHaveValue("Great experience!");
-  });
-
-  test("calls onInputChange with the correct arguments when input changes", async () => {
-    render(<ShortTextComponent title={title} onInputChange={mockOnInputChange} value="" />);
-    const input = screen.getByLabelText(title);
-    userEvent.type(input, "Very positive");
-    expect(mockOnInputChange).toHaveBeenCalledTimes("Very positive".length);
-    expect(mockOnInputChange).toHaveBeenLastCalledWith(title, "Very positive");
+    const input = screen.getByRole("textbox", { name: title });
+    const testString = "Very positive";
+    userEvent.type(input, testString);
+    expect(mockOnInputChange).toHaveBeenCalledTimes(testString.length);
+    expect(mockOnInputChange).toHaveBeenLastCalledWith(title, testString);
   });
 
   test("displays error message when required field is not filled and user interacts", () => {

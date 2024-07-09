@@ -13,7 +13,6 @@ describe("MultipleChoiceComponent", () => {
 
   test("renders the title and options correctly", () => {
     render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value={[]} />);
-
     expect(screen.getByText(title)).toBeInTheDocument();
     options.forEach((option) => {
       expect(screen.getByLabelText(option)).toBeInTheDocument();
@@ -28,47 +27,22 @@ describe("MultipleChoiceComponent", () => {
     expect(redCheckbox).toBeChecked();
   });
 
-  test("allows multiple selections and reflects the change correctly", () => {
+  test("handleInputChange is triggered when an option is selected", () => {
     render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value={[]} />);
-
-    const redCheckbox = screen.getByLabelText("Red");
-    fireEvent.click(redCheckbox);
-
-    expect(redCheckbox).toBeChecked();
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, ["Red"]);
-
     const greenCheckbox = screen.getByLabelText("Green");
     fireEvent.click(greenCheckbox);
-
-    expect(greenCheckbox).toBeChecked();
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, ["Red", "Green"]);
-
-    expect(redCheckbox).toBeChecked();
+    expect(mockOnInputChange).toHaveBeenCalledTimes(1);
+    expect(mockOnInputChange).toHaveBeenCalledWith(title, ["Green"]);
   });
 
-  test("records multiple invocations of onInputChange", () => {
-    render(<MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value={[]} />);
-
-    fireEvent.click(screen.getByLabelText("Red"));
-    fireEvent.click(screen.getByLabelText("Green"));
-
-    expect(mockOnInputChange).toHaveBeenCalledTimes(2);
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, ["Red"]);
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, ["Red", "Green"]);
-  });
-
-  test("displays error message when required field is not filled and user interacts", () => {
+  test("checks error message visibility directly after option selection", () => {
     render(
-      <MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} required value={[]} />,
+      <MultipleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value={[]} required />,
     );
-
-    const redCheckbox = screen.getByLabelText("Red");
-
     expect(screen.queryByText("This field is required")).not.toBeInTheDocument();
-
-    fireEvent.click(redCheckbox);
-    fireEvent.click(redCheckbox);
-
+    const greenCheckbox = screen.getByLabelText("Green");
+    fireEvent.click(greenCheckbox);
+    fireEvent.click(greenCheckbox);
     expect(screen.getByText("This field is required")).toBeInTheDocument();
   });
 });

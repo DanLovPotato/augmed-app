@@ -13,20 +13,14 @@ export interface MultipleChoiceProps {
 }
 
 const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) => {
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const [unDirty, setUnDirty] = useState(false);
-
-  useEffect(() => {
-    setSelectedValues(props.value);
-  }, [props.value]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const option = event.target.value;
-    const newSelectedValues = selectedValues.includes(option)
-      ? selectedValues.filter((value) => value !== option)
-      : [...selectedValues, option];
+    const newSelectedValues = props.value.includes(option)
+      ? props.value.filter((value) => value !== option)
+      : [...props.value, option];
 
-    setSelectedValues(newSelectedValues);
     setUnDirty(true);
 
     props.onInputChange(props.title, newSelectedValues);
@@ -38,7 +32,7 @@ const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) 
       sx={{ m: 3, display: "block" }}
       variant="standard"
       className={styles.container}
-      error={unDirty && props.required && selectedValues.length === 0}
+      error={unDirty && props.required && props.value.length === 0}
     >
       <FormLabel required={props.required} className={styles.label}>
         {props.title}
@@ -47,14 +41,19 @@ const MultipleChoiceComponent: FunctionComponent<MultipleChoiceProps> = (props) 
         {props.options.map((option, index) => (
           <FormControlLabel
             key={index}
-            control={<Checkbox checked={selectedValues.includes(option)} onChange={handleInputChange} value={option} />}
+            control={
+              <Checkbox
+                checked={props.value.includes(option)}
+                onChange={handleInputChange}
+                value={option}
+                data-testid={option}
+              />
+            }
             label={option}
           />
         ))}
       </FormGroup>
-      {unDirty && props.required && selectedValues.length === 0 && (
-        <FormHelperText>This field is required</FormHelperText>
-      )}
+      {unDirty && props.required && props.value.length === 0 && <FormHelperText>This field is required</FormHelperText>}
     </FormControl>
   );
 };

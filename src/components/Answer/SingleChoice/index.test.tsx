@@ -13,49 +13,37 @@ describe("SingleChoiceComponent", () => {
 
   test("renders the title and options correctly", () => {
     render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="" />);
-    expect(screen.getByText(title)).toBeInTheDocument();
+    expect(screen.getByTestId(title)).toBeInTheDocument();
     options.forEach((option) => {
       expect(screen.getByLabelText(option)).toBeInTheDocument();
     });
   });
 
-  test("allows only one selection and reflects the change correctly", () => {
+  test("no option is checked initially when value is empty", () => {
     render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="" />);
-
-    const pythonRadio = screen.getByLabelText("Python");
-    fireEvent.click(pythonRadio);
-    expect(pythonRadio).toBeChecked();
-
-    const javascriptRadio = screen.getByLabelText("JavaScript");
-    fireEvent.click(javascriptRadio);
-    expect(javascriptRadio).toBeChecked();
-    expect(pythonRadio).not.toBeChecked();
+    options.forEach((option) => {
+      expect(screen.getByTestId(option)).not.toBeChecked();
+    });
   });
 
-  test("calls onInputChange with the correct arguments when an option is selected", () => {
-    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="" />);
-
-    const cppRadio = screen.getByLabelText("C++");
-    fireEvent.click(cppRadio);
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, "C++");
-
-    const pythonRadio = screen.getByLabelText("Python");
-    fireEvent.click(pythonRadio);
-    expect(mockOnInputChange).toHaveBeenCalledWith(title, "Python");
-
-    expect(mockOnInputChange).toHaveBeenCalledTimes(2);
-  });
-
-  test("initializes with the correct value when provided", () => {
+  test("correct option is checked according to the value prop", () => {
     render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="Python" />);
+    expect(screen.getByTestId("Python")).toBeChecked();
+  });
 
-    const pythonRadio = screen.getByLabelText("Python");
-    expect(pythonRadio).toBeChecked();
+  test("calls onInputChange when an option is selected", () => {
+    render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="" />);
+    const optionRadio = screen.getByTestId("JavaScript");
+    fireEvent.click(optionRadio);
+    expect(mockOnInputChange).toHaveBeenCalledWith(title, "JavaScript");
+  });
 
-    const javascriptRadio = screen.getByLabelText("JavaScript");
-    expect(javascriptRadio).not.toBeChecked();
-
-    const cppRadio = screen.getByLabelText("C++");
-    expect(cppRadio).not.toBeChecked();
+  test("ensures component does not call onInputChange if the same option is clicked", () => {
+    render(
+      <SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="JavaScript" />,
+    );
+    const optionRadio = screen.getByTestId("JavaScript");
+    fireEvent.click(optionRadio);
+    expect(mockOnInputChange).not.toHaveBeenCalled();
   });
 });

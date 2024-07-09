@@ -13,16 +13,9 @@ export interface SingleChoiceProps {
 }
 
 const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
-  const [selectedValue, setSelectedValue] = useState("");
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
     props.onInputChange(props.title, event.target.value);
   };
-
-  useEffect(() => {
-    setSelectedValue(props.value);
-  }, [props.value]);
 
   return (
     <FormControl fullWidth className={styles.container} sx={{ m: 3, display: "block" }} variant="standard">
@@ -33,7 +26,14 @@ const SingleChoiceComponent: FunctionComponent<SingleChoiceProps> = (props) => {
         {props.options.map((option, index) => (
           <FormControlLabel
             key={index}
-            control={<Radio checked={selectedValue === option} onChange={handleInputChange} value={option} />}
+            control={
+              <Radio
+                checked={props.value === option}
+                onChange={handleInputChange}
+                value={option}
+                data-testid={option}
+              />
+            }
             label={option}
           />
         ))}
