@@ -40,7 +40,6 @@ const AnswerPage = () => {
       ...prev,
       [title]: value,
     }));
-    console.log(answerFormData);
   };
 
   useEffect(() => {

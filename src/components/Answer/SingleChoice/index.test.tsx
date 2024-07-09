@@ -13,7 +13,7 @@ describe("SingleChoiceComponent", () => {
 
   test("renders the title and options correctly", () => {
     render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="" />);
-    expect(screen.getByTestId(title)).toBeInTheDocument();
+    expect(screen.getByText(title)).toBeInTheDocument();
     options.forEach((option) => {
       expect(screen.getByLabelText(option)).toBeInTheDocument();
     });
@@ -28,7 +28,7 @@ describe("SingleChoiceComponent", () => {
 
   test("correct option is checked according to the value prop", () => {
     render(<SingleChoiceComponent title={title} options={options} onInputChange={mockOnInputChange} value="Python" />);
-    expect(screen.getByTestId("Python")).toBeChecked();
+    expect(screen.getByLabelText("Python")).toBeChecked();
   });
 
   test("calls onInputChange when an option is selected", () => {
