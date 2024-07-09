@@ -11,7 +11,7 @@ export interface DiagnosisProps {
   answerFormData: Record<string, string | string[]>;
 }
 
-const Diagnosis: React.FC<DiagnosisProps> = ({ configList, onInputChange, answerFormData }) => {
+const Answer: React.FC<DiagnosisProps> = ({ configList, onInputChange, answerFormData }) => {
   return (
     <div>
       {configList.map((config, index) => {
@@ -66,4 +66,4 @@ const Diagnosis: React.FC<DiagnosisProps> = ({ configList, onInputChange, answer
   );
 };
 
-export default Diagnosis;
+export default Answer;

@@ -1,6 +1,6 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import Diagnosis from "./index";
+import Answer from "./index";
 import { MultipleChoiceProps } from "./MultipleChoice";
 import { SingleChoiceProps } from "./SingleChoice";
 import { ShortTextProps } from "./ShortText";
@@ -66,7 +66,7 @@ describe("Diagnosis Component", () => {
   });
 
   it("renders components based on configList and passes onInputChange correctly", () => {
-    render(<Diagnosis configList={configList} onInputChange={mockOnInputChange} answerFormData={answerFormData} />);
+    render(<Answer configList={configList} onInputChange={mockOnInputChange} answerFormData={answerFormData} />);
 
     const multipleChoice = screen.getByTestId("multiple-choice");
     expect(multipleChoice).toHaveTextContent("Choose one - Option 1");
