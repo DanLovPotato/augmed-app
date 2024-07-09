@@ -153,6 +153,13 @@ const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onCha
           {isSignUpPage ? "Log In" : "Sign Up"}
         </a>
       </div>
+      {!isSignUpPage && (
+        <div className={styles.redirectTextContainer}>
+          <a className={styles.redirectText} href={path.forgotPassword}>
+            Forgot Password?
+          </a>
+        </div>
+      )}
     </form>
   );
 };
