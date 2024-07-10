@@ -20,10 +20,10 @@ const ForgotPasswordPage = () => {
   const nav = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSignUp = (email: string, password: string) =>
-    signup(email, password)
+  const handleResetPasswordRequest = (email: string) =>
+    requestResetLink(email)
       .then(() => {
-        enqueueSnackbar("Sign up completed! Please log in.", {
+        enqueueSnackbar("The password link is sent to your email", {
           anchorOrigin: {
             horizontal: "center",
             vertical: "bottom",
@@ -31,7 +31,6 @@ const ForgotPasswordPage = () => {
           variant: "success",
           autoHideDuration: 2000,
         });
-        nav(path.login);
       })
       .catch((error) => {
         setSlot(
@@ -57,7 +56,7 @@ const ForgotPasswordPage = () => {
           slot={slot}
           onChange={handleFormChange}
           pageType={FormType.ForgotPassword}
-          handelSubmit={handleSignUp}
+          handelSubmit={handleResetPasswordRequest}
           passwordRegex={passwordPattern}
           buttonClassName={styles.forgotPasswordButton}
         />
