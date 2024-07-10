@@ -2,7 +2,7 @@ import { instance } from "./api";
 import { AxiosResponse } from "axios";
 
 export function requestResetLink(email: string): Promise<AxiosResponse<string>> {
-  return instance.post("/auth/reset-password", { email });
+  return instance.post("/auth/reset-password-request", { email });
 }
 
 export const signup = (email: string, password: string): Promise<AxiosResponse<string>> => {
