@@ -24,7 +24,7 @@ describe("Physicians can sign up and go to login screen.", () => {
     });
 
 
-    it("Physicians could input the eamil address and email show have valid check", () => {
+    it("Physicians could input the email address and email show have valid check", () => {
         const expectedMessage = "Invalid email address. Please correct it and try again."
         
 

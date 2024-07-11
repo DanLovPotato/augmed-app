@@ -155,7 +155,7 @@ const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onCha
       </div>
       {!isSignUpPage && (
         <div className={styles.redirectTextContainer}>
-          <a className={styles.redirectText} href={path.forgotPassword}>
+          <a className={styles.redirectText} href={path.forgotPassword} data-testid="forgot-password">
             Forgot Password?
           </a>
         </div>
