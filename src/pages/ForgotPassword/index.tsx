@@ -5,11 +5,9 @@ import Layout from "../../components/Layout";
 import styles from "./index.module.scss";
 import logo from "../../assets/images/logo.jpg";
 import { requestResetLink, signup } from "../../services/userService";
-import AuthenticationForm, { FormType } from "../../components/AuthenticationForm";
-import { passwordPattern } from "../../utils/regexp";
 import { useSnackbar } from "notistack";
-import path from "../../routes/path";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import ForgotPasswordForm from "../../components/ForgotPasswordForm";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -52,14 +50,7 @@ const ForgotPasswordPage = () => {
           <img src={logo} className={styles.appLogo} alt="logo" />
           <span className={styles.title}>Forgot Password?</span>
         </div>
-        <AuthenticationForm
-          slot={slot}
-          onChange={handleFormChange}
-          pageType={FormType.ForgotPassword}
-          handelSubmit={handleResetPasswordRequest}
-          passwordRegex={passwordPattern}
-          buttonClassName={styles.forgotPasswordButton}
-        />
+        <ForgotPasswordForm slot={slot} onChange={handleFormChange} handelSubmit={handleResetPasswordRequest} />
       </div>
     </Layout>
   );

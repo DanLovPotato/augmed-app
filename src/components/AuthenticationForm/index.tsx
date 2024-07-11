@@ -11,23 +11,14 @@ interface AuthenticationFormProps {
   handelSubmit: (email: string, password: string) => Promise<void>;
   slot?: React.ReactNode;
   onChange?: () => void;
-  buttonClassName?: string;
 }
 
 export enum FormType {
   Login,
   SignUp,
-  ForgotPassword,
 }
 
-const AuthenticationForm = ({
-  pageType,
-  passwordRegex,
-  handelSubmit,
-  slot,
-  onChange,
-  buttonClassName,
-}: AuthenticationFormProps) => {
+const AuthenticationForm = ({ pageType, passwordRegex, handelSubmit, slot, onChange }: AuthenticationFormProps) => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [showPassword, setShowPassword] = React.useState(false);
@@ -36,8 +27,6 @@ const AuthenticationForm = ({
   const [submitLoading, setSubmitLoading] = useState(false);
 
   const isSignUpPage = pageType === FormType.SignUp;
-  const isForgotPasswordPage = pageType === FormType.ForgotPassword;
-  const isLoginPage = pageType === FormType.Login;
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.();
@@ -48,12 +37,12 @@ const AuthenticationForm = ({
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.();
     setPassword(event.target.value);
+    setIsPasswordValid(true);
   };
 
   const validateAndSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    if ((isForgotPasswordPage && validateEmail()) || (!isForgotPasswordPage && validateEmail() && validatePassword())) {
+    if (validateEmail() && validatePassword()) {
       setSubmitLoading(true);
       try {
         await handelSubmit(email, password);
@@ -105,78 +94,66 @@ const AuthenticationForm = ({
           <span className={styles.invalidEmailText}>Invalid email address. Please correct it and try again.</span>
         )}
       </FormControl>
-      {!isForgotPasswordPage && (
-        <FormControl className={`${styles.formController} ${styles.pwController} `} sx={{ marginBottom: "30px" }}>
-          <label className={styles.inputLabel} htmlFor="password-input" data-testid="password-label">
-            Password
-          </label>
-          <OutlinedInput
-            id="password-input"
-            inputProps={{ "data-testid": "password-input", maxLength: 128 }}
-            value={password}
-            error={!isPasswordValid}
-            type={showPassword ? "text" : "password"}
-            onChange={handlePasswordChange}
-            required
-            className={styles.passwordInput}
-            placeholder="Enter Password"
-            autoComplete="current-password"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  data-testid="password-visibility-button"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          {isSignUpPage && (
-            <span className={isPasswordValid ? styles.passwordRuleText : styles.invalidPasswordText}>
-              Password must have at least 8 characters and contain at least a letter, a number and a symbol.
-            </span>
-          )}
-        </FormControl>
-      )}
+      <FormControl className={`${styles.formController} ${styles.pwController} `} sx={{ marginBottom: "30px" }}>
+        <label className={styles.inputLabel} htmlFor="password-input" data-testid="password-label">
+          Password
+        </label>
+        <OutlinedInput
+          id="password-input"
+          inputProps={{ "data-testid": "password-input", maxLength: 128 }}
+          value={password}
+          error={!isPasswordValid}
+          type={showPassword ? "text" : "password"}
+          onChange={handlePasswordChange}
+          required
+          className={styles.passwordInput}
+          placeholder="Enter Password"
+          autoComplete="current-password"
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                data-testid="password-visibility-button"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+        {isSignUpPage && (
+          <span className={isPasswordValid ? styles.passwordRuleText : styles.invalidPasswordText}>
+            Password must have at least 8 characters and contain at least a letter, a number and a symbol.
+          </span>
+        )}
+      </FormControl>
       {slot}
       <div className={styles.buttonContainer}>
         <Button
-          className={`${styles.button} ${buttonClassName || ""}`}
+          className={styles.button}
           data-testid="auth-submit-button"
           variant="contained"
           type="submit"
-          disabled={email === "" || (pageType !== FormType.ForgotPassword && password === "")}
+          disabled={email === "" || password === ""}
         >
-          {submitLoading ? (
-            <CircularProgress size={24} />
-          ) : pageType === FormType.ForgotPassword ? (
-            "Request a Reset Link"
-          ) : pageType === FormType.SignUp ? (
-            "Sign Up"
-          ) : (
-            "Log In"
-          )}
+          {submitLoading ? <CircularProgress size={24} /> : isSignUpPage ? "Sign Up" : "Log In"}
         </Button>
       </div>
-      {!isForgotPasswordPage && (
-        <div className={styles.redirectTextContainer}>
-          <p className={styles.redirectHintText}>
-            {isSignUpPage ? "Already have an account?" : "Don’t have an account?"}
-          </p>
-          <a
-            className={styles.redirectText}
-            data-testid="redirect-label"
-            href={pageType === FormType.SignUp ? path.login : path.signup}
-          >
-            {isSignUpPage ? "Log In" : "Sign Up"}
-          </a>
-        </div>
-      )}
-      {isLoginPage && (
+      <div className={styles.redirectTextContainer}>
+        <p className={styles.redirectHintText}>
+          {isSignUpPage ? "Already have an account?" : "Don’t have an account?"}
+        </p>
+        <a
+          className={styles.redirectText}
+          data-testid="redirect-label"
+          href={pageType === FormType.SignUp ? path.login : path.signup}
+        >
+          {isSignUpPage ? "Log In" : "Sign Up"}
+        </a>
+      </div>
+      {!isSignUpPage && (
         <div className={styles.redirectTextContainer}>
           <a className={styles.redirectText} href={path.forgotPassword}>
             Forgot Password?
