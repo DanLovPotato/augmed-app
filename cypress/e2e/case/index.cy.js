@@ -56,11 +56,11 @@ describe("User journey testing", () => {
     })
 
     // Go to Answer Page
-    cy.contains("Go to Answer Page").click()
     cy.intercept('GET', '/api/config/answer', {
       statusCode: 200,
       fixture: 'answer/answerConfig.json'
     });
+    cy.contains("Go to Answer Page").click()
     cy.url().should("include", "/answer/1");
 
     // Submit answer

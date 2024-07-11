@@ -2,6 +2,10 @@ describe("Physicians can submit a case", () => {
     const answerPageLink = "http://localhost:3000/answer/3afcc7edc5525eb6868a1362f648d922";
   
     beforeEach(() => {
+        cy.intercept('GET', '/api/config/answer', {
+            statusCode: 200,
+            fixture: 'answer/answerConfig.json'
+        });
       cy.window().then((win) => {
         win.localStorage.setItem("token", Math.random().toString(16));
       });
@@ -11,11 +15,6 @@ describe("Physicians can submit a case", () => {
     });
   
     it("should save case answer successfully", () => {
-
-        cy.intercept('GET', '/api/config/answer', {
-            statusCode: 200,
-            fixture: 'answer/answerConfig.json'
-        });
         cy.get('@submitBtn').should('be.disabled');
 
         const title = "Patient Name";
