@@ -1,0 +1,56 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Center the elements
+
+  .titleContainer {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    align-self: center;
+    flex-direction: column;
+    display: flex;
+
+    .appLogo {
+      height: 90px;
+      width: 90px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      align-self: center;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      align-self: center;
+    }
+
+    .subtitle {
+      width: 80%;
+      font-size: 16px;
+      color: #6e6d6d;
+      align-self: center;
+    }
+  }
+}
+
+.errorContainer {
+  padding: 10px;
+  border: 1px solid red;
+  color: red;
+  background: #ffe0de;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+
+  .errorMessage {
+    margin-left: 10px;
+    align-self: center;
+  }
+}
+
+.forgotPasswordButton {
+  margin-top: 10em!important;
+  white-space: nowrap!important;
+  height: 60px!important;
+  width: 220px!important;
+}
