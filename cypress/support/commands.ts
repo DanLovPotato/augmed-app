@@ -15,5 +15,8 @@ Cypress.Commands.add('auth', (email: string, password: string) => {
     cy.getByTestId("email-input").type(email)
     cy.getByTestId("password-input").type(password)
 })
+Cypress.Commands.add('inputEmail', (email: string) => {
+    cy.getByTestId("email-input").type(email)
+})
 
 

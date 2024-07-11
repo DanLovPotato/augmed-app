@@ -21,7 +21,7 @@ const ForgotPasswordPage = () => {
   const handleResetPasswordRequest = (email: string) =>
     requestResetLink(email)
       .then(() => {
-        enqueueSnackbar("The password link is sent to your email", {
+        enqueueSnackbar("The reset password link is sent to your email.", {
           anchorOrigin: {
             horizontal: "center",
             vertical: "bottom",

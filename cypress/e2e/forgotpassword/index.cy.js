@@ -17,7 +17,7 @@ describe("Physicians can go to forgot password page and sumit email.", () => {
 
         cy.getByTestId("email-input").should("be.visible")
 
-        cy.contains("a","Request a Reset Link").should("exist")
+        cy.contains("button","Request a Reset Link").should("exist")
     });
 
 
@@ -73,7 +73,7 @@ describe("Physicians can go to forgot password page and sumit email.", () => {
 
         cy.visit(loginPage)
         cy.getByTestId("forgot-password").click();
-        cy.auth(test.email.valid, test.password.valid)
+        cy.inputEmail(test.email.valid)
         cy.getByTestId("auth-submit-button").click()
 
         cy.contains(expectedMessage).should("exist");
