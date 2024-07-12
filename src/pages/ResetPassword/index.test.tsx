@@ -57,7 +57,30 @@ describe("ResetPasswordPage", () => {
     expect(confirmPasswordInput).toHaveAttribute("type", "password");
   });
 
-  test("show and hide password", () => {
+  test("displays password in text format when click icon", () => {
+    render(
+      <MemoryRouter initialEntries={["/reset-password/token"]}>
+        <Routes>
+          <Route path={path.resetPassword} element={<ResetPasswordPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    const passwordInput = screen.getByTestId("new-password-input") as HTMLInputElement;
+    const passwordVisibilityButton = screen.getByTestId("new-password-visibility-button");
+    const confirmPasswordInput = screen.getByTestId("confirm-password-input") as HTMLInputElement;
+    const confirmPasswordVisibilityButton = screen.getByTestId(
+      "confirm-password-visibility-button",
+    ) as HTMLInputElement;
+
+    fireEvent.click(passwordVisibilityButton);
+    fireEvent.click(confirmPasswordVisibilityButton);
+
+    expect(passwordInput).toHaveAttribute("type", "text");
+    expect(confirmPasswordInput).toHaveAttribute("type", "text");
+  });
+
+  test("validate password and confirm password should be the same", () => {
     render(
       <MemoryRouter initialEntries={["/reset-password/token"]}>
         <Routes>
