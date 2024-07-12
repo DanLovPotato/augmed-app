@@ -171,6 +171,7 @@ const ResetPasswordForm = ({ passwordRegex }: ResetFormProps) => {
         setValid={setIsPasswordValid}
         setShow={setShowPassword}
         onChange={handleFormChange}
+        data-testid={"new-password-input"}
       />
       <span className={isPasswordValid ? styles.passwordRuleText : styles.invalidPasswordText}>
         Password must have at least 8 characters and contain at least a letter, a number and a symbol.
@@ -185,6 +186,7 @@ const ResetPasswordForm = ({ passwordRegex }: ResetFormProps) => {
         setValid={setIsConfirmPasswordValid}
         setShow={setShowConfirmPassword}
         onChange={handleFormChange}
+        data-testid={"confirm-password-input"}
       />
       {!isConfirmPasswordValid && (
         <div className={styles.errorContainer}>

@@ -18,5 +18,9 @@ Cypress.Commands.add('auth', (email: string, password: string) => {
 Cypress.Commands.add('inputEmail', (email: string) => {
     cy.getByTestId("email-input").type(email)
 })
+Cypress.Commands.add('resetPassword', (password: string) => {
+    cy.getByTestId("new-password-input").type(password)
+    cy.getByTestId("confirm-password-input").type(password)
+})
 
 

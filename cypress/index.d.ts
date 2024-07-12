@@ -5,5 +5,6 @@ declare namespace Cypress {
         auth(email: string, password: string): void
         getByTestId(testId: string): Chainable<JQuery<HTMLElement>>;
         inputEmail(email: string): void
+        resetPassword(password: string): void
     }
 }
