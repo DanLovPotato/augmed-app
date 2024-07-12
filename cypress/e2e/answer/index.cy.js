@@ -28,18 +28,13 @@ describe("Physicians can submit a case", () => {
         cy.get(`#${inputId}`).should('have.value', 'Hello, world!');
         cy.get('@submitBtn').should('not.be.disabled');
 
-
-        cy.get('@submitBtn').click();
-        cy.url().should('include', '/answer');
-
-
         cy.intercept('POST', '/api/answer/*', {
             statusCode: 200,
             fixture: 'answer/saveAnswer.json'
         });
         cy.intercept("GET", "/api/cases", {
-          statusCode: 200,
-          fixture: "home/EmptyCaseList.json",
+            statusCode: 200,
+            fixture: "home/EmptyCaseList.json",
         });
 
         cy.get('@submitBtn').click();
