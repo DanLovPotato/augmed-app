@@ -28,6 +28,7 @@ interface PasswordInputProps {
   setValid: (valid: boolean) => void;
   setShow: Dispatch<(previous: boolean) => boolean>;
   onChange?: () => void;
+  isPrompt?: boolean;
 }
 
 const PasswordInput = ({
@@ -40,6 +41,7 @@ const PasswordInput = ({
   setValid,
   setShow,
   onChange,
+  isPrompt = false,
 }: PasswordInputProps) => {
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -89,6 +91,11 @@ const PasswordInput = ({
           </InputAdornment>
         }
       />
+      {isPrompt && (
+        <span className={valid ? styles.passwordRuleText : styles.invalidPasswordText}>
+          Password must have at least 8 characters and contain at least a letter, a number and a symbol.
+        </span>
+      )}
     </FormControl>
   );
 };
@@ -171,11 +178,9 @@ const ResetPasswordForm = ({ passwordRegex }: ResetFormProps) => {
         setValid={setIsPasswordValid}
         setShow={setShowPassword}
         onChange={handleFormChange}
+        isPrompt={true}
         data-testid={"new-password-input"}
       />
-      <span className={isPasswordValid ? styles.passwordRuleText : styles.invalidPasswordText}>
-        Password must have at least 8 characters and contain at least a letter, a number and a symbol.
-      </span>
       <PasswordInput
         label={"Password Confirmation"}
         prefix={"confirm"}
