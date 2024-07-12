@@ -13,25 +13,30 @@ const ForgotPasswordForm = ({ handelSubmit, slot, onChange }: ForgotPasswordForm
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.();
     setEmail(event.target.value);
     setIsEmailValid(true);
+    setIsSubmitted(false);
   };
+
   const validateAndSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (validateEmail()) {
       setSubmitLoading(true);
       try {
         await handelSubmit(email);
+        setIsSubmitted(true);
       } catch (e) {
         console.error("An error occurred:", e);
       }
       setSubmitLoading(false);
     }
   };
+
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValid = emailRegex.test(email);
@@ -68,7 +73,7 @@ const ForgotPasswordForm = ({ handelSubmit, slot, onChange }: ForgotPasswordForm
           data-testid="auth-submit-button"
           variant="contained"
           type="submit"
-          disabled={email === ""}
+          disabled={email === "" || submitLoading || isSubmitted}
         >
           {submitLoading ? <CircularProgress size={24} /> : "Request a Reset Link"}
         </Button>

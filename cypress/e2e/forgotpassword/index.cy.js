@@ -77,6 +77,7 @@ describe("Physicians can go to forgot password page and sumit email.", () => {
         cy.getByTestId("auth-submit-button").click()
 
         cy.contains(expectedMessage).should("exist");
+        cy.getByTestId("auth-submit-button").should('be.disabled')
 
     });
 
