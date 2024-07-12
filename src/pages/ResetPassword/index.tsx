@@ -206,7 +206,7 @@ const ResetPasswordForm = ({ passwordRegex }: ResetFormProps) => {
           data-testid="submit-button"
           variant="contained"
           type="submit"
-          disabled={!isPasswordValid || !isConfirmPasswordValid}
+          disabled={password === "" || !isPasswordValid || !isConfirmPasswordValid}
         >
           {submitLoading ? <CircularProgress size={24} /> : "Reset"}
         </Button>
