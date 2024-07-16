@@ -21,6 +21,13 @@
     flex-direction: column;
     align-items: center;
     padding-top: 30px;
+
+    .hint {
+      width: 80%;
+      color: #aaa;
+      margin-top: 16px;
+      font-size: 14px;
+    }
   }
 
 }

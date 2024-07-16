@@ -52,6 +52,7 @@ const HomePage = () => {
                 }}
               />
             ))}
+            <p className={styles.hint}>Upon completing the above case, a new case may become available.</p>
           </div>
         )}
       </div>
