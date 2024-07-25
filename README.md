@@ -1,4 +1,4 @@
-# aim-ahead-app
+# AugMed-app
 
 # Getting Started with Create React App
 
