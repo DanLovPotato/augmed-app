@@ -18,7 +18,7 @@ import { UpcomingTwoTone } from "@mui/icons-material";
 import { answerFormAtom, caseAtom } from "../../state";
 
 const AnswerPage = () => {
-  const { caseConfigId } = useParams() as { caseConfigId: string };
+  const { taskId } = useParams() as { taskId: string };
   const nav = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -55,7 +55,7 @@ const AnswerPage = () => {
   }, [answerFormData, configList]);
 
   const onSubmit = () => {
-    runAsync(caseConfigId, answerFormData, answerConfigId)
+    runAsync(taskId, answerFormData, answerConfigId)
       .then(() => {
         enqueueSnackbar("Case is submitted.", {
           anchorOrigin: {

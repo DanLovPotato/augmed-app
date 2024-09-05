@@ -162,8 +162,8 @@ const ImportantCard = ({ data }: { data: TreeNode[] }) => {
 
 const CasePage = () => {
   const nav = useNavigate();
-  const { caseConfigId } = useParams() as { caseConfigId: string };
-  const { loading, data } = useRequest(() => getCaseDetail(caseConfigId));
+  const { taskId } = useParams() as { taskId: string };
+  const { loading, data } = useRequest(() => getCaseDetail(taskId));
   const response = data?.data;
   const [caseState, setCaseState] = useAtom(caseAtom);
   useEffect(() => {
@@ -192,7 +192,7 @@ const CasePage = () => {
               <Button
                 className={styles.submit}
                 variant="contained"
-                onClick={() => nav(generatePath(path.answer, { caseConfigId }))}
+                onClick={() => nav(generatePath(path.answer, { taskId: taskId }))}
               >
                 Go to Answer Page
               </Button>

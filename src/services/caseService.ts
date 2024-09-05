@@ -7,8 +7,8 @@ export const getCaseList = async () => {
   });
 };
 
-export const getCaseDetail = async (caseConfigId: string) => {
-  return await request<{ data: CaseDetail }>(`/case-reviews/${caseConfigId}`, {
+export const getCaseDetail = async (taskId: string) => {
+  return await request<{ data: CaseDetail }>(`/case-reviews/${taskId}`, {
     method: "GET",
   });
 };

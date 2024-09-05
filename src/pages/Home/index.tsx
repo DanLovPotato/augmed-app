@@ -44,7 +44,7 @@ const HomePage = () => {
                 className={"caseCard"}
                 key={item.case_id}
                 patientCase={{
-                  config_id: item.config_id,
+                  task_id: item.task_id,
                   case_id: item.case_id,
                   patient_chief_complaint: item.patient_chief_complaint,
                   age: item.age,

@@ -4,7 +4,7 @@ export enum Gender {
 }
 
 export interface ICase {
-  config_id: number;
+  task_id: string;
   case_id: number;
   patient_chief_complaint: string;
   age: string; // Changed from number to string to match the backend

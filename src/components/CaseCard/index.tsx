@@ -11,7 +11,7 @@ interface CaseCardProps {
 
 const CaseCard = ({ className, patientCase }: CaseCardProps) => {
   const nav = useNavigate();
-  const handleOnClick = () => nav(generatePath(path.case, { caseConfigId: patientCase.config_id }));
+  const handleOnClick = () => nav(generatePath(path.case, { taskId: patientCase.task_id }));
   return (
     <div className={`${styles.caseCardContainer} ${className} `} onClick={handleOnClick}>
       <div className={styles.caseIdContainer}>

@@ -3,8 +3,8 @@ export const path = {
   signup: "/signup",
   login: "/login",
   resetPassword: "/reset-password/:token",
-  case: "/case-review/:caseConfigId",
-  answer: "/answer/:caseConfigId",
+  case: "/case-review/:taskId",
+  answer: "/answer/:taskId",
   forgotPassword: "/forgot-password",
 };
 

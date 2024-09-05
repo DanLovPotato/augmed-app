@@ -11,7 +11,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("CaseCard", () => {
   const mockCase: ICase = {
-    config_id: 1,
+    task_id: "1",
     case_id: 101,
     patient_chief_complaint: "Cough",
     age: "45",
@@ -37,7 +37,7 @@ describe("CaseCard", () => {
 
     const card = screen.getByText(`Case: ${mockCase.case_id}`);
     fireEvent.click(card);
-    expect(mockNavigate).toHaveBeenCalledWith(`/case-review/${mockCase.config_id}`);
+    expect(mockNavigate).toHaveBeenCalledWith(`/case-review/${mockCase.task_id}`);
   });
 
   test("navigates on card click", () => {
