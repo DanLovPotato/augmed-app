@@ -25,7 +25,7 @@ const NestedContent = ({ data, level, important = false }: { data: TreeNode; lev
     return <span>{level === 2 && "none"}</span>;
   }
   if (typeof data.values === "string") {
-    return <span>{level === 2 ? data.values : " : " + data.values}</span>;
+    return <span>{level === 2 ? data.values : ":\u00A0" + data.values}</span>;
   }
   if (isAllString(data.values)) {
     return (
