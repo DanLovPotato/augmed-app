@@ -13,6 +13,7 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "e2e": "cypress open",
+    "k6": "cd k6 && K6_WEB_DASHBOARD=true k6 run --compatibility-mode=experimental_enhanced script.ts",
     "detect-secrets": "git diff --staged --name-only -z | xargs -0 detect-secrets-hook --baseline .secrets.baseline"
   },
   "lint-staged": {
@@ -63,6 +64,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
+    "@types/k6": "^0.53.2",
     "@types/node": "^16.18.86",
     "@types/react": "^18.2.62",
     "@types/react-dom": "^18.2.19",
@@ -85,7 +87,6 @@
   "resolutions": {
     "ws": "8.17.1"
   },
-
   "jest": {
     "transformIgnorePatterns": [
       "node_modules/(?!axios)"
